@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">prototypea2</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="test_Home_fragment">Home fragment</string>
+    <string name="test_AddItem_fragment">Add Item fragment</string>
+    <string name="test_EditItem_fragment">Edit Item fragment</string>
+</resources>
