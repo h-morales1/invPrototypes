@@ -84,12 +84,14 @@ public class HomeFragment extends Fragment {
         recyclerview = view.findViewById(R.id.homeFragRecyclerView);
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerview.setHasFixedSize(true);
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), productArrayList);
+        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), productArrayList); // TODO: will have to change this once adding in recyclerinterface
         recyclerview.setAdapter(recyclerAdapter);
         recyclerAdapter.notifyDataSetChanged();
     }
 
     private void dataInitialize() {
+        // populate the recycler view with items
+        // TODO: will need a function to select all from db and populate an array of products
 
         productArrayList = new ArrayList<>();
         productTitle = new String[] {
