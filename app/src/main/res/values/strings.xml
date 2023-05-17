@@ -4,4 +4,16 @@
     <string name="test_Home_fragment">Home fragment</string>
     <string name="test_AddItem_fragment">Add Item fragment</string>
     <string name="test_EditItem_fragment">Edit Item fragment</string>
+
+    <string name="test_list_item">List item test text</string>
+    <string name="test_list_item0">Dude\'s Holly Hocks</string>
+    <string name="test_list_item1">Backyard Monet</string>
+    <string name="test_list_item2">Dancing Daisy</string>
+    <string name="test_list_item3">Garden Findings</string>
+    <string name="test_list_item4">Hello Hot Stuff</string>
+    <string name="test_list_item5">Love Wins</string>
+    <string name="test_list_item6">Sycamore Park</string>
+    <string name="test_list_item7">Daily Pickens\'</string>
+    <string name="test_list_item8">Storm Skies</string>
+    <string name="test_list_item9">Suck It</string>
 </resources>

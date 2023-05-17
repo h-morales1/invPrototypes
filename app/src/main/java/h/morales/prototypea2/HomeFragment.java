@@ -2,11 +2,17 @@ package h.morales.prototypea2;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +29,14 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private ArrayList<Product> productArrayList;
+
+    private String[] productTitle; // text strings for titles
+
+    private int[] imageResourceID; // image resource ids
+
+    private RecyclerView recyclerview;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -60,5 +74,53 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        
+        dataInitialize();
+        recyclerview = view.findViewById(R.id.homeFragRecyclerView);
+        recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerview.setHasFixedSize(true);
+        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), productArrayList);
+        recyclerview.setAdapter(recyclerAdapter);
+        recyclerAdapter.notifyDataSetChanged();
+    }
+
+    private void dataInitialize() {
+
+        productArrayList = new ArrayList<>();
+        productTitle = new String[] {
+                getString(R.string.test_list_item0),
+                getString(R.string.test_list_item1),
+                getString(R.string.test_list_item2),
+                getString(R.string.test_list_item3),
+                getString(R.string.test_list_item4),
+                getString(R.string.test_list_item5),
+                getString(R.string.test_list_item6),
+                getString(R.string.test_list_item7),
+                getString(R.string.test_list_item8),
+                getString(R.string.test_list_item9),
+        };
+
+        imageResourceID = new int[] {
+                R.drawable.dudes_holly_hocks,
+                R.drawable.backyard_monet,
+                R.drawable.dancing_daisy,
+                R.drawable.garden_findings,
+                R.drawable.hello_hot_stuff,
+                R.drawable.love_wins,
+                R.drawable.sycamore_park,
+                R.drawable.daily_pickens,
+                R.drawable.stormy_skies,
+                R.drawable.suck_it,
+        };
+
+        for(int i=0; i<productTitle.length;i++){
+            Product product = new Product(productTitle[i], imageResourceID[i]);
+            productArrayList.add(product);
+        }
     }
 }
