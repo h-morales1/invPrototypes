@@ -16,4 +16,19 @@
     <string name="test_list_item7">Daily Pickens\'</string>
     <string name="test_list_item8">Storm Skies</string>
     <string name="test_list_item9">Suck It</string>
+
+
+
+
+    <string name="add_item_name">Name</string>
+    <string name="add_item_medium">Medium</string>
+    <string name="add_item_purchase_price">Purchase Price</string>
+    <string name="add_item_size">Size</string>
+    <string name="add_item_location">Location</string>
+    <string name="add_item_height">H</string>
+    <string name="add_item_length">L</string>
+    <string name="add_item_x">X</string>
+    <string name="add_item_framed">Framed</string>
+    <string name="add_item_photo">Select Photo:</string>
+    <string name="add_item_confirm">Confirm</string>
 </resources>
