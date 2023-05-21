@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true); // allow options menu here
     }
 
     @Override
@@ -86,6 +86,7 @@ public class HomeFragment extends Fragment {
     }
 
     //
+    // handle on click for sort options menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -99,6 +100,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        //override method to use specified options menu (sort by menu)
         //FragmentManager fragmentManager = getParentFragmentManager();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         Fragment frag = fragmentManager.findFragmentById(R.id.frame_layout);

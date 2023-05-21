@@ -31,4 +31,7 @@
     <string name="add_item_framed">Framed</string>
     <string name="add_item_photo">Select Photo:</string>
     <string name="add_item_confirm">Confirm</string>
+    <string name="add_item_width">W</string>
+    <string name="add_item_depth">D</string>
+    <string name="add_item_date">Date</string>
 </resources>
