@@ -46,6 +46,8 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerview;
 
+    private DataBaseManager dataBaseManager; // handle db transactions
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -75,6 +77,10 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        //initiate databasemanager
+        dataBaseManager = new DataBaseManager(getContext());
+
         setHasOptionsMenu(true); // allow options menu here
     }
 
