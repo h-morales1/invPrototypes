@@ -1,10 +1,13 @@
 package h.morales.prototypea2;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 public class DataBaseManager extends SQLiteOpenHelper {
 
@@ -58,4 +61,64 @@ public class DataBaseManager extends SQLiteOpenHelper {
     }
 
     // method to handle inserting a product
+    public void insertProduct(Product product) {
+        String sqlInsert = "insert into " + TABLE_NAME +
+                            " values( null, '" + product.getProductName() + "'," +
+                            " '" +  product.getProductMedium() + "'," +
+                            " '" +  product.getProductPurchasePrice() + "'," +
+                            " '" +  product.getProductHeight() + "'," +
+                            " '" +  product.getProductWidth() + "'," +
+                            " '" +  product.getProductDepth() + "'," +
+                            " '" +  product.getProductLocation() + "'," +
+                            " '" +  product.getProductPurchaseDate() + "'," +
+                            " '" +  product.isProductFramed() + "'," +
+                            " '" +  product.getProductPicturePath() +
+                            "' )";
+
+        //retrieve a db and insert the product
+        SQLiteDatabase database = getWritableDatabase();
+        database.execSQL(sqlInsert);
+
+        //close db after querying
+        database.close();
+    }
+
+    // method to retrieve all the database entries
+    public ArrayList<Product> selectAll() {
+        String sqlSelect = "select * from " + TABLE_NAME;
+
+        //retrieve the db
+        SQLiteDatabase database = getWritableDatabase();
+
+        //retrieve the info from the db, it will be stored in a cursor obj
+        Cursor cursor = database.rawQuery(sqlSelect, null);
+
+        //create the arrayList to hold the info
+        ArrayList<Product> products = new ArrayList<>();
+
+        //loop through the cursor obj and transfer values to the arrayList
+        while(cursor.moveToNext()) {
+            //get info from cursor
+            String currentName = cursor.getString(1);
+            String currentMedium = cursor.getString(2);
+            float currentPurchasePrice = cursor.getFloat(3);
+            float currentHeight = cursor.getFloat(4);
+            float currentWidth = cursor.getFloat(5);
+            float currentDepth = cursor.getFloat(6);
+            String currentLocation = cursor.getString(7);
+            String currentPurchaseDate = cursor.getString(8);
+            int currentFraming = cursor.getInt(9);
+            boolean currentIsFramed = (currentFraming == 1);
+            String currentPicturePath = cursor.getString(10);
+
+            //create a product obj
+            Product product = new Product(currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentIsFramed, currentPicturePath);
+            //add the product to  arrayList
+            products.add(product);
+        } //end while loop
+
+        database.close();
+
+        return products;
+    }
 }

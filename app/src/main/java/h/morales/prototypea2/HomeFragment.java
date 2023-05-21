@@ -81,6 +81,9 @@ public class HomeFragment extends Fragment {
         //initiate databasemanager
         dataBaseManager = new DataBaseManager(getContext());
 
+        //TODO REMOVE THIS, THIS IS A TEST
+        //Product prod = new Product("Sycamore park", "water color", 200.00f, 12.0f, 12.0f, 10.0f, "dekalb public library", "05/21/23", true, "test");
+        //dataBaseManager.insertProduct(prod);
         setHasOptionsMenu(true); // allow options menu here
     }
 
