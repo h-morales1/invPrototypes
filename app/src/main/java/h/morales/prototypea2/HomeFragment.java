@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -130,7 +130,7 @@ public class HomeFragment extends Fragment {
         recyclerview = view.findViewById(R.id.homeFragRecyclerView);
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerview.setHasFixedSize(true);
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), productArrayList); // TODO: will have to change this once adding in recyclerinterface
+        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), productArrayList, this); // TODO: will have to change this once adding in recyclerinterface
         recyclerview.setAdapter(recyclerAdapter);
         recyclerAdapter.notifyDataSetChanged();
     }
@@ -170,5 +170,10 @@ public class HomeFragment extends Fragment {
             Product product = new Product(productTitle[i], imageResourceID[i]);
             productArrayList.add(product);
         }
+    }
+
+    @Override
+    public void onItemClick(int post) {
+        Log.d(TAG, "onItemClick: you clicked recycler item: " + productArrayList.get(post).getProductName());
     }
 }

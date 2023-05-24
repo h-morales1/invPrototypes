@@ -123,7 +123,10 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
     private Uri createUri() {
-        File imageFile = new File(getApplicationContext().getFilesDir(), "camera_photo.jpg");
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        //File imageFile = new File(getApplicationContext().getFilesDir(), "camera_photo.jpg");
+        File imageFile = new File(getApplicationContext().getFilesDir(), imageFileName);
         return FileProvider.getUriForFile(getApplicationContext(), "com.h.morales.fileprovider", imageFile);
     }
 
@@ -156,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     if(result) {
                         //testing
-                        Log.d(TAG, "onActivityResult: PIC TEST");
+                        Log.d(TAG, "onActivityResult: PIC TEST" + imageUri.getPath());
                     }
                 } catch (Exception e) {
                     //
