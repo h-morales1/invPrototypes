@@ -1,5 +1,7 @@
 package h.morales.prototypea2;
 
+import android.net.Uri;
+
 public class Product {
     String titleText;
     int productImage;
@@ -14,6 +16,7 @@ public class Product {
     String productPurchaseDate;
     boolean productFramed;
     String productPicturePath;
+    Uri prodUri;
 
     public Product(String titleText, int productImage) { // TODO: needs to conform to db schema for each piece to be catalogued
         this.titleText = titleText;

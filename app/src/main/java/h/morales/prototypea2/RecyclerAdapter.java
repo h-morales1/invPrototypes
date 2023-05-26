@@ -1,6 +1,7 @@
 package h.morales.prototypea2;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +36,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Product product = productArrayList.get(position);
-        holder.textView.setText(product.titleText);
-        holder.titleImage.setImageResource(product.productImage);
+        holder.textView.setText(product.getProductName());
+        //Uri imgUri = Uri.parse(product.productPicturePath);
+        holder.titleImage.setImageURI(null);
+        holder.titleImage.setImageURI(Uri.parse(product.productPicturePath));
+        //holder.titleImage.setImageResource(product.productImage);
     }
 
     @Override

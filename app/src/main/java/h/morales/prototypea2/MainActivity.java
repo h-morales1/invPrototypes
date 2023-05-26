@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private ItemViewModel itemViewModel;
 
     private Product product;
-    private String pName;
+    private String pName = "";
     private String pMedium;
     private float pPurchasePrice;
     private float pHeight;
@@ -144,15 +144,26 @@ public class MainActivity extends AppCompatActivity {
        itemViewModel.getIsFramed().observe(this, item -> {
            Log.d(TAG, "onCreate: item = " + item.toString());
            pFramed = Boolean.getBoolean(item);
+           product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
+
+           if(!pName.isEmpty()) {
+
+               dataBaseManager.insertProduct(product);
+           }
        });
 
         //show home fragment by default
         replaceFragment(new HomeFragment());
         imageUri = createUri();
         registerPictureLauncher();
-        //dataBaseManager.insertProduct(product);
+        /*product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
+        if(!pName.isEmpty()) {
+
+            dataBaseManager.insertProduct(product);
+        }*/
         ArrayList<Product> ps = dataBaseManager.selectAll();
         Log.d(TAG, "onCreate: ps: " + ps.get(0).getProductName());
+        Log.d(TAG, "onCreate: ps: " + ps.size());
         /*if(imageUri != null) {
             product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
             dataBaseManager.insertProduct(product);
@@ -280,7 +291,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Uri createUri() {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+        String imageFileName = "JPEG_" + timeStamp + "_.jpg";
         //File imageFile = new File(getApplicationContext().getFilesDir(), "camera_photo.jpg");
         File imageFile = new File(getApplicationContext().getFilesDir(), imageFileName);
         return FileProvider.getUriForFile(getApplicationContext(), "com.h.morales.fileprovider", imageFile);
@@ -301,7 +312,9 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(requestCode == CAMERA_PERM_CODE) {
             if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                takePictureLauncher.launch(imageUri);
+                //takePictureLauncher.launch(imageUri);
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_PERM_CODE);
             } else {
                //
             }
@@ -315,8 +328,9 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     if(result) {
                         //testing
-                        Log.d(TAG, "onActivityResult: PIC TEST" + imageUri.getPath());
-                        imgPath = imageUri.getPath();
+                        Log.d(TAG, "onActivityResult: PIC TEST" + imageUri.toString());
+                        imgPath = imageUri.toString();
+                        product.prodUri = imageUri;
                     }
                 } catch (Exception e) {
                     //
