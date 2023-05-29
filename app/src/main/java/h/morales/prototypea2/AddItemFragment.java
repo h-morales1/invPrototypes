@@ -3,12 +3,16 @@ package h.morales.prototypea2;
 import static android.content.ContentValues.TAG;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.io.File;
@@ -61,6 +66,8 @@ public class AddItemFragment extends Fragment {
     CheckBox addItemCBX; // framed or not cbx
 
     Button confirmBTN;
+
+    ImageButton pickPhotoIB;
 
     public AddItemFragment() {
         // Required empty public constructor
@@ -112,6 +119,8 @@ public class AddItemFragment extends Fragment {
             }
         });*/
 
+        pickPhotoIB = view.findViewById(R.id.addItemFolderIB);
+
         itemViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
         confirmBTN = (Button) view.findViewById(R.id.addItemConfirmBT); // confirm button
         addItemCBX = (CheckBox) view.findViewById(R.id.addItemCBX);
@@ -124,6 +133,16 @@ public class AddItemFragment extends Fragment {
         addItemLocationET = (EditText) view.findViewById(R.id.addItemLocationET);
         addItemWidthET = (EditText) view.findViewById(R.id.addItemWidthET);
         addItemPurchaseDateET = (EditText) view.findViewById(R.id.addItemDateET);
+
+
+        pickPhotoIB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imageChooser();
+                // do something on click for the folder image button
+                Toast.makeText(getContext(), "You want to pick a photo!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //get strings
         /*String pName = addItemNameET.getText().toString();
@@ -191,4 +210,23 @@ public class AddItemFragment extends Fragment {
             }
         });
     }*/
+
+    private void imageChooser() {
+        Intent imgChooserIntent = new Intent();
+        imgChooserIntent.setType("image/*");
+        imgChooserIntent.setAction(Intent.ACTION_GET_CONTENT);
+        launchSomeActivity.launch(imgChooserIntent);
+    }
+
+    ActivityResultLauncher<Intent> launchSomeActivity = registerForActivityResult( new ActivityResultContracts.StartActivityForResult(), result -> {
+        //
+        if(result.getResultCode() == Activity.RESULT_OK) {
+            Intent data = result.getData();
+            //dosomething with URI here
+            if(data != null && data.getData() != null) {
+                Uri selectedImgUri = data.getData(); // uri of selected image
+                Log.d(TAG, "you selected this image!: " + selectedImgUri.toString());
+            }
+        }
+    });
 }

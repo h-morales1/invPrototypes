@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -41,6 +42,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_image"
         android:background="@color/underline"/>
+
+    <ImageView
+        android:id="@+id/itemSoldIV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toEndOf="@+id/title_image"
+        app:layout_constraintTop_toBottomOf="@+id/itemText"
+        app:srcCompat="@drawable/baseline_add_business_24" />
+
+    <TextView
+        android:id="@+id/itemPurchasePriceTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/itemSoldIV"
+        app:layout_constraintTop_toBottomOf="@+id/itemText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
