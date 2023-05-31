@@ -135,14 +135,14 @@ public class AddItemFragment extends Fragment {
         addItemPurchaseDateET = (EditText) view.findViewById(R.id.addItemDateET);
 
 
-        pickPhotoIB.setOnClickListener(new View.OnClickListener() {
+        /*pickPhotoIB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 imageChooser();
                 // do something on click for the folder image button
                 Toast.makeText(getContext(), "You want to pick a photo!", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
         //get strings
         /*String pName = addItemNameET.getText().toString();
@@ -184,6 +184,7 @@ public class AddItemFragment extends Fragment {
                     itemViewModel.setWidth(pWidth);
                     itemViewModel.setPurchaseDate(pPurchaseDate);
                     itemViewModel.setIsFramed(isFramed);
+                    itemViewModel.setSaveToDB(true); // save to db
                 }
             }
         });
@@ -211,7 +212,7 @@ public class AddItemFragment extends Fragment {
         });
     }*/
 
-    private void imageChooser() {
+    /*private void imageChooser() {
         Intent imgChooserIntent = new Intent();
         imgChooserIntent.setType("image/*");
         imgChooserIntent.setAction(Intent.ACTION_GET_CONTENT);
@@ -228,5 +229,5 @@ public class AddItemFragment extends Fragment {
                 Log.d(TAG, "you selected this image!: " + selectedImgUri.toString());
             }
         }
-    });
+    });*/
 }

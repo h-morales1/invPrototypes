@@ -20,6 +20,10 @@ public class ItemViewModel  extends ViewModel {
     private final MutableLiveData<String> prodPurchaseDate = new MutableLiveData<String>();
     private final MutableLiveData<String> prodIsFramed = new MutableLiveData<String>();
 
+    private final MutableLiveData<String> prodUri = new MutableLiveData<>();
+
+    private final MutableLiveData<Boolean> saveToDB = new MutableLiveData<>();
+
     public void setData(String pName, String pMedium, String pPurchasePrice, String pHeight, String pDepth
                         , String pWidth, String pLocation, String pPurchaseDate) {
         prodName.setValue(pName);
@@ -68,6 +72,12 @@ public class ItemViewModel  extends ViewModel {
         prodIsFramed.setValue(item);
     }
 
+    public void setProdUri(String item) {
+        prodUri.setValue(item);
+    }
+
+    public void setSaveToDB(Boolean bool) { saveToDB.setValue(bool);}
+
     //getters
 
     public LiveData<String> getName() {
@@ -99,6 +109,14 @@ public class ItemViewModel  extends ViewModel {
 
     public LiveData<String> getIsFramed() {
         return prodIsFramed;
+    }
+
+    public LiveData<Boolean> getSaveToDB() {
+        return saveToDB;
+    }
+
+    public LiveData<String> getProdUri () {
+        return prodUri;
     }
 
     public MutableLiveData<ArrayList<LiveData<String>>> getAll() {

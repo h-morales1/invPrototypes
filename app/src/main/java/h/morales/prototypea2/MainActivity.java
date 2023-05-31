@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         });*/
         itemViewModel.getName().observe(this, item -> {
             //
-            Log.d(TAG, "onCreate: item = " + item.toString());
+            Log.d(TAG, "Main onCreate: item = " + item.toString());
             pName = item;
         });
 
@@ -144,11 +145,22 @@ public class MainActivity extends AppCompatActivity {
        itemViewModel.getIsFramed().observe(this, item -> {
            Log.d(TAG, "onCreate: item = " + item.toString());
            pFramed = Boolean.getBoolean(item);
-           product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
+           //product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
 
-           if(!pName.isEmpty()) {
+           /*if(!pName.isEmpty()) {
 
                dataBaseManager.insertProduct(product);
+               Log.d(TAG, "onCreate: saved item path: " + product.getProductPicturePath());
+           }*/
+       });
+
+       itemViewModel.getSaveToDB().observe(this, item -> {
+           // only save items to db if flag is set
+           if(!pName.isEmpty() && item) {
+
+               product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
+               dataBaseManager.insertProduct(product);
+               Log.d(TAG, "onCreate: saved item path: " + product.getProductPicturePath());
            }
        });
 
@@ -162,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
             dataBaseManager.insertProduct(product);
         }*/
         ArrayList<Product> ps = dataBaseManager.selectAll();
-        Log.d(TAG, "onCreate: ps: " + ps.get(0).getProductName());
+        //Log.d(TAG, "onCreate: ps: " + ps.get(0).getProductName());
         Log.d(TAG, "onCreate: ps: " + ps.size());
         /*if(imageUri != null) {
             product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
@@ -326,7 +338,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onActivityResult(Boolean result) {
                 try {
-                    if(result) {
+                    if(result) { //TODO there is a bug where when asked for perms, it doesnt save the URI of selected image
                         //testing
                         Log.d(TAG, "onActivityResult: PIC TEST" + imageUri.toString());
                         imgPath = imageUri.toString();
@@ -340,8 +352,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // handle the onClick event for the cameraIB
     public void takePhoto(View view) {
         checkCameraPermsAndOpenCam();
         Log.d(TAG, "takePhoto: TEST");
     }
+
+    // handle picking a photo from the gallery
+    public void imageChooser(View view) {
+        Intent imgChooserIntent = new Intent();
+        imgChooserIntent.setType("image/*");
+        //imgChooserIntent.setAction(Intent.ACTION_GET_CONTENT);
+        imgChooserIntent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+        launchSomeActivity.launch(imgChooserIntent);
+    }
+
+    ActivityResultLauncher<Intent> launchSomeActivity = registerForActivityResult( new ActivityResultContracts.StartActivityForResult(), result -> {
+        //
+        if(result.getResultCode() == Activity.RESULT_OK) {
+            Intent data = result.getData();
+            //dosomething with URI here
+            if(data != null && data.getData() != null) {
+                Uri selectedImgUri = data.getData(); // uri of selected image
+                getContentResolver().takePersistableUriPermission(selectedImgUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                imgPath = selectedImgUri.toString();
+                Log.d(TAG, "you selected this image!: " + selectedImgUri.toString());
+            }
+        }
+    });
 }

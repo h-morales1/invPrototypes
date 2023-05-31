@@ -18,8 +18,6 @@
     <string name="test_list_item9">Suck It</string>
 
 
-
-
     <string name="add_item_name">Name</string>
     <string name="add_item_medium">Medium</string>
     <string name="add_item_purchase_price">Purchase Price</string>
@@ -34,4 +32,14 @@
     <string name="add_item_width">W</string>
     <string name="add_item_depth">D</string>
     <string name="add_item_date">Date</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="view_item_title">"Title: "</string>
+    <string name="view_item_medium">"Medium: "</string>
+    <string name="view_item_purchase_price">"Purchase Price: "</string>
+    <string name="view_item_HWD">"H x W x D : "</string>
+    <string name="view_item_locaiton">"Location: "</string>
+    <string name="view_item_purchase_date">"Purchase Date: "</string>
+    <string name="view_item_creation_date">"Creation Date: "</string>
+    <string name="view_item_framed">"Framed: "</string>
 </resources>

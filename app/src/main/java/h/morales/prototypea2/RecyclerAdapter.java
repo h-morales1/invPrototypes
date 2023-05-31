@@ -1,7 +1,10 @@
 package h.morales.prototypea2;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +43,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         //Uri imgUri = Uri.parse(product.productPicturePath);
         holder.titleImage.setImageURI(null);
         holder.titleImage.setImageURI(Uri.parse(product.productPicturePath));
+        Log.d(TAG, "onBindViewHolder: recycler debug, name and path: " +product.getProductName() + " path: " + product.getProductPicturePath());
         //holder.titleImage.setImageResource(product.productImage);
     }
 

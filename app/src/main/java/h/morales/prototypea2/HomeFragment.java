@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,6 +49,8 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
     private RecyclerView recyclerview;
 
     private DataBaseManager dataBaseManager; // handle db transactions
+
+    ItemViewModel homeItemViewModel;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -173,10 +177,32 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         }
     }
 
+
+    //handle onclick for the recycler
     @Override
     public void onItemClick(int post) {
+        homeItemViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
+
         //Log.d(TAG, "onItemClick: you clicked recycler item: " + productArrayList.get(post).getProductName());
         Log.d(TAG, "onItemClick: you clicked recycler item: " + dataBaseManager.selectAll().get(post).getProductName());
         Toast.makeText(getContext(), "You clicked on " + dataBaseManager.selectAll().get(post).getProductName(), Toast.LENGTH_LONG).show();
+
+        //set proper details
+        homeItemViewModel.setName(dataBaseManager.selectAll().get(post).getProductName());
+        homeItemViewModel.setMedium(dataBaseManager.selectAll().get(post).getProductMedium());
+        homeItemViewModel.setPurchasePrice(String.valueOf(dataBaseManager.selectAll().get(post).getProductPurchasePrice()));
+        homeItemViewModel.setHeight(String.valueOf(dataBaseManager.selectAll().get(post).productHeight));
+        homeItemViewModel.setDepth(String.valueOf(dataBaseManager.selectAll().get(post).productDepth));
+        homeItemViewModel.setLocation(dataBaseManager.selectAll().get(post).getProductLocation());
+        homeItemViewModel.setWidth(String.valueOf(dataBaseManager.selectAll().get(post).getProductWidth()));
+        homeItemViewModel.setPurchaseDate(dataBaseManager.selectAll().get(post).getProductPurchaseDate());
+        homeItemViewModel.setIsFramed(Boolean.toString(dataBaseManager.selectAll().get(post).isProductFramed()));
+        homeItemViewModel.setProdUri(dataBaseManager.selectAll().get(post).productPicturePath);
+        homeItemViewModel.setSaveToDB(false); // dont need to save values
+
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, new ViewItemFragment());
+        fragmentTransaction.commit();
     }
 }
