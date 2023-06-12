@@ -5,15 +5,22 @@ import static android.content.ContentValues.TAG;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,6 +85,9 @@ public class ViewItemFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        //turn on menu for edit and delete options
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -184,5 +194,38 @@ public class ViewItemFragment extends Fragment {
         });
 
         return view;
+    }
+
+    // handle onClick for options menu in viewItem fragment
+    // go to EditItem fragment or prompt for item deletion
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.view_item_option_edit:
+                Toast.makeText(getContext(), "clicked edit", Toast.LENGTH_LONG).show();
+                replaceFragment(new EditItemFragment());
+                break;
+        }
+        //return super.onOptionsItemSelected(item);
+        return true;
+    }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        //override method to use specified options menu (sort by menu)
+        //FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        Fragment frag = fragmentManager.findFragmentById(R.id.frame_layout);
+        Log.d(TAG, "onCreateOptionsMenu: NAME:: " + frag.getId());
+        MenuInflater menuInflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.view_item_options_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    // method to replace frame layout with particular fragment
+    private void replaceFragment(Fragment fragment) {
+        //FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
     }
 }

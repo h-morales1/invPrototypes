@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new AddItemFragment());
                     break;
                 case R.id.editItem:
-                    replaceFragment(new EditItemFragment());
+                    //replaceFragment(new EditItemFragment());
                     break;
             }
 

@@ -9,7 +9,7 @@ public class Product {
     String productName;
     String productMedium;
     float productPurchasePrice;
-    float productHeight;
+    float productHeight;// TODO: change product HWD to strings
     float productWidth;
     float productDepth;
     String productLocation;

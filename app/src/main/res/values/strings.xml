@@ -43,4 +43,6 @@
     <string name="view_item_creation_date">"Creation Date: "</string>
     <string name="view_item_framed">"Framed: "</string>
     <string name="add_item_creation_date">Creation Date</string>
+    <string name="view_item_option_edit">Edit</string>
+    <string name="view_item_option_delete">Delete</string>
 </resources>
