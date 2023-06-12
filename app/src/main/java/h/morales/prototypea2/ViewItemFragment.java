@@ -163,8 +163,13 @@ public class ViewItemFragment extends Fragment {
 
         });
 
+        homeItemViewModel.getProdCreationDate().observe(getViewLifecycleOwner(), item -> {
+            Log.d(TAG, "viewItem prodCreationDate: item = " + item.toString());
+            creationDate.setText(item);
+        });
+
         homeItemViewModel.getIsFramed().observe(getViewLifecycleOwner(), item -> {
-            Log.d(TAG, "onCreate: item = " + item.toString());
+            Log.d(TAG, "viewItem isFramed: item = " + item.toString());
             framed.setText(item);
 
             hwdCombo = h + " x " + w + " x " + d;

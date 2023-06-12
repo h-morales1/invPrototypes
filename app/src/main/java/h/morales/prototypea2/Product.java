@@ -18,12 +18,15 @@ public class Product {
     String productPicturePath;
     Uri prodUri;
 
+    String creationDate;
+
     public Product(String titleText, int productImage) { // TODO: needs to conform to db schema for each piece to be catalogued
         this.titleText = titleText;
         this.productImage = productImage;
     }
 
-    public Product(String productName, String productMedium, float productPurchasePrice, float productHeight, float productWidth, float productDepth, String productLocation, String productPurchaseDate, boolean productFramed, String productPicturePath) {
+    public Product(String productName, String productMedium, float productPurchasePrice, float productHeight, float productWidth, float productDepth, String productLocation, String productPurchaseDate, boolean productFramed, String productPicturePath,
+                   String creationDate) {
         this.productName = productName;
         this.productMedium = productMedium;
         this.productPurchasePrice = productPurchasePrice;
@@ -34,6 +37,7 @@ public class Product {
         this.productPurchaseDate = productPurchaseDate;
         this.productFramed = productFramed;
         this.productPicturePath = productPicturePath;
+        this.creationDate = creationDate;
     }
 
     public String getProductName() {
@@ -74,5 +78,9 @@ public class Product {
 
     public String getProductPicturePath() {
         return productPicturePath;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
     }
 }

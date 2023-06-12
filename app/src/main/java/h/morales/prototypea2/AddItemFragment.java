@@ -61,6 +61,7 @@ public class AddItemFragment extends Fragment {
             addItemDepthET,
             addItemLocationET,
             addItemWidthET,
+            addItemCreationDateET,
             addItemPurchaseDateET;
 
     CheckBox addItemCBX; // framed or not cbx
@@ -132,6 +133,7 @@ public class AddItemFragment extends Fragment {
         addItemDepthET = (EditText) view.findViewById(R.id.addItemDepthET);
         addItemLocationET = (EditText) view.findViewById(R.id.addItemLocationET);
         addItemWidthET = (EditText) view.findViewById(R.id.addItemWidthET);
+        addItemCreationDateET = (EditText) view.findViewById(R.id.addItemCreationDateET);
         addItemPurchaseDateET = (EditText) view.findViewById(R.id.addItemDateET);
 
 
@@ -164,6 +166,7 @@ public class AddItemFragment extends Fragment {
                 String pLocation = addItemLocationET.getText().toString();
                 String pWidth = addItemWidthET.getText().toString();
                 String pPurchaseDate = addItemPurchaseDateET.getText().toString();
+                String pCreationDate = addItemCreationDateET.getText().toString();
                 String isFramed = String.valueOf(addItemCBX.isChecked());
 
                 //transfer data from add item form to main activity for processing
@@ -183,6 +186,7 @@ public class AddItemFragment extends Fragment {
                     itemViewModel.setLocation(pLocation);
                     itemViewModel.setWidth(pWidth);
                     itemViewModel.setPurchaseDate(pPurchaseDate);
+                    itemViewModel.setProdCreationDate(pCreationDate);
                     itemViewModel.setIsFramed(isFramed);
                     itemViewModel.setSaveToDB(true); // save to db
                 }

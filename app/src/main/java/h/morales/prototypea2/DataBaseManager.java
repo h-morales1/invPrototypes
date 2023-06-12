@@ -1,9 +1,12 @@
 package h.morales.prototypea2;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -24,7 +27,9 @@ public class DataBaseManager extends SQLiteOpenHelper {
                                 productLocation = "location",
                                 productPurchaseDate = "purchaseDate",
                                 productFramed = "framed",
-                                productPicturePath = "picturePath";
+                                productPicturePath = "picturePath",
+
+                                creationDate = "creationDate";
 
     private static final int DATABASE_VERSION = 1;
 
@@ -46,6 +51,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
                             productLocation + " text, " +
                             productPurchaseDate + " text, " +
                             productFramed + " integer, " +
+                            creationDate + " text, " +
                             productPicturePath + " text )";
 
         sqLiteDatabase.execSQL(sqlCreate);
@@ -72,6 +78,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
                             " '" +  product.getProductLocation() + "'," +
                             " '" +  product.getProductPurchaseDate() + "'," +
                             " '" +  product.isProductFramed() + "'," +
+                            " '" +  product.getCreationDate() + "'," +
                             " '" +  product.getProductPicturePath() +
                             "' )";
 
@@ -109,10 +116,12 @@ public class DataBaseManager extends SQLiteOpenHelper {
             String currentPurchaseDate = cursor.getString(8);
             int currentFraming = cursor.getInt(9);
             boolean currentIsFramed = (currentFraming == 1);
-            String currentPicturePath = cursor.getString(10);
+            Log.d(TAG, "selectAll isframed?: " + currentIsFramed);
+            String currentCreationDate = cursor.getString(10);
+            String currentPicturePath = cursor.getString(11);
 
             //create a product obj
-            Product product = new Product(currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentIsFramed, currentPicturePath);
+            Product product = new Product(currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentIsFramed, currentPicturePath, currentCreationDate);
             //add the product to  arrayList
             products.add(product);
         } //end while loop

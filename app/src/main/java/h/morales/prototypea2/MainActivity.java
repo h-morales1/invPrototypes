@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     private float pDepth;
     private String pLocation;
     private String pPurchaseDate;
+    private String pCreationDate;
     private boolean pFramed;
     private String imgPath;
 
@@ -154,11 +155,16 @@ public class MainActivity extends AppCompatActivity {
            }*/
        });
 
+        itemViewModel.getProdCreationDate().observe(this, item -> {
+            Log.d(TAG, "mainActivity creationDate: item = " + item.toString());
+            pCreationDate = item;
+        });
+
        itemViewModel.getSaveToDB().observe(this, item -> {
            // only save items to db if flag is set
            if(!pName.isEmpty() && item) {
 
-               product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
+               product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath, pCreationDate);
                dataBaseManager.insertProduct(product);
                Log.d(TAG, "onCreate: saved item path: " + product.getProductPicturePath());
            }
