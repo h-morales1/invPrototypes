@@ -90,6 +90,18 @@ public class DataBaseManager extends SQLiteOpenHelper {
         database.close();
     }
 
+    // method to delete item based on productID
+    public void deleteItem(int id) {
+        String sqlDelete = "delete from " + TABLE_NAME + " where " + productID + "='" + id + "'";
+
+        SQLiteDatabase database = getWritableDatabase(); // retrieve db
+
+        //execute deletion
+        database.execSQL(sqlDelete);
+
+        database.close();
+    }
+
     // method to retrieve all the database entries
     public ArrayList<Product> selectAll() {
         String sqlSelect = "select * from " + TABLE_NAME;

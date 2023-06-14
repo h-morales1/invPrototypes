@@ -40,6 +40,10 @@ public class ViewItemFragment extends Fragment {
 
     ItemViewModel homeItemViewModel;
 
+    public static int productID; // set after retrieving from previous fragment, used for deletion query
+
+    DataBaseManager dataBaseManager;
+
     TextView title,
             medium,
             purchasePrice,
@@ -116,6 +120,13 @@ public class ViewItemFragment extends Fragment {
             //
             Log.d(TAG, "onCreate: item = " + item);
         });*/
+
+        homeItemViewModel.getProdID().observe(getViewLifecycleOwner(),  item -> {
+            //retrieve product ID to use in deletion query
+            productID = Integer.parseInt(item);
+            Log.d(TAG, "viewItem: id= " + item);
+
+        });
         homeItemViewModel.getName().observe(getViewLifecycleOwner(), item -> {
             //
             Log.d(TAG, "onCreate: item = " + item.toString());
@@ -199,10 +210,18 @@ public class ViewItemFragment extends Fragment {
     // handle onClick for options menu in viewItem fragment
     // go to EditItem fragment or prompt for item deletion
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        dataBaseManager = new DataBaseManager(getContext());
         switch (item.getItemId()) {
             case R.id.view_item_option_edit:
                 Toast.makeText(getContext(), "clicked edit", Toast.LENGTH_LONG).show();
                 replaceFragment(new EditItemFragment());
+                break;
+            case R.id.view_item_option_delete:
+                Toast.makeText(getContext(), "clicked delete", Toast.LENGTH_LONG).show();
+                //delete entry using productID
+                Log.d(TAG, "clicked Delete, what is product: " + productID);
+                dataBaseManager.deleteItem(productID);
+                replaceFragment(new HomeFragment());
                 break;
         }
         //return super.onOptionsItemSelected(item);
