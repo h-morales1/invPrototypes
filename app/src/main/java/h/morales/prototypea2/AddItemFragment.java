@@ -167,6 +167,7 @@ public class AddItemFragment extends Fragment {
                     itemViewModel.setProdCreationDate(pCreationDate);
                     itemViewModel.setIsFramed(isFramed);
                     itemViewModel.setSaveToDB(true); // save to db
+                    Toast.makeText(getContext(), "Product Saved", Toast.LENGTH_LONG).show();
                 }
             }
         });
