@@ -38,7 +38,11 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.zip.Inflater;
@@ -172,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
         //show home fragment by default
         replaceFragment(new HomeFragment());
-        imageUri = createUri();
+        //imageUri = createUri();
         registerPictureLauncher();
         /*product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
         if(!pName.isEmpty()) {
@@ -309,7 +313,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Uri createUri() {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        //String tmstamp = DateFormat.getDateTimeInstance().toString();
         String imageFileName = "JPEG_" + timeStamp + "_.jpg";
+        Log.d(TAG, "createUri, this is the filename string: " + timeStamp);
         //File imageFile = new File(getApplicationContext().getFilesDir(), "camera_photo.jpg");
         File imageFile = new File(getApplicationContext().getFilesDir(), imageFileName);
         return FileProvider.getUriForFile(getApplicationContext(), "com.h.morales.fileprovider", imageFile);
@@ -321,6 +327,7 @@ public class MainActivity extends AppCompatActivity {
             //request perms
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
         } else {
+            imageUri = createUri();
             takePictureLauncher.launch(imageUri);
         }
     }
@@ -347,6 +354,8 @@ public class MainActivity extends AppCompatActivity {
                     if(result) { //TODO there is a bug where when asked for perms, it doesnt save the URI of selected image
                         //testing
                         Log.d(TAG, "onActivityResult: PIC TEST" + imageUri.toString());
+                        //imgPath = imageUri.toString();
+                        //imageUri = createUri();
                         imgPath = imageUri.toString();
                         product.prodUri = imageUri;
                     }
