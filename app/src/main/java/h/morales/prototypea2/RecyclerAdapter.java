@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
@@ -50,6 +51,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     @Override
     public int getItemCount() {
         return productArrayList.size();
+    }
+
+    public void updateData(ArrayList<Product> newData) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new ProductDiffCallback(productArrayList, newData));
+        productArrayList.clear();
+        productArrayList.addAll(newData);
+        //notifyDataSetChanged();
+
+        Log.d(TAG, "updateData: seeing if updatedata is CALLED: size: " + productArrayList.size());
+        Log.d(TAG, "updateData: newData: size: " + newData.size());
+        diffResult.dispatchUpdatesTo(this);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +53,15 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
     private DataBaseManager dataBaseManager; // handle db transactions
 
     ItemViewModel homeItemViewModel;
+
+    Thread tr = null;
+    Thread tr2 = null;
+
+    RecyclerAdapter recyclerAdapter;
+
+    CountDownLatch latch = new CountDownLatch(1);
+
+    ArrayList<Product> prs;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -84,6 +95,18 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
         //initiate databasemanager
         dataBaseManager = new DataBaseManager(getContext());
+        //prs = dataBaseManager.selectAll();
+        //RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), prs, this); // TODO: will have to change this once adding in recyclerinterface
+
+        //recyclerview =(RecyclerView) getActivity().findViewById(R.id.homeFragRecyclerView);
+        //recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        //recyclerview.setHasFixedSize(true);
+
+        //RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), dataBaseManager.selectAll(), this); // TODO: will have to change this once adding in recyclerinterface
+        //recyclerview.setAdapter(recyclerAdapter);
+        //recyclerAdapter.updateData(prs);
+        //Log.d(TAG, "onCreate in homefrag size of prs is : "+ prs.size());
+
 
         //TODO REMOVE THIS, THIS IS A TEST
         //Product prod = new Product("Sycamore park", "water color", 200.00f, 12.0f, 12.0f, 10.0f, "dekalb public library", "05/21/23", true, "test");
@@ -130,14 +153,26 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         
-        dataInitialize();
+        //dataInitialize();
         recyclerview = view.findViewById(R.id.homeFragRecyclerView);
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerview.setHasFixedSize(true);
-        //RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), productArrayList, this); // TODO: will have to change this once adding in recyclerinterface
+        //DataBaseManager tester = new DataBaseManager(getContext());
+        //prs = tester.selectAll();
+        //Log.d(TAG, "onViewCreated PRS SIZE: " + prs.size());
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), dataBaseManager.selectAll(), this); // TODO: will have to change this once adding in recyclerinterface
+        //recyclerview = view.findViewById(R.id.homeFragRecyclerView);
+        //Log.d(TAG, "onViewCreated PRS SIZE: " + prs.size());
+        //recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        //recyclerview.setHasFixedSize(true);
+
+        //RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), dataBaseManager.selectAll(), this); // TODO: will have to change this once adding in recyclerinterface
         recyclerview.setAdapter(recyclerAdapter);
-        recyclerAdapter.notifyDataSetChanged();
+        //Log.d(TAG, "onViewCreated PRS SIZE: " + prs.size());
+        recyclerAdapter.updateData(dataBaseManager.selectAll());
+
+                //RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), productArrayList, this); // TODO: will have to change this once adding in recyclerinterface
+
     }
 
     private void dataInitialize() {
