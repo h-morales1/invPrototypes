@@ -106,6 +106,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
         //loop through the cursor obj and transfer values to the arrayList
         while(cursor.moveToNext()) {
             //get info from cursor
+            String currentID = cursor.getString(0); // get ID
             String currentName = cursor.getString(1);
             String currentMedium = cursor.getString(2);
             float currentPurchasePrice = cursor.getFloat(3);
@@ -121,7 +122,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
             String currentPicturePath = cursor.getString(11);
 
             //create a product obj
-            Product product = new Product(currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentIsFramed, currentPicturePath, currentCreationDate);
+            Product product = new Product(currentID, currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentIsFramed, currentPicturePath, currentCreationDate);
             //add the product to  arrayList
             products.add(product);
         } //end while loop

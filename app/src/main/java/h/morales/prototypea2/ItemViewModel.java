@@ -23,6 +23,10 @@ public class ItemViewModel  extends ViewModel {
     private final MutableLiveData<String> prodUri = new MutableLiveData<>();
     private final MutableLiveData<String> prodCreationDate = new MutableLiveData<>();
 
+    //this doesnt need to be saved to the db, its only useful to retrieve from the db to use
+    // in other fragments like editItem
+    private final MutableLiveData<String> prodID = new MutableLiveData<>();
+
     private final MutableLiveData<Boolean> saveToDB = new MutableLiveData<>();
 
     public void setData(String pName, String pMedium, String pPurchasePrice, String pHeight, String pDepth
@@ -79,6 +83,8 @@ public class ItemViewModel  extends ViewModel {
 
     public void setProdCreationDate(String item) { prodCreationDate.setValue(item); }
 
+    public void setProdID(String item) { prodID.setValue(item); }
+
     public void setSaveToDB(Boolean bool) { saveToDB.setValue(bool);}
 
     //getters
@@ -121,6 +127,8 @@ public class ItemViewModel  extends ViewModel {
     public LiveData<String> getProdUri () {
         return prodUri;
     }
+
+    public LiveData<String> getProdID() { return prodID; }
 
     public LiveData<String> getProdCreationDate () { return prodCreationDate; }
 

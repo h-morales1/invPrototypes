@@ -198,6 +198,8 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         homeItemViewModel.setPurchaseDate(dataBaseManager.selectAll().get(post).getProductPurchaseDate());
         homeItemViewModel.setIsFramed(Boolean.toString(dataBaseManager.selectAll().get(post).isProductFramed()));
         homeItemViewModel.setProdUri(dataBaseManager.selectAll().get(post).productPicturePath);
+        homeItemViewModel.setProdCreationDate(dataBaseManager.selectAll().get(post).getCreationDate());
+        homeItemViewModel.setProdID(dataBaseManager.selectAll().get(post).getProdID());
         homeItemViewModel.setSaveToDB(false); // dont need to save values
 
         FragmentManager fragmentManager = getParentFragmentManager();

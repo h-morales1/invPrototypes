@@ -1,27 +1,10 @@
 package h.morales.prototypea2;
 
-import static android.content.ContentValues.TAG;
-
-import android.Manifest;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.PickVisualMediaRequest;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +13,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -120,7 +98,7 @@ public class AddItemFragment extends Fragment {
             }
         });*/
 
-        pickPhotoIB = view.findViewById(R.id.addItemFolderIB);
+        pickPhotoIB = view.findViewById(R.id.editItemFolderIB);
 
         itemViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
         confirmBTN = (Button) view.findViewById(R.id.addItemConfirmBT); // confirm button
