@@ -3,6 +3,11 @@ package h.morales.prototypea2;
 import androidx.recyclerview.widget.DiffUtil;
 import java.util.ArrayList;
 
+/*
+    Handle comparing array of old products versus a new array
+    and update in as little steps the recycler view as possible,
+    limiting lag
+ */
 public class ProductDiffCallback extends DiffUtil.Callback {
     private ArrayList<Product> oldList;
     private ArrayList<Product> newList;
