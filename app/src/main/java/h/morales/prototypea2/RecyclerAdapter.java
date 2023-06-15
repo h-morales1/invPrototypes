@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
@@ -41,8 +43,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         Product product = productArrayList.get(position);
         holder.textView.setText(product.getProductName());
         //Uri imgUri = Uri.parse(product.productPicturePath);
-        holder.titleImage.setImageURI(null);
-        holder.titleImage.setImageURI(Uri.parse(product.productPicturePath));
+        //holder.titleImage.setImageURI(null);
+        //holder.titleImage.setImageURI(Uri.parse(product.productPicturePath));
+        Glide.with(context).load(Uri.parse(product.productPicturePath)).into(holder.titleImage);
         Log.d(TAG, "onBindViewHolder: recycler debug, name and path: " +product.getProductName() + " path: " + product.getProductPicturePath());
         //holder.titleImage.setImageResource(product.productImage);
     }
@@ -50,6 +53,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     @Override
     public int getItemCount() {
         return productArrayList.size();
+    }
+
+    public void updateData(ArrayList<Product> newData) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new ProductDiffCallback(productArrayList, newData));
+        productArrayList.clear();
+        productArrayList.addAll(newData);
+        //notifyDataSetChanged();
+
+        Log.d(TAG, "updateData: seeing if updatedata is CALLED: size: " + productArrayList.size());
+        Log.d(TAG, "updateData: newData: size: " + newData.size());
+        diffResult.dispatchUpdatesTo(this);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
