@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
@@ -42,8 +43,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         Product product = productArrayList.get(position);
         holder.textView.setText(product.getProductName());
         //Uri imgUri = Uri.parse(product.productPicturePath);
-        holder.titleImage.setImageURI(null);
-        holder.titleImage.setImageURI(Uri.parse(product.productPicturePath));
+        //holder.titleImage.setImageURI(null);
+        //holder.titleImage.setImageURI(Uri.parse(product.productPicturePath));
+        Glide.with(context).load(Uri.parse(product.productPicturePath)).into(holder.titleImage);
         Log.d(TAG, "onBindViewHolder: recycler debug, name and path: " +product.getProductName() + " path: " + product.getProductPicturePath());
         //holder.titleImage.setImageResource(product.productImage);
     }
