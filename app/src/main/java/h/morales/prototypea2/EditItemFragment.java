@@ -46,30 +46,33 @@ public class EditItemFragment extends Fragment {
 
     private String newName;
     private String newMedium;
-    private float newPurchasePrice;
+    private String newPurchasePrice;
     private String newHeight;
     private String newWidth;
     private String newDepth;
     private String newLocation;
     private String newPurchaseDate;
-    private boolean newFramed;
+    private String newFramed;
     private String newPicturePath;
     private String newCreationDate;
 
     private String oldName;
     private String oldMedium;
-    private float oldPurchasePrice;
+    private String oldPurchasePrice;
     private String oldHeight;
     private String oldWidth;
     private String oldDepth;
     private String oldLocation;
     private String oldPurchaseDate;
-    private boolean oldFramed;
+    private String oldFramed;
     private String oldPicturePath;
     private String oldCreationDate;
 
     private ImageButton choosePhoto;
     private ImageButton takePhoto;
+
+    private DataBaseManager dataBaseManager;
+    private int currentProdID;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -163,15 +166,38 @@ public class EditItemFragment extends Fragment {
                 // handle the on click for confirm btn in editItemFrag
                 Toast.makeText(getContext(), "confirm button on click!", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "on edit item confirm imgpath: " + imgPath);
+
+                //set new values
+                newName = editTextName.getText().toString();
+                newMedium = editTextMedium.getText().toString();
+                newPurchasePrice = editTextpurchasePrice.getText().toString();
+                newHeight = editTextH.getText().toString();
+                newWidth = editTextW.getText().toString();
+                newDepth = editTextD.getText().toString();
+                newLocation = editTextLocation.getText().toString();
+                newPurchaseDate = editTextpurchaseDate.getText().toString();
+                newFramed = String.valueOf(editItemFramed.isChecked());
+                newCreationDate = editTextCreationDate.getText().toString();
+                newPicturePath = imgPath;
+
+                setNewVals(); // save any new data to db
+                Toast.makeText(getContext(), "Product updated!", Toast.LENGTH_SHORT).show();
             }
         });
 
         //fill in the fields with product details for user to edit
 
+        editItemViewModel.getProdID().observe(getViewLifecycleOwner(), item -> {
+            // get prod id
+            Log.d(TAG, "onCreateView: edit item got id " + item);
+            currentProdID = Integer.parseInt(item);
+        });
+
         editItemViewModel.getName().observe(getViewLifecycleOwner(), item -> {
             //transfer data from viewItemFragment
             Log.d(TAG, "ediItem got name: " + item);
             editTextName.setText(item);
+            oldName = item;
 
         });
 
@@ -185,7 +211,7 @@ public class EditItemFragment extends Fragment {
         editItemViewModel.getPurchasePrice().observe(getViewLifecycleOwner(), item -> {
             Log.d(TAG, "onCreate: item = " + item.toString());
             editTextpurchasePrice.setText(item);
-            oldPurchasePrice = Float.parseFloat(item);
+            oldPurchasePrice = item;
         });
 
         editItemViewModel.getHeight().observe(getViewLifecycleOwner(), item -> {
@@ -240,7 +266,7 @@ public class EditItemFragment extends Fragment {
             Log.d(TAG, "viewItem isFramed: item = " + item.toString());
             //framed.setText(item);
             editItemFramed.setChecked(Boolean.parseBoolean(item));
-            oldFramed = Boolean.parseBoolean(item);
+            oldFramed = item;
 
             //hwdCombo = h + " x " + w + " x " + d;
             //hwd.setText(hwdCombo);
@@ -260,12 +286,96 @@ public class EditItemFragment extends Fragment {
 
     private boolean checkIfChanged(String newVal, String oldVal) {
         //handle checking if values are different, set new value if different than old
-
-        if(newVal.compareTo(oldVal) != 0) {
-            // the two values are not the same
-            return true;
+        if(newVal == null) {
+            return false;
         }
-        return false;
+
+        // the two values are not the same
+        return newVal.compareTo(oldVal) != 0;
+    }
+
+    private void setNewVals() {
+        //handle comparing old and new data, set data that is different
+        Product updatedProd;
+        if(checkIfChanged(newName, oldName)) {
+            //the result is not equal
+            Log.d(TAG, "setNewVals: new name and old name are  not equal");
+            if(!newName.isEmpty()) {
+               oldName = newName; // check that newName is not empty before updating name
+            }
+        }
+
+        if(checkIfChanged(newMedium, oldMedium)) {
+            //old and new medium are note equal
+            if(!newMedium.isEmpty()) {
+                oldMedium = newMedium; // check that new medium isnt empty
+            }
+        }
+
+       if(checkIfChanged(newPurchasePrice, oldPurchasePrice)) {
+           //old and new purchase price are not equal
+           if(!newPurchasePrice.isEmpty()) {
+               oldPurchasePrice = newPurchasePrice; // check new isnt empty
+           }
+       }
+
+      if(checkIfChanged(newHeight, oldHeight)) {
+          if(!newHeight.isEmpty()) {
+              oldHeight = newHeight;
+          }
+      }
+
+      if(checkIfChanged(newWidth, oldWidth)) {
+          if(!newWidth.isEmpty()) {
+              oldWidth = newWidth;
+          }
+      }
+
+      if(checkIfChanged(newDepth, oldDepth)) {
+          if(!newDepth.isEmpty()) {
+              oldDepth = newDepth;
+          }
+      }
+
+      if(checkIfChanged(newLocation, oldLocation)) {
+          if(!newLocation.isEmpty()) {
+              oldLocation = newLocation;
+          }
+      }
+
+      if(checkIfChanged(newPurchaseDate, oldPurchaseDate)) {
+          if(!newPurchaseDate.isEmpty()) {
+              oldPurchaseDate = newPurchaseDate;
+          }
+      }
+
+      if(checkIfChanged(newFramed, oldFramed)) {
+          if(!newFramed.isEmpty()) {
+              oldFramed = newFramed;
+          }
+      }
+
+      if(checkIfChanged(newPicturePath, oldPicturePath)) {
+          if(!newPicturePath.isEmpty()) {
+              Log.d(TAG, "setNewVals: picture path set to new pic path");
+              oldPicturePath = newPicturePath;
+          }
+      }
+
+      if(checkIfChanged(newCreationDate, oldCreationDate)) {
+          if(!newCreationDate.isEmpty()) {
+              oldCreationDate = newCreationDate;
+          }
+      }
+
+        updatedProd = new Product(oldName, oldMedium, Float.parseFloat(oldPurchasePrice), oldHeight, oldWidth, oldDepth, oldLocation, oldPurchaseDate, Boolean.parseBoolean(oldFramed), oldPicturePath, newCreationDate);
+        updateProductDB(updatedProd); // commit changes to db
+    }
+
+    private void updateProductDB(Product pr) {
+        // update product details in db
+        dataBaseManager = new DataBaseManager(getContext());
+        dataBaseManager.updateProduct(currentProdID, pr);
     }
 
 

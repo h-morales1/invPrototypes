@@ -103,6 +103,30 @@ public class DataBaseManager extends SQLiteOpenHelper {
         database.close();
     }
 
+    //method to update a product using the id as entry
+    public void updateProduct(int prodID, Product prod) {
+        String setVals = productName + " = " + "'" + prod.getProductName() + "', " +
+                         productMedium + " = " + "'" + prod.getProductMedium() + "', " +
+                         productPurchasePrice + " = " + "'" + prod.getProductPurchasePrice() + "', " +
+                         productHeight + " = " + "'" + prod.getProductHeight() + "', " +
+                         productWidth + " = " + "'" + prod.getProductWidth() + "', " +
+                         productDepth + " = " + "'" + prod.getProductDepth() + "', " +
+                         productLocation + " = " + "'" + prod.getProductLocation() + "', " +
+                         productPurchaseDate + " = " + "'" + prod.getProductPurchaseDate() + "', " +
+                         productFramed + " = " + "'" + prod.isProductFramed() + "', " +
+                         creationDate + " = " + "'" + prod.getCreationDate() + "', " +
+                         productPicturePath + " = " + "'" + prod.getProductPicturePath() + "' ";
+        //String sqlUpdate = "update " + TABLE_NAME + setVals + " where " + productID + " = " + prodID;
+        String sqlUpdate = "UPDATE " + TABLE_NAME + " SET " + setVals + " WHERE " + productID + " = " + prodID;
+
+        SQLiteDatabase database = getWritableDatabase(); // retrieve db
+
+        //execute update
+        database.execSQL(sqlUpdate);
+
+        database.close();
+    }
+
     // method to retrieve all the database entries
     public ArrayList<Product> selectAll() {
         String sqlSelect = "select * from " + TABLE_NAME;
