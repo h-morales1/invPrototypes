@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -142,8 +143,26 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         Fragment frag = fragmentManager.findFragmentById(R.id.frame_layout);
         Log.d(TAG, "onCreateOptionsMenu: NAME:: " + frag.getId());
         MenuInflater menuInflater = getActivity().getMenuInflater();
+
+
         inflater.inflate(R.menu.top_options_menu, menu);
 
+        MenuItem menuItem = menu.findItem(R.id.home_search);
+        SearchView searchView = (SearchView)  menuItem.getActionView();
+        searchView.setQueryHint("Search by name");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                recyclerAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -160,7 +179,10 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         //DataBaseManager tester = new DataBaseManager(getContext());
         //prs = tester.selectAll();
         //Log.d(TAG, "onViewCreated PRS SIZE: " + prs.size());
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), dataBaseManager.selectAll(), this); // TODO: will have to change this once adding in recyclerinterface
+
+        //RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), dataBaseManager.selectAll(), this); // TODO: will have to change this once adding in recyclerinterface
+        recyclerAdapter = new RecyclerAdapter(getContext(), dataBaseManager.selectAll(), this); // TODO: will have to change this once adding in recyclerinterface
+
         //recyclerview = view.findViewById(R.id.homeFragRecyclerView);
         //Log.d(TAG, "onViewCreated PRS SIZE: " + prs.size());
         //recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,16 +20,19 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> implements Filterable {
 
     Context context;
     ArrayList<Product> productArrayList;
+    ArrayList<Product> productArrayList2;
 
     private final RecyclerViewInterface recyclerViewInterface;
     public RecyclerAdapter(Context context, ArrayList<Product> productArrayList, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.productArrayList = productArrayList;
+        this.productArrayList2 = new ArrayList<>(productArrayList);
         this.recyclerViewInterface = recyclerViewInterface;
     }
 
@@ -65,6 +70,46 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         Log.d(TAG, "updateData: newData: size: " + newData.size());
         diffResult.dispatchUpdatesTo(this);
     }
+
+    @Override
+    public Filter getFilter() {
+        return nameFilter;
+    }
+
+    private final Filter nameFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            ArrayList<Product> filteredNameList = new ArrayList<>();
+
+            if(charSequence == null || charSequence.length() == 0) {
+                filteredNameList.addAll(productArrayList);
+            } else {
+                String filterPattern = charSequence.toString().toLowerCase().trim();
+
+                for(Product prods : productArrayList) {
+                    if(prods.getProductName().toLowerCase().contains(filterPattern)) {
+                        filteredNameList.add(prods); // matching result so add to arraylist
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredNameList;
+            results.count = filteredNameList.size();
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+
+            productArrayList2.clear();
+            productArrayList2.addAll((ArrayList)filterResults.values);
+            updateData(productArrayList2);
+            //notifyDataSetChanged();
+
+        }
+    };
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ShapeableImageView titleImage;
