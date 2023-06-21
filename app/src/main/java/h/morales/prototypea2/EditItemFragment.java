@@ -45,6 +45,7 @@ public class EditItemFragment extends Fragment {
     private String imgPath;
 
     private ImageButton choosePhoto;
+    private ImageButton takePhoto;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -95,6 +96,7 @@ public class EditItemFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_edit_item, container, false);
         editItemViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
+        registerPictureLauncher();
 
         EditText editTextName = (EditText) view.findViewById(R.id.editItemNameET);
         EditText editTextMedium = (EditText) view.findViewById(R.id.editItemMediumET);
@@ -109,11 +111,23 @@ public class EditItemFragment extends Fragment {
         CheckBox editItemFramed = (CheckBox) view.findViewById(R.id.editItemFramedCBX);
 
         choosePhoto = (ImageButton) view.findViewById(R.id.editItemBrowseIB);
+        takePhoto = (ImageButton) view.findViewById(R.id.editItemPhotoIB);
 
         choosePhoto.setOnClickListener(new View.OnClickListener() {
+            // handle selecting photo from own gallery and returning the URI
             @Override
             public void onClick(View view) {
                 editItemimageChooser(view);
+                Log.d(TAG, "image chooser edit item imgpath: " + imgPath);
+            }
+        });
+
+        takePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // handle taking photo and returning URI of photo
+                takePhoto(view);
+                Log.d(TAG, "takePhoto editItem imgpath: " + imgPath);
             }
         });
 
@@ -124,6 +138,7 @@ public class EditItemFragment extends Fragment {
             public void onClick(View view) {
                 // handle the on click for confirm btn in editItemFrag
                 Toast.makeText(getContext(), "confirm button on click!", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "on edit item confirm imgpath: " + imgPath);
             }
         });
 
