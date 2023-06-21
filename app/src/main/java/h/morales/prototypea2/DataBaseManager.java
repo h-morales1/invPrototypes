@@ -50,7 +50,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
                             productDepth + " real, " +
                             productLocation + " text, " +
                             productPurchaseDate + " text, " +
-                            productFramed + " integer, " +
+                            productFramed + " text, " +
                             creationDate + " text, " +
                             productPicturePath + " text )";
 
@@ -68,6 +68,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
 
     // method to handle inserting a product
     public void insertProduct(Product product) {
+        Log.d(TAG, "insertProduct: isFramed: " + product.isProductFramed());
         String sqlInsert = "insert into " + TABLE_NAME +
                             " values( null, '" + product.getProductName() + "'," +
                             " '" +  product.getProductMedium() + "'," +
@@ -127,8 +128,9 @@ public class DataBaseManager extends SQLiteOpenHelper {
             float currentDepth = cursor.getFloat(6);
             String currentLocation = cursor.getString(7);
             String currentPurchaseDate = cursor.getString(8);
-            int currentFraming = cursor.getInt(9);
-            boolean currentIsFramed = (currentFraming == 1);
+            String currentFraming = cursor.getString(9);
+            Log.d(TAG, "selectAll currentFraming: "+ currentFraming);
+            boolean currentIsFramed = Boolean.parseBoolean(currentFraming);
             Log.d(TAG, "selectAll isframed?: " + currentIsFramed);
             String currentCreationDate = cursor.getString(10);
             String currentPicturePath = cursor.getString(11);

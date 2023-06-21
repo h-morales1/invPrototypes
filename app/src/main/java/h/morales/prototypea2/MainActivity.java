@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
        itemViewModel.getIsFramed().observe(this, item -> {
            Log.d(TAG, "onCreate: item = " + item.toString());
-           pFramed = Boolean.getBoolean(item);
+           pFramed = Boolean.parseBoolean(item);
            //product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
 
            /*if(!pName.isEmpty()) {

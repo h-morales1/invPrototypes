@@ -1,10 +1,13 @@
 package h.morales.prototypea2;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -146,6 +149,7 @@ public class AddItemFragment extends Fragment {
                 String pPurchaseDate = addItemPurchaseDateET.getText().toString();
                 String pCreationDate = addItemCreationDateET.getText().toString();
                 String isFramed = String.valueOf(addItemCBX.isChecked());
+                Log.d(TAG, "addItem is framed: " + isFramed);
 
                 //transfer data from add item form to main activity for processing
                 //itemViewModel.setData(pName, pMedium, pPurchasePrice, pHeight, pDepth, pLocation, pWidth, pPurchaseDate);
