@@ -2,9 +2,19 @@ package h.morales.prototypea2;
 
 import static android.content.ContentValues.TAG;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,8 +22,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +38,13 @@ import android.widget.EditText;
  * create an instance of this fragment.
  */
 public class EditItemFragment extends Fragment {
+
+    ActivityResultLauncher<Uri> takePictureLauncher;
+    private static final int CAMERA_PERM_CODE = 1;
+    Uri imageUri;
+    private String imgPath;
+
+    private ImageButton choosePhoto;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -83,7 +107,25 @@ public class EditItemFragment extends Fragment {
         EditText editTextCreationDate = (EditText) view.findViewById(R.id.editItemCreationDateET);
 
         CheckBox editItemFramed = (CheckBox) view.findViewById(R.id.editItemFramedCBX);
-        CheckBox editItemSold = (CheckBox) view.findViewById(R.id.editItemSoldCBX);
+
+        choosePhoto = (ImageButton) view.findViewById(R.id.editItemBrowseIB);
+
+        choosePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editItemimageChooser(view);
+            }
+        });
+
+        Button editItemConfirmBTN = (Button) view.findViewById(R.id.editItemConfirmBTN);
+
+        editItemConfirmBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // handle the on click for confirm btn in editItemFrag
+                Toast.makeText(getContext(), "confirm button on click!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //fill in the fields with product details for user to edit
 
@@ -173,4 +215,92 @@ public class EditItemFragment extends Fragment {
         //return inflater.inflate(R.layout.fragment_edit_item, container, false);
         return view;
     }
+
+    private Uri createUri() {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        //String tmstamp = DateFormat.getDateTimeInstance().toString();
+        String imageFileName = "JPEG_" + timeStamp + "_.jpg";
+        Log.d(TAG, "createUri, this is the filename string: " + timeStamp);
+        //File imageFile = new File(getApplicationContext().getFilesDir(), "camera_photo.jpg");
+        File imageFile = new File(getContext().getFilesDir(), imageFileName);
+        return FileProvider.getUriForFile(getContext(), "com.h.morales.fileprovider", imageFile);
+    }
+
+    private void checkCameraPermsAndOpenCam() {
+        //
+        if(ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            //request perms
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
+        } else {
+            imageUri = createUri();
+            takePictureLauncher.launch(imageUri);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == CAMERA_PERM_CODE) {
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //takePictureLauncher.launch(imageUri);
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_PERM_CODE);
+            } else {
+                //
+            }
+        }
+    }
+
+    private void registerPictureLauncher() {
+        takePictureLauncher = registerForActivityResult(new ActivityResultContracts.TakePicture(), new ActivityResultCallback<Boolean>() {
+            @Override
+            public void onActivityResult(Boolean result) {
+                try {
+                    if(result) { //TODO there is a bug where when asked for perms, it doesnt save the URI of selected image
+                        //testing
+                        Log.d(TAG, "onActivityResult: PIC TEST" + imageUri.toString());
+                        //imgPath = imageUri.toString();
+                        //imageUri = createUri();
+
+                        imgPath = imageUri.toString();
+                        //product.prodUri = imageUri;
+                    }
+                } catch (Exception e) {
+                    //
+                }
+            }
+        });
+    }
+
+
+    // handle the onClick event for the cameraIB
+    public void takePhoto(View view) {
+        checkCameraPermsAndOpenCam();
+        Log.d(TAG, "takePhoto: TEST");
+    }
+
+    // handle picking a photo from the gallery
+    public void editItemimageChooser(View view) {
+        Intent imgChooserIntent = new Intent();
+        imgChooserIntent.setType("image/*");
+        //imgChooserIntent.setAction(Intent.ACTION_GET_CONTENT);
+        imgChooserIntent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+        launchSomeActivity.launch(imgChooserIntent);
+    }
+
+    ActivityResultLauncher<Intent> launchSomeActivity = registerForActivityResult( new ActivityResultContracts.StartActivityForResult(), result -> {
+        //
+        if(result.getResultCode() == Activity.RESULT_OK) {
+            Intent data = result.getData();
+            //dosomething with URI here
+            if(data != null && data.getData() != null) {
+                Uri selectedImgUri = data.getData(); // uri of selected image
+
+                getActivity().getContentResolver().takePersistableUriPermission(selectedImgUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                imgPath = selectedImgUri.toString();
+                Log.d(TAG, "you selected this image!: " + selectedImgUri.toString());
+            }
+        }
+    });
+
 }
