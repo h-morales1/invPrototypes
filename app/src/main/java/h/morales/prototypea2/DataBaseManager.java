@@ -45,9 +45,9 @@ public class DataBaseManager extends SQLiteOpenHelper {
                             productName + " text, " +
                             productMedium + " text, " +
                             productPurchasePrice + " real, " +
-                            productHeight + " real, " +
-                            productWidth + " real, " +
-                            productDepth + " real, " +
+                            productHeight + " text, " +
+                            productWidth + " text, " +
+                            productDepth + " text, " +
                             productLocation + " text, " +
                             productPurchaseDate + " text, " +
                             productFramed + " text, " +
@@ -123,9 +123,9 @@ public class DataBaseManager extends SQLiteOpenHelper {
             String currentName = cursor.getString(1);
             String currentMedium = cursor.getString(2);
             float currentPurchasePrice = cursor.getFloat(3);
-            float currentHeight = cursor.getFloat(4);
-            float currentWidth = cursor.getFloat(5);
-            float currentDepth = cursor.getFloat(6);
+            String currentHeight = cursor.getString(4);
+            String currentWidth = cursor.getString(5);
+            String currentDepth = cursor.getString(6);
             String currentLocation = cursor.getString(7);
             String currentPurchaseDate = cursor.getString(8);
             String currentFraming = cursor.getString(9);
@@ -136,6 +136,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
             String currentPicturePath = cursor.getString(11);
 
             //create a product obj
+            //Product product = new Product(currentID, currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentIsFramed, currentPicturePath, currentCreationDate);
             Product product = new Product(currentID, currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentIsFramed, currentPicturePath, currentCreationDate);
             //add the product to  arrayList
             products.add(product);

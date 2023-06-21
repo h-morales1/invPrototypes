@@ -9,9 +9,9 @@ public class Product {
     String productName;
     String productMedium;
     float productPurchasePrice;
-    float productHeight;// TODO: change product HWD to strings
-    float productWidth;
-    float productDepth;
+    String productHeight;// TODO: change product HWD to strings
+    String productWidth;
+    String productDepth;
     String productLocation;
     String productPurchaseDate;
     boolean productFramed;
@@ -27,7 +27,7 @@ public class Product {
         this.productImage = productImage;
     }
 
-    public Product(String productName, String productMedium, float productPurchasePrice, float productHeight, float productWidth, float productDepth, String productLocation, String productPurchaseDate, boolean productFramed, String productPicturePath,
+    public Product(String productName, String productMedium, float productPurchasePrice, String productHeight, String productWidth, String productDepth, String productLocation, String productPurchaseDate, boolean productFramed, String productPicturePath,
                    String creationDate) {
         this.productName = productName;
         this.productMedium = productMedium;
@@ -42,7 +42,7 @@ public class Product {
         this.creationDate = creationDate;
     }
 
-    public Product(String prodID, String productName, String productMedium, float productPurchasePrice, float productHeight, float productWidth, float productDepth, String productLocation, String productPurchaseDate, boolean productFramed, String productPicturePath,
+    public Product(String prodID, String productName, String productMedium, float productPurchasePrice, String productHeight, String productWidth, String productDepth, String productLocation, String productPurchaseDate, boolean productFramed, String productPicturePath,
                    String creationDate) {
         this.prodID = prodID;
         this.productName = productName;
@@ -70,15 +70,15 @@ public class Product {
         return productPurchasePrice;
     }
 
-    public float getProductHeight() {
+    public String getProductHeight() {
         return productHeight;
     }
 
-    public float getProductWidth() {
+    public String getProductWidth() {
         return productWidth;
     }
 
-    public float getProductDepth() {
+    public String getProductDepth() {
         return productDepth;
     }
 

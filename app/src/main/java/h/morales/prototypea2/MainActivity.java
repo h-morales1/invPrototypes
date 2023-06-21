@@ -66,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
     private String pName = "";
     private String pMedium;
     private float pPurchasePrice;
-    private float pHeight;
-    private float pWidth;
-    private float pDepth;
+    private String pHeight;
+    private String pWidth;
+    private String pDepth;
     private String pLocation;
     private String pPurchaseDate;
     private String pCreationDate;
@@ -126,12 +126,12 @@ public class MainActivity extends AppCompatActivity {
         itemViewModel.getHeight().observe(this, item -> {
             //
             Log.d(TAG, "onCreate: item = " + item.toString());
-            pHeight = Float.parseFloat(item);
+            pHeight = item;
         });
 
         itemViewModel.getDepth().observe(this, item -> {
             Log.d(TAG, "onCreate: item = " + item.toString());
-            pDepth = Float.parseFloat(item);
+            pDepth = item;
         });
 
         itemViewModel.getLocation().observe(this, item -> {
@@ -141,7 +141,8 @@ public class MainActivity extends AppCompatActivity {
 
         itemViewModel.getWidth().observe(this, item -> {
             Log.d(TAG, "onCreate: item = " + item.toString());
-            pWidth = Float.parseFloat(item);
+            //pWidth = Float.parseFloat(item);
+            pWidth = item;
         });
 
        itemViewModel.getPurchaseDate().observe(this, item -> {
