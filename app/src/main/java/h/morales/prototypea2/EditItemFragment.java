@@ -44,6 +44,30 @@ public class EditItemFragment extends Fragment {
     Uri imageUri;
     private String imgPath;
 
+    private String newName;
+    private String newMedium;
+    private float newPurchasePrice;
+    private String newHeight;
+    private String newWidth;
+    private String newDepth;
+    private String newLocation;
+    private String newPurchaseDate;
+    private boolean newFramed;
+    private String newPicturePath;
+    private String newCreationDate;
+
+    private String oldName;
+    private String oldMedium;
+    private float oldPurchasePrice;
+    private String oldHeight;
+    private String oldWidth;
+    private String oldDepth;
+    private String oldLocation;
+    private String oldPurchaseDate;
+    private boolean oldFramed;
+    private String oldPicturePath;
+    private String oldCreationDate;
+
     private ImageButton choosePhoto;
     private ImageButton takePhoto;
 
@@ -155,13 +179,13 @@ public class EditItemFragment extends Fragment {
 
             Log.d(TAG, "onCreate: item = " + item.toString());
             editTextMedium.setText(item);
-            //pMedium = item;
+            oldMedium = item;
         });
 
         editItemViewModel.getPurchasePrice().observe(getViewLifecycleOwner(), item -> {
             Log.d(TAG, "onCreate: item = " + item.toString());
             editTextpurchasePrice.setText(item);
-            //pPurchasePrice = Float.parseFloat(item);
+            oldPurchasePrice = Float.parseFloat(item);
         });
 
         editItemViewModel.getHeight().observe(getViewLifecycleOwner(), item -> {
@@ -169,51 +193,54 @@ public class EditItemFragment extends Fragment {
             Log.d(TAG, "onCreate: item = " + item.toString());
             //h = item;
             editTextH.setText(item);
-            //pHeight = Float.parseFloat(item);
+            oldHeight = item;
         });
 
         editItemViewModel.getDepth().observe(getViewLifecycleOwner(), item -> {
             Log.d(TAG, "onCreate: item = " + item.toString());
             //d = item;
             editTextD.setText(item);
-            //pDepth = Float.parseFloat(item);
+            oldDepth = item;
         });
 
         editItemViewModel.getLocation().observe(getViewLifecycleOwner(), item -> {
             Log.d(TAG, "onCreate: item = " + item.toString());
             editTextLocation.setText(item);
-            //pLocation = item;
+            oldLocation = item;
         });
 
         editItemViewModel.getWidth().observe(getViewLifecycleOwner(), item -> {
             Log.d(TAG, "onCreate: item = " + item.toString());
             //w = item;
             editTextW.setText(item);
-            //pWidth = Float.parseFloat(item);
+            oldWidth = item;
         });
 
         editItemViewModel.getPurchaseDate().observe(getViewLifecycleOwner(), item -> {
             Log.d(TAG, "onCreate: item = " + item.toString());
             editTextpurchaseDate.setText(item);
-            //pPurchaseDate = item;
+            oldPurchaseDate = item;
         });
 
         editItemViewModel.getProdUri().observe(getViewLifecycleOwner(), item -> {
             Log.d(TAG, "onCreate: item = " + item.toString());
             //pieceIV.setImageURI(Uri.parse(item));
             //TODO: this needs to check if a new uri has been selected
+            oldPicturePath = item;
 
         });
 
         editItemViewModel.getProdCreationDate().observe(getViewLifecycleOwner(), item -> {
             Log.d(TAG, "viewItem prodCreationDate: item = " + item.toString());
             editTextCreationDate.setText(item);
+            oldCreationDate = item;
         });
 
         editItemViewModel.getIsFramed().observe(getViewLifecycleOwner(), item -> {
             Log.d(TAG, "viewItem isFramed: item = " + item.toString());
             //framed.setText(item);
-            editItemFramed.setChecked(Boolean.getBoolean(item));
+            editItemFramed.setChecked(Boolean.parseBoolean(item));
+            oldFramed = Boolean.parseBoolean(item);
 
             //hwdCombo = h + " x " + w + " x " + d;
             //hwd.setText(hwdCombo);
@@ -230,6 +257,17 @@ public class EditItemFragment extends Fragment {
         //return inflater.inflate(R.layout.fragment_edit_item, container, false);
         return view;
     }
+
+    private boolean checkIfChanged(String newVal, String oldVal) {
+        //handle checking if values are different, set new value if different than old
+
+        if(newVal.compareTo(oldVal) != 0) {
+            // the two values are not the same
+            return true;
+        }
+        return false;
+    }
+
 
     private Uri createUri() {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
