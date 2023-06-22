@@ -7,7 +7,7 @@
     <item android:title="Add Item"
         android:icon="@drawable/baseline_add_circle_outline_24"
         android:id="@+id/addItem"/>
-    <item android:title="Edit Item"
+    <item android:title="Archive"
         android:icon="@drawable/baseline_edit_note_24"
         android:id="@+id/editItem"/>
 </menu>
