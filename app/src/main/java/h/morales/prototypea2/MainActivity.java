@@ -72,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
     private String pLocation;
     private String pPurchaseDate;
     private String pCreationDate;
+    private String pNote;
     private boolean pFramed;
+    private boolean pSold;
     private String imgPath;
 
     EditText addItemNameET,
@@ -150,6 +152,11 @@ public class MainActivity extends AppCompatActivity {
            pPurchaseDate = item;
        });
 
+       itemViewModel.getNote().observe(this, item -> {
+           Log.d(TAG, "onCreate: item = " + item.toString());
+           pNote = item;
+       });
+
        itemViewModel.getIsFramed().observe(this, item -> {
            Log.d(TAG, "onCreate: item = " + item.toString());
            pFramed = Boolean.parseBoolean(item);
@@ -161,6 +168,17 @@ public class MainActivity extends AppCompatActivity {
                Log.d(TAG, "onCreate: saved item path: " + product.getProductPicturePath());
            }*/
        });
+        itemViewModel.getIsSold().observe(this, item -> {
+            Log.d(TAG, "onCreate: item = " + item.toString());
+            pSold = Boolean.parseBoolean(item);
+            //product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
+
+           /*if(!pName.isEmpty()) {
+
+               dataBaseManager.insertProduct(product);
+               Log.d(TAG, "onCreate: saved item path: " + product.getProductPicturePath());
+           }*/
+        });
 
         itemViewModel.getProdCreationDate().observe(this, item -> {
             Log.d(TAG, "mainActivity creationDate: item = " + item.toString());
@@ -171,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
            // only save items to db if flag is set
            if(!pName.isEmpty() && item) {
 
-               product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath, pCreationDate);
+               product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pNote, pFramed, pSold, imgPath, pCreationDate);
                dataBaseManager.insertProduct(product);
                Log.d(TAG, "onCreate: saved item path: " + product.getProductPicturePath());
            }

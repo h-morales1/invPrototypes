@@ -43,9 +43,11 @@ public class AddItemFragment extends Fragment {
             addItemLocationET,
             addItemWidthET,
             addItemCreationDateET,
-            addItemPurchaseDateET;
+            addItemPurchaseDateET,
+            addItemNoteET;
 
     CheckBox addItemCBX; // framed or not cbx
+    CheckBox addItemSold;
 
     Button confirmBTN;
 
@@ -106,10 +108,12 @@ public class AddItemFragment extends Fragment {
         itemViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
         confirmBTN = (Button) view.findViewById(R.id.addItemConfirmBT); // confirm button
         addItemCBX = (CheckBox) view.findViewById(R.id.addItemCBX);
+        addItemSold = (CheckBox) view.findViewById(R.id.addItemSoldCBX);
         // all the edit text fields
         addItemNameET = (EditText) view.findViewById(R.id.addItemNameET);
         addItemMediumET = (EditText) view.findViewById(R.id.addItemMediumET);
         addItemPurchasePriceET = (EditText) view.findViewById(R.id.addItemPurchasePriceET);
+        addItemNoteET = (EditText) view.findViewById(R.id.addItemNoteET);
         addItemHeightET = (EditText) view.findViewById(R.id.addItemHeightET);
         addItemDepthET = (EditText) view.findViewById(R.id.addItemDepthET);
         addItemLocationET = (EditText) view.findViewById(R.id.addItemLocationET);
@@ -147,8 +151,10 @@ public class AddItemFragment extends Fragment {
                 String pLocation = addItemLocationET.getText().toString();
                 String pWidth = addItemWidthET.getText().toString();
                 String pPurchaseDate = addItemPurchaseDateET.getText().toString();
+                String pNote = addItemNoteET.getText().toString();
                 String pCreationDate = addItemCreationDateET.getText().toString();
                 String isFramed = String.valueOf(addItemCBX.isChecked());
+                String isSold = String.valueOf(addItemSold.isChecked());
                 Log.d(TAG, "addItem is framed: " + isFramed);
 
                 //transfer data from add item form to main activity for processing
@@ -168,8 +174,10 @@ public class AddItemFragment extends Fragment {
                     itemViewModel.setLocation(pLocation);
                     itemViewModel.setWidth(pWidth);
                     itemViewModel.setPurchaseDate(pPurchaseDate);
+                    itemViewModel.setNote(pNote);
                     itemViewModel.setProdCreationDate(pCreationDate);
                     itemViewModel.setIsFramed(isFramed);
+                    itemViewModel.setSold(isSold);
                     itemViewModel.setSaveToDB(true); // save to db
                     Toast.makeText(getContext(), "Product Saved", Toast.LENGTH_LONG).show();
                 }

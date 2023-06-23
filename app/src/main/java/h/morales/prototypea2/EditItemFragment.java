@@ -52,7 +52,9 @@ public class EditItemFragment extends Fragment {
     private String newDepth;
     private String newLocation;
     private String newPurchaseDate;
+    private String newNote;
     private String newFramed;
+    private String newSold;
     private String newPicturePath;
     private String newCreationDate;
 
@@ -64,7 +66,9 @@ public class EditItemFragment extends Fragment {
     private String oldDepth;
     private String oldLocation;
     private String oldPurchaseDate;
+    private String oldNote;
     private String oldFramed;
+    private String oldSold;
     private String oldPicturePath;
     private String oldCreationDate;
 
@@ -133,9 +137,11 @@ public class EditItemFragment extends Fragment {
         EditText editTextD = (EditText) view.findViewById(R.id.editItemDET);
         EditText editTextLocation = (EditText) view.findViewById(R.id.editItemLocationET);
         EditText editTextpurchaseDate = (EditText) view.findViewById(R.id.editItemDateET);
+        EditText editTextNote = (EditText) view.findViewById(R.id.editItemNoteET);
         EditText editTextCreationDate = (EditText) view.findViewById(R.id.editItemCreationDateET);
 
         CheckBox editItemFramed = (CheckBox) view.findViewById(R.id.editItemFramedCBX);
+        CheckBox editItemSold = (CheckBox) view.findViewById(R.id.editItemSoldCBX);
 
         choosePhoto = (ImageButton) view.findViewById(R.id.editItemBrowseIB);
         takePhoto = (ImageButton) view.findViewById(R.id.editItemPhotoIB);
@@ -176,7 +182,9 @@ public class EditItemFragment extends Fragment {
                 newDepth = editTextD.getText().toString();
                 newLocation = editTextLocation.getText().toString();
                 newPurchaseDate = editTextpurchaseDate.getText().toString();
+                newNote = editTextNote.getText().toString();
                 newFramed = String.valueOf(editItemFramed.isChecked());
+                newSold = String.valueOf(editItemSold.isChecked());
                 newCreationDate = editTextCreationDate.getText().toString();
                 newPicturePath = imgPath;
 
@@ -248,6 +256,12 @@ public class EditItemFragment extends Fragment {
             oldPurchaseDate = item;
         });
 
+        editItemViewModel.getNote().observe(getViewLifecycleOwner(), item -> {
+            Log.d(TAG, "onCreate: item = " + item.toString());
+            editTextNote.setText(item);
+            oldNote = item;
+        });
+
         editItemViewModel.getProdUri().observe(getViewLifecycleOwner(), item -> {
             Log.d(TAG, "onCreate: item = " + item.toString());
             //pieceIV.setImageURI(Uri.parse(item));
@@ -277,6 +291,12 @@ public class EditItemFragment extends Fragment {
                 dataBaseManager.insertProduct(product);
                 Log.d(TAG, "onCreate: saved item path: " + product.getProductPicturePath());
             }*/
+        });
+
+        editItemViewModel.getIsSold().observe(getViewLifecycleOwner(), item -> {
+            Log.d(TAG, "viewItem isSold: item = " + item.toString());
+            editItemSold.setChecked(Boolean.parseBoolean(item));
+            oldSold = item;
         });
 
         // Inflate the layout for this fragment
@@ -319,6 +339,14 @@ public class EditItemFragment extends Fragment {
            }
        }
 
+
+        if(checkIfChanged(newNote, oldNote)) {
+            //old and new Note are not equal
+            if(!newNote.isEmpty()) {
+                oldNote = newNote; // check new isnt empty
+            }
+        }
+
       if(checkIfChanged(newHeight, oldHeight)) {
           if(!newHeight.isEmpty()) {
               oldHeight = newHeight;
@@ -355,6 +383,12 @@ public class EditItemFragment extends Fragment {
           }
       }
 
+        if(checkIfChanged(newSold, oldSold)) {
+            if(!newSold.isEmpty()) {
+                oldSold = newSold;
+            }
+        }
+
       if(checkIfChanged(newPicturePath, oldPicturePath)) {
           if(!newPicturePath.isEmpty()) {
               Log.d(TAG, "setNewVals: picture path set to new pic path");
@@ -368,7 +402,7 @@ public class EditItemFragment extends Fragment {
           }
       }
 
-        updatedProd = new Product(oldName, oldMedium, Float.parseFloat(oldPurchasePrice), oldHeight, oldWidth, oldDepth, oldLocation, oldPurchaseDate, Boolean.parseBoolean(oldFramed), oldPicturePath, newCreationDate);
+        updatedProd = new Product(oldName, oldMedium, Float.parseFloat(oldPurchasePrice), oldHeight, oldWidth, oldDepth, oldLocation, oldPurchaseDate, oldNote, Boolean.parseBoolean(oldFramed), Boolean.parseBoolean(oldSold), oldPicturePath, newCreationDate);
         updateProductDB(updatedProd); // commit changes to db
     }
 

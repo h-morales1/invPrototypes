@@ -14,7 +14,9 @@ public class Product {
     String productDepth;
     String productLocation;
     String productPurchaseDate;
+    String productNote;
     boolean productFramed;
+    boolean productSold;
     String productPicturePath;
     Uri prodUri;
 
@@ -27,7 +29,7 @@ public class Product {
         this.productImage = productImage;
     }
 
-    public Product(String productName, String productMedium, float productPurchasePrice, String productHeight, String productWidth, String productDepth, String productLocation, String productPurchaseDate, boolean productFramed, String productPicturePath,
+    public Product(String productName, String productMedium, float productPurchasePrice, String productHeight, String productWidth, String productDepth, String productLocation, String productPurchaseDate,String productNote, boolean productFramed, boolean productSold, String productPicturePath,
                    String creationDate) {
         this.productName = productName;
         this.productMedium = productMedium;
@@ -37,12 +39,14 @@ public class Product {
         this.productDepth = productDepth;
         this.productLocation = productLocation;
         this.productPurchaseDate = productPurchaseDate;
+        this.productNote = productNote;
         this.productFramed = productFramed;
+        this.productSold = productSold;
         this.productPicturePath = productPicturePath;
         this.creationDate = creationDate;
     }
 
-    public Product(String prodID, String productName, String productMedium, float productPurchasePrice, String productHeight, String productWidth, String productDepth, String productLocation, String productPurchaseDate, boolean productFramed, String productPicturePath,
+    public Product(String prodID, String productName, String productMedium, float productPurchasePrice, String productHeight, String productWidth, String productDepth, String productLocation, String productPurchaseDate, String productNote, boolean productFramed, boolean productSold, String productPicturePath,
                    String creationDate) {
         this.prodID = prodID;
         this.productName = productName;
@@ -53,7 +57,9 @@ public class Product {
         this.productDepth = productDepth;
         this.productLocation = productLocation;
         this.productPurchaseDate = productPurchaseDate;
+        this.productNote = productNote;
         this.productFramed = productFramed;
+        this.productSold = productSold;
         this.productPicturePath = productPicturePath;
         this.creationDate = creationDate;
     }
@@ -89,9 +95,13 @@ public class Product {
     public String getProductPurchaseDate() {
         return productPurchaseDate;
     }
+    public String getProductNote() { return productNote; }
 
     public boolean isProductFramed() {
         return productFramed;
+    }
+    public boolean isProductSold() {
+        return productSold;
     }
 
     public String getProductPicturePath() {

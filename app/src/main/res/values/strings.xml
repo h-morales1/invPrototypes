@@ -47,4 +47,6 @@
     <string name="view_item_option_delete">Delete</string>
     <string name="add_item_sold">Sold</string>
     <string name="add_item_purchase_date">Purchase Date</string>
+    <string name="view_item_sold">"Sold: "</string>
+    <string name="add_item_note">Note</string>
 </resources>

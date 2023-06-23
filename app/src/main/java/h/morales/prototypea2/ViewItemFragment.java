@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ViewItemFragment#newInstance} factory method to
@@ -51,7 +53,9 @@ public class ViewItemFragment extends Fragment {
             location,
             purchaseDate,
             creationDate,
-            framed;
+            note,
+            framed,
+            sold;
 
     ImageView pieceIV;
 
@@ -108,7 +112,9 @@ public class ViewItemFragment extends Fragment {
         location = (TextView) view.findViewById(R.id.locationTV);
         purchaseDate = (TextView) view.findViewById(R.id.purchaseDateTV);
         creationDate = (TextView) view.findViewById(R.id.creationDateTV);
+        note = (TextView) view.findViewById(R.id.viewItemNoteTV);
         framed = (TextView) view.findViewById(R.id.framedTV);
+        sold = (TextView) view.findViewById(R.id.viewItemSoldTV);
 
         pieceIV = (ImageView) view.findViewById(R.id.pieceIV);
 
@@ -189,6 +195,11 @@ public class ViewItemFragment extends Fragment {
             creationDate.setText(item);
         });
 
+        homeItemViewModel.getNote().observe(getViewLifecycleOwner(), item -> {
+            Log.d(TAG, "viewItem Note: item = " + item.toString());
+            note.setText(item);
+        });
+
         homeItemViewModel.getIsFramed().observe(getViewLifecycleOwner(), item -> {
             Log.d(TAG, "viewItem isFramed: item = " + item.toString());
             framed.setText(item);
@@ -202,6 +213,12 @@ public class ViewItemFragment extends Fragment {
                 dataBaseManager.insertProduct(product);
                 Log.d(TAG, "onCreate: saved item path: " + product.getProductPicturePath());
             }*/
+        });
+
+        homeItemViewModel.getIsSold().observe(getViewLifecycleOwner(), item -> {
+            //
+            Log.d(TAG, "viewItem isSold: item = " + item.toString());
+            sold.setText(item);
         });
 
         return view;

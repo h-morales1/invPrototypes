@@ -233,7 +233,7 @@
                     android:id="@+id/framedDisplayTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="135dp"
+                    android:layout_marginEnd="270dp"
                     android:layout_marginBottom="20dp"
                     android:text="@string/view_item_framed"
                     android:textSize="20sp"
@@ -247,7 +247,7 @@
                     android:id="@+id/framedTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="100dp"
+                    android:layout_marginEnd="200dp"
                     android:layout_marginBottom="20dp"
                     android:text="TextView"
                     android:textAlignment="center"
@@ -256,6 +256,58 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/framedDisplayTV"
                     app:layout_constraintTop_toBottomOf="@+id/creationDateTV" />
+
+                <TextView
+                    android:id="@+id/soldDisplayTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/view_item_sold"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/creationDisplayTV" />
+
+                <TextView
+                    android:id="@+id/viewItemSoldTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="250dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="text"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/creationDateTV" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="300dp"
+                    android:text="Note:"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/framedDisplayTV" />
+
+                <TextView
+                    android:id="@+id/viewItemNoteTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="200dp"
+                    android:text="TextView"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView6"
+                    app:layout_constraintTop_toBottomOf="@+id/framedDisplayTV" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

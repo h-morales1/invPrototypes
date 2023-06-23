@@ -26,7 +26,9 @@ public class DataBaseManager extends SQLiteOpenHelper {
                                 productDepth = "depth",
                                 productLocation = "location",
                                 productPurchaseDate = "purchaseDate",
+                                productNote = "note",
                                 productFramed = "framed",
+                                productSold = "sold",
                                 productPicturePath = "picturePath",
 
                                 creationDate = "creationDate";
@@ -50,7 +52,9 @@ public class DataBaseManager extends SQLiteOpenHelper {
                             productDepth + " text, " +
                             productLocation + " text, " +
                             productPurchaseDate + " text, " +
+                            productNote + " text, " +
                             productFramed + " text, " +
+                            productSold + " text, " +
                             creationDate + " text, " +
                             productPicturePath + " text )";
 
@@ -78,7 +82,9 @@ public class DataBaseManager extends SQLiteOpenHelper {
                             " '" +  product.getProductDepth() + "'," +
                             " '" +  product.getProductLocation() + "'," +
                             " '" +  product.getProductPurchaseDate() + "'," +
+                            " '" +  product.getProductNote() + "'," +
                             " '" +  product.isProductFramed() + "'," +
+                            " '" +  product.isProductSold() + "'," +
                             " '" +  product.getCreationDate() + "'," +
                             " '" +  product.getProductPicturePath() +
                             "' )";
@@ -113,7 +119,9 @@ public class DataBaseManager extends SQLiteOpenHelper {
                          productDepth + " = " + "'" + prod.getProductDepth() + "', " +
                          productLocation + " = " + "'" + prod.getProductLocation() + "', " +
                          productPurchaseDate + " = " + "'" + prod.getProductPurchaseDate() + "', " +
+                         productNote + " = " + "'" + prod.getProductNote() + "', " +
                          productFramed + " = " + "'" + prod.isProductFramed() + "', " +
+                         productSold + " = " + "'" + prod.isProductSold() + "', " +
                          creationDate + " = " + "'" + prod.getCreationDate() + "', " +
                          productPicturePath + " = " + "'" + prod.getProductPicturePath() + "' ";
         //String sqlUpdate = "update " + TABLE_NAME + setVals + " where " + productID + " = " + prodID;
@@ -152,16 +160,20 @@ public class DataBaseManager extends SQLiteOpenHelper {
             String currentDepth = cursor.getString(6);
             String currentLocation = cursor.getString(7);
             String currentPurchaseDate = cursor.getString(8);
-            String currentFraming = cursor.getString(9);
+            String currentNote = cursor.getString(9);
+            String currentFraming = cursor.getString(10);
+            String currentSold = cursor.getString(11);
+            Log.d(TAG, "selectAll: note="+ currentNote);
             Log.d(TAG, "selectAll currentFraming: "+ currentFraming);
             boolean currentIsFramed = Boolean.parseBoolean(currentFraming);
+            boolean currentIsSold = Boolean.parseBoolean(currentSold);
             Log.d(TAG, "selectAll isframed?: " + currentIsFramed);
-            String currentCreationDate = cursor.getString(10);
-            String currentPicturePath = cursor.getString(11);
+            String currentCreationDate = cursor.getString(12);
+            String currentPicturePath = cursor.getString(13);
 
             //create a product obj
             //Product product = new Product(currentID, currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentIsFramed, currentPicturePath, currentCreationDate);
-            Product product = new Product(currentID, currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentIsFramed, currentPicturePath, currentCreationDate);
+            Product product = new Product(currentID, currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentNote, currentIsFramed, currentIsSold, currentPicturePath, currentCreationDate);
             //add the product to  arrayList
             products.add(product);
         } //end while loop
