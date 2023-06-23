@@ -5,6 +5,8 @@ import static android.content.ContentValues.TAG;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
@@ -180,6 +182,7 @@ public class AddItemFragment extends Fragment {
                     itemViewModel.setSold(isSold);
                     itemViewModel.setSaveToDB(true); // save to db
                     Toast.makeText(getContext(), "Product Saved", Toast.LENGTH_LONG).show();
+                    replaceFragment(new HomeFragment());
                 }
             }
         });
@@ -187,7 +190,13 @@ public class AddItemFragment extends Fragment {
         return view;
         //return inflater.inflate(R.layout.fragment_add_item, container, false);
     }
-
+    private void replaceFragment(Fragment fragment) {
+        //FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
+    }
     private boolean checkField(String et) {
         return et.isEmpty();
     }

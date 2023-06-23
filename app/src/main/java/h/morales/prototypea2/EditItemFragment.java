@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
@@ -190,6 +192,7 @@ public class EditItemFragment extends Fragment {
 
                 setNewVals(); // save any new data to db
                 Toast.makeText(getContext(), "Product updated!", Toast.LENGTH_SHORT).show();
+                replaceFragment(new HomeFragment());
             }
         });
 
@@ -302,6 +305,14 @@ public class EditItemFragment extends Fragment {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_edit_item, container, false);
         return view;
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        //FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
     }
 
     private boolean checkIfChanged(String newVal, String oldVal) {

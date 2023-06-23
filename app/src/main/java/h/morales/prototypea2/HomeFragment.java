@@ -242,7 +242,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
         //Log.d(TAG, "onItemClick: you clicked recycler item: " + productArrayList.get(post).getProductName());
         Log.d(TAG, "onItemClick: you clicked recycler item: " + dataBaseManager.selectAll().get(post).getProductName());
-        Toast.makeText(getContext(), "You clicked on " + dataBaseManager.selectAll().get(post).getProductName(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(), "You clicked on " + dataBaseManager.selectAll().get(post).getProductName(), Toast.LENGTH_LONG).show();
 
         //set proper details
         homeItemViewModel.setName(dataBaseManager.selectAll().get(post).getProductName());
