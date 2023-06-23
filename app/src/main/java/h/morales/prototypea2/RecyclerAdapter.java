@@ -3,6 +3,7 @@ package h.morales.prototypea2;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,6 +49,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Product product = productArrayList.get(position);
         holder.textView.setText(product.getProductName());
+        holder.itemPurchasePrice.setText("$" + String.valueOf(product.getProductPurchasePrice()));
+        if(product.isProductSold()) {
+            //set to gray if sold
+            holder.itemSold.setColorFilter(context.getResources().getColor(R.color.black));
+        } else {
+            // set to green if not sold
+            holder.itemSold.setColorFilter(context.getResources().getColor(R.color.teal_700));
+        }
         //Uri imgUri = Uri.parse(product.productPicturePath);
         //holder.titleImage.setImageURI(null);
         //holder.titleImage.setImageURI(Uri.parse(product.productPicturePath));
@@ -114,10 +124,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ShapeableImageView titleImage;
         TextView textView;
+        TextView itemPurchasePrice;
+        ImageView itemSold;
         public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             titleImage = itemView.findViewById(R.id.title_image);
             textView = itemView.findViewById(R.id.itemText);
+            itemPurchasePrice = itemView.findViewById(R.id.itemPurchasePriceTV);
+            itemSold = itemView.findViewById(R.id.itemSoldIV);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
