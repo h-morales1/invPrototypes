@@ -17,15 +17,15 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="1083dp">
 
                 <!-- TODO: Update blank fragment layout -->
 
                 <ImageView
                     android:id="@+id/pieceIV"
-                    android:layout_width="333sp"
-                    android:layout_height="265sp"
-                    android:layout_marginBottom="400dp"
+                    android:layout_width="385dp"
+                    android:layout_height="405dp"
+                    android:layout_marginBottom="600dp"
                     android:src="@drawable/ic_launcher_foreground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="300dp"
-                    android:layout_marginBottom="300dp"
+                    android:layout_marginBottom="400dp"
                     android:text="@string/view_item_title"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -51,7 +51,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="100dp"
-                    android:layout_marginBottom="300dp"
+                    android:layout_marginBottom="400dp"
                     android:singleLine="false"
                     android:text="TextView"
                     android:textAlignment="center"
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="265dp"
-                    android:layout_marginBottom="270dp"
+                    android:layout_marginBottom="350dp"
                     android:text="@string/view_item_medium"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -80,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="150dp"
-                    android:layout_marginBottom="270dp"
+                    android:layout_marginBottom="350dp"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="20sp"
@@ -94,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="200dp"
-                    android:layout_marginBottom="250dp"
+                    android:layout_marginBottom="300dp"
                     android:text="@string/view_item_purchase_price"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -108,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="100dp"
-                    android:layout_marginBottom="250dp"
+                    android:layout_marginBottom="300dp"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="20sp"
@@ -122,7 +122,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="250dp"
-                    android:layout_marginBottom="200dp"
+                    android:layout_marginBottom="250dp"
                     android:text="@string/view_item_HWD"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -136,7 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="50dp"
-                    android:layout_marginBottom="200dp"
+                    android:layout_marginBottom="250dp"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="20sp"
@@ -150,7 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="260dp"
-                    android:layout_marginBottom="150dp"
+                    android:layout_marginBottom="200dp"
                     android:text="@string/view_item_locaiton"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -164,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="120dp"
-                    android:layout_marginBottom="150dp"
+                    android:layout_marginBottom="200dp"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="20sp"
@@ -178,7 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="205dp"
-                    android:layout_marginBottom="100dp"
+                    android:layout_marginBottom="150dp"
                     android:text="@string/view_item_purchase_date"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -192,7 +192,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="100dp"
-                    android:layout_marginBottom="100dp"
+                    android:layout_marginBottom="150dp"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="20sp"
@@ -206,7 +206,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="190dp"
-                    android:layout_marginBottom="70dp"
+                    android:layout_marginBottom="100dp"
                     android:text="@string/view_item_creation_date"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -220,7 +220,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="100dp"
-                    android:layout_marginBottom="70dp"
+                    android:layout_marginBottom="100dp"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="20sp"
@@ -234,7 +234,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="270dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="80dp"
                     android:text="@string/view_item_framed"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -248,7 +248,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="200dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="80dp"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="20sp"
@@ -262,7 +262,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="100dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="80dp"
                     android:text="@string/view_item_sold"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -276,7 +276,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="250dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="80dp"
                     android:text="text"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -284,30 +284,54 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/creationDateTV" />
 
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="300dp"
-                    android:text="Note:"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="350dp"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/framedDisplayTV" />
+                    app:layout_constraintTop_toBottomOf="@+id/framedTV">
 
-                <TextView
-                    android:id="@+id/viewItemNoteTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="200dp"
-                    android:text="TextView"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView6"
-                    app:layout_constraintTop_toBottomOf="@+id/framedDisplayTV" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <HorizontalScrollView
+                            android:layout_width="298dp"
+                            android:layout_height="66dp"
+                            tools:layout_editor_absoluteX="79dp"
+                            tools:layout_editor_absoluteY="3dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/viewItemNoteTV"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="50dp"
+                                    android:text="TextView"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+                        </HorizontalScrollView>
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="66dp"
+                            android:layout_height="wrap_content"
+                            android:text="Note:"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:visibility="invisible"
+                            tools:layout_editor_absoluteX="9dp"
+                            tools:layout_editor_absoluteY="13dp" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

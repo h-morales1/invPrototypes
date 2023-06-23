@@ -166,15 +166,15 @@ public class AddItemFragment extends Fragment {
                     Toast.makeText(getContext(), "Fill in all fields!", Toast.LENGTH_LONG).show();
                 } else {
                     // no field is empty
-                    itemViewModel.setName(pName);
-                    itemViewModel.setMedium(pMedium);
+                    itemViewModel.setName(pName.replace("'","''"));
+                    itemViewModel.setMedium(pMedium.replace("'","''"));
                     itemViewModel.setPurchasePrice(pPurchasePrice);
-                    itemViewModel.setHeight(pHeight);
-                    itemViewModel.setDepth(pDepth);
-                    itemViewModel.setLocation(pLocation);
-                    itemViewModel.setWidth(pWidth);
+                    itemViewModel.setHeight(pHeight.replace("'","''"));
+                    itemViewModel.setDepth(pDepth.replace("'","''"));
+                    itemViewModel.setLocation(pLocation.replace("'","''"));
+                    itemViewModel.setWidth(pWidth.replace("'","''"));
                     itemViewModel.setPurchaseDate(pPurchaseDate);
-                    itemViewModel.setNote(pNote);
+                    itemViewModel.setNote(pNote.replace("'","''"));
                     itemViewModel.setProdCreationDate(pCreationDate);
                     itemViewModel.setIsFramed(isFramed);
                     itemViewModel.setSold(isSold);
