@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/view_item_option_edit"
-        android:icon="@drawable/baseline_home_24"
-        android:title="@string/view_item_option_edit" />
+        android:icon="@drawable/baseline_edit_24"
+        android:title="@string/view_item_option_edit"
+        app:showAsAction="always"/>
     <item
         android:id="@+id/view_item_option_delete"
         android:icon="@drawable/baseline_home_24"
