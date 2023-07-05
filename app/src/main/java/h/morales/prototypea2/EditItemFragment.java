@@ -413,7 +413,7 @@ public class EditItemFragment extends Fragment {
           }
       }
 
-        updatedProd = new Product(oldName.replace("'","''"), oldMedium.replace("'","''"), Float.parseFloat(oldPurchasePrice), oldHeight.replace("'","''"), oldWidth.replace("'","''"), oldDepth.replace("'","''"), oldLocation.replace("'","''"), oldPurchaseDate, oldNote.replace("'","''"), Boolean.parseBoolean(oldFramed), Boolean.parseBoolean(oldSold), oldPicturePath, newCreationDate);
+        updatedProd = new Product(oldName.replace("'","''"), oldMedium.replace("'","''"), oldPurchasePrice, oldHeight.replace("'","''"), oldWidth.replace("'","''"), oldDepth.replace("'","''"), oldLocation.replace("'","''"), oldPurchaseDate, oldNote.replace("'","''"), Boolean.parseBoolean(oldFramed), Boolean.parseBoolean(oldSold), oldPicturePath, newCreationDate);
         updateProductDB(updatedProd); // commit changes to db
     }
 

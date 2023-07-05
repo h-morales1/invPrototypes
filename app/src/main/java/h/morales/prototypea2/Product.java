@@ -8,7 +8,7 @@ public class Product {
 
     String productName;
     String productMedium;
-    float productPurchasePrice;
+    String productPurchasePrice;
     String productHeight;// TODO: change product HWD to strings
     String productWidth;
     String productDepth;
@@ -29,7 +29,7 @@ public class Product {
         this.productImage = productImage;
     }
 
-    public Product(String productName, String productMedium, float productPurchasePrice, String productHeight, String productWidth, String productDepth, String productLocation, String productPurchaseDate,String productNote, boolean productFramed, boolean productSold, String productPicturePath,
+    public Product(String productName, String productMedium, String productPurchasePrice, String productHeight, String productWidth, String productDepth, String productLocation, String productPurchaseDate,String productNote, boolean productFramed, boolean productSold, String productPicturePath,
                    String creationDate) {
         this.productName = productName;
         this.productMedium = productMedium;
@@ -46,7 +46,7 @@ public class Product {
         this.creationDate = creationDate;
     }
 
-    public Product(String prodID, String productName, String productMedium, float productPurchasePrice, String productHeight, String productWidth, String productDepth, String productLocation, String productPurchaseDate, String productNote, boolean productFramed, boolean productSold, String productPicturePath,
+    public Product(String prodID, String productName, String productMedium, String productPurchasePrice, String productHeight, String productWidth, String productDepth, String productLocation, String productPurchaseDate, String productNote, boolean productFramed, boolean productSold, String productPicturePath,
                    String creationDate) {
         this.prodID = prodID;
         this.productName = productName;
@@ -72,7 +72,7 @@ public class Product {
         return productMedium;
     }
 
-    public float getProductPurchasePrice() {
+    public String getProductPurchasePrice() {
         return productPurchasePrice;
     }
 

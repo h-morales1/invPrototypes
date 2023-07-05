@@ -33,6 +33,8 @@ public class DataBaseManager extends SQLiteOpenHelper {
 
                                 creationDate = "creationDate";
 
+    private static final String NEW_TABLE_NAME = "productsTable2";
+
     private static final int DATABASE_VERSION = 1;
 
     //constructor
@@ -59,6 +61,51 @@ public class DataBaseManager extends SQLiteOpenHelper {
                             productPicturePath + " text )";
 
         sqLiteDatabase.execSQL(sqlCreate);
+    }
+
+    public void upDateColumn() {
+        //get old data
+        ArrayList<Product> oldData = selectAll();
+
+        //create new schema
+        SQLiteDatabase database = getWritableDatabase();
+        String sqlCreate = "create table " + NEW_TABLE_NAME + "( " +
+                productID + " integer primary key autoincrement, " +
+                productName + " text, " +
+                productMedium + " text, " +
+                productPurchasePrice + " text, " +
+                productHeight + " text, " +
+                productWidth + " text, " +
+                productDepth + " text, " +
+                productLocation + " text, " +
+                productPurchaseDate + " text, " +
+                productNote + " text, " +
+                productFramed + " text, " +
+                productSold + " text, " +
+                creationDate + " text, " +
+                productPicturePath + " text )";
+
+        database.execSQL(sqlCreate);
+        //transfer old data
+        for( int i=0; i< oldData.size();i++) {
+            Product product = oldData.get(i);
+            String sqlInsert = "insert into " + NEW_TABLE_NAME +
+                    " values( null, '" + product.getProductName() + "'," +
+                    " '" +  product.getProductMedium() + "'," +
+                    " '" +  product.getProductPurchasePrice() + "'," +
+                    " '" +  product.getProductHeight() + "'," +
+                    " '" +  product.getProductWidth() + "'," +
+                    " '" +  product.getProductDepth() + "'," +
+                    " '" +  product.getProductLocation() + "'," +
+                    " '" +  product.getProductPurchaseDate() + "'," +
+                    " '" +  product.getProductNote() + "'," +
+                    " '" +  product.isProductFramed() + "'," +
+                    " '" +  product.isProductSold() + "'," +
+                    " '" +  product.getCreationDate() + "'," +
+                    " '" +  product.getProductPicturePath() +
+                    "' )";
+            database.execSQL(sqlInsert);
+        }
     }
 
     @Override
@@ -154,7 +201,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
             String currentID = cursor.getString(0); // get ID
             String currentName = cursor.getString(1);
             String currentMedium = cursor.getString(2);
-            float currentPurchasePrice = cursor.getFloat(3);
+            String currentPurchasePrice = String.valueOf(cursor.getFloat(3));
             String currentHeight = cursor.getString(4);
             String currentWidth = cursor.getString(5);
             String currentDepth = cursor.getString(6);

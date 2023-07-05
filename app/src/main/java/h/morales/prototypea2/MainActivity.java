@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     private Product product;
     private String pName = "";
     private String pMedium;
-    private float pPurchasePrice;
+    private String pPurchasePrice;
     private String pHeight;
     private String pWidth;
     private String pDepth;
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
         itemViewModel.getPurchasePrice().observe(this, item -> {
             Log.d(TAG, "onCreate: item = " + item.toString());
-            pPurchasePrice = Float.parseFloat(item);
+            pPurchasePrice = item;
         });
 
         itemViewModel.getHeight().observe(this, item -> {
@@ -196,7 +196,8 @@ public class MainActivity extends AppCompatActivity {
        });
 
         //show home fragment by default
-        replaceFragment(new HomeFragment());
+        //replaceFragment(new HomeFragment()); // TODO : return this to be HOMEFRAGMENT as default
+        replaceFragment(new ArchiveFragment()); // TODO : return this to be HOMEFRAGMENT as default
         //imageUri = createUri();
         registerPictureLauncher();
         /*product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
