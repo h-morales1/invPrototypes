@@ -19,7 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -73,8 +75,10 @@ public class MainActivity extends AppCompatActivity {
     private String pPurchaseDate;
     private String pCreationDate;
     private String pNote;
+    private String pCategories;
     private boolean pFramed;
     private boolean pSold;
+    private boolean pIsOnWebStore;
     private String imgPath;
 
     EditText addItemNameET,
@@ -101,6 +105,15 @@ public class MainActivity extends AppCompatActivity {
 
         //get db
         dataBaseManager = new DataBaseManager(this);
+
+        //TODO only trigger migration if old db is NOT empty
+        if(!dataBaseManager.selectAll(dataBaseManager.getOldTableName()).isEmpty()) {
+            //old db is NOT empty, perform migration
+            dataBaseManager.migrateData();
+        } else {
+            //dont perform migration
+        }
+        //
 
         //observe addItem fragment fields
         itemViewModel = new ViewModelProvider(this).get(ItemViewModel.class);
@@ -157,6 +170,11 @@ public class MainActivity extends AppCompatActivity {
            pNote = item;
        });
 
+       itemViewModel.getCategories().observe(this, item -> {
+           Log.d(TAG, "onCreate: item = " + item);
+           pCategories = item;
+       });
+
        itemViewModel.getIsFramed().observe(this, item -> {
            Log.d(TAG, "onCreate: item = " + item.toString());
            pFramed = Boolean.parseBoolean(item);
@@ -179,6 +197,10 @@ public class MainActivity extends AppCompatActivity {
                Log.d(TAG, "onCreate: saved item path: " + product.getProductPicturePath());
            }*/
         });
+        itemViewModel.getIsOnWebStore().observe(this, item -> {
+            Log.d(TAG, "onCreate: item = " + item);
+            pIsOnWebStore = Boolean.parseBoolean(item);
+        });
 
         itemViewModel.getProdCreationDate().observe(this, item -> {
             Log.d(TAG, "mainActivity creationDate: item = " + item.toString());
@@ -189,15 +211,16 @@ public class MainActivity extends AppCompatActivity {
            // only save items to db if flag is set
            if(!pName.isEmpty() && item) {
 
-               product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pNote, pFramed, pSold, imgPath, pCreationDate);
-               dataBaseManager.insertProduct(product);
+               product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pNote, pCategories, pFramed, pSold, pIsOnWebStore, imgPath, pCreationDate);
+               dataBaseManager.insertProduct(dataBaseManager.getNewTableName(), product);
                Log.d(TAG, "onCreate: saved item path: " + product.getProductPicturePath());
            }
        });
 
+
         //show home fragment by default
-        //replaceFragment(new HomeFragment()); // TODO : return this to be HOMEFRAGMENT as default
-        replaceFragment(new ArchiveFragment()); // TODO : return this to be HOMEFRAGMENT as default
+        replaceFragment(new HomeFragment()); // TODO : return this to be HOMEFRAGMENT as default
+        //replaceFragment(new ArchiveFragment()); // TODO : return this to be HOMEFRAGMENT as default
         //imageUri = createUri();
         registerPictureLauncher();
         /*product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
@@ -205,9 +228,9 @@ public class MainActivity extends AppCompatActivity {
 
             dataBaseManager.insertProduct(product);
         }*/
-        ArrayList<Product> ps = dataBaseManager.selectAll();
+        //ArrayList<Product> ps = dataBaseManager.selectAll();
         //Log.d(TAG, "onCreate: ps: " + ps.get(0).getProductName());
-        Log.d(TAG, "onCreate: ps: " + ps.size());
+        //Log.d(TAG, "onCreate: ps: " + ps.size());
         /*if(imageUri != null) {
             product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
             dataBaseManager.insertProduct(product);

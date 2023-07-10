@@ -31,7 +31,9 @@ public class DataBaseManager extends SQLiteOpenHelper {
                                 productSold = "sold",
                                 productPicturePath = "picturePath",
 
-                                creationDate = "creationDate";
+                                creationDate = "creationDate",
+                                productIsOnWebStore = "isOnWebStore",
+                                productCategories = "categories";
 
     private static final String NEW_TABLE_NAME = "productsTable2";
 
@@ -40,6 +42,15 @@ public class DataBaseManager extends SQLiteOpenHelper {
     //constructor
     public DataBaseManager(@Nullable Context context) {
         super(context, DATA_BASE_NAME, null, DATABASE_VERSION);
+    }
+
+    //getter
+    public String getOldTableName() {
+        return TABLE_NAME;
+    }
+
+    public String getNewTableName() {
+        return NEW_TABLE_NAME;
     }
 
     @Override
@@ -63,9 +74,13 @@ public class DataBaseManager extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(sqlCreate);
     }
 
-    public void upDateColumn() {
+    /*
+    This method is only triggered IF the old table is NOT empty,
+    meant to only be triggered ONCE
+     */
+    public void migrateData() {
         //get old data
-        ArrayList<Product> oldData = selectAll();
+        ArrayList<Product> oldData = selectAll(TABLE_NAME);
 
         //create new schema
         SQLiteDatabase database = getWritableDatabase();
@@ -106,6 +121,28 @@ public class DataBaseManager extends SQLiteOpenHelper {
                     "' )";
             database.execSQL(sqlInsert);
         }
+
+        //TODO CLEAR OLD DATABASE OR ELSE IT PROCS MIGRATION MORE THAN ONCE
+        database.delete(TABLE_NAME, null, null);
+
+        // add new columns for productOnWebStore and tags
+        addColumn();
+    }
+
+    public void addColumn() {
+        //TODO DEPRECATED AFTER MIGRATION COMPLETE
+        String sqlAddColumn1 = "alter table " + NEW_TABLE_NAME + " add column "+ productIsOnWebStore + " text default " + "'false'";
+
+        SQLiteDatabase database = getWritableDatabase();
+
+        String sqlAddColumn2 = "alter table " + NEW_TABLE_NAME + " add column " + productCategories + " text default " + "'default'";
+
+        database.execSQL(sqlAddColumn1);
+        Log.d(TAG, "addColumn: added productOnWebStore");
+        database.execSQL(sqlAddColumn2);
+        Log.d(TAG, "addColumn: added productCategories");
+        database.close();
+
     }
 
     @Override
@@ -118,9 +155,9 @@ public class DataBaseManager extends SQLiteOpenHelper {
     }
 
     // method to handle inserting a product
-    public void insertProduct(Product product) {
+    public void insertProduct(String tableName, Product product) {
         Log.d(TAG, "insertProduct: isFramed: " + product.isProductFramed());
-        String sqlInsert = "insert into " + TABLE_NAME +
+        String sqlInsert = "insert into " + tableName +
                             " values( null, '" + product.getProductName() + "'," +
                             " '" +  product.getProductMedium() + "'," +
                             " '" +  product.getProductPurchasePrice() + "'," +
@@ -133,7 +170,9 @@ public class DataBaseManager extends SQLiteOpenHelper {
                             " '" +  product.isProductFramed() + "'," +
                             " '" +  product.isProductSold() + "'," +
                             " '" +  product.getCreationDate() + "'," +
-                            " '" +  product.getProductPicturePath() +
+                            " '" +  product.getProductPicturePath() + "'," +
+                            " '" +  product.isOnWebStore() + "'," +
+                            " '" +  product.getProductCategories() +
                             "' )";
 
         //retrieve a db and insert the product
@@ -145,8 +184,8 @@ public class DataBaseManager extends SQLiteOpenHelper {
     }
 
     // method to delete item based on productID
-    public void deleteItem(int id) {
-        String sqlDelete = "delete from " + TABLE_NAME + " where " + productID + "='" + id + "'";
+    public void deleteItem(String tableName, int id) {
+        String sqlDelete = "delete from " + tableName + " where " + productID + "='" + id + "'";
 
         SQLiteDatabase database = getWritableDatabase(); // retrieve db
 
@@ -157,7 +196,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
     }
 
     //method to update a product using the id as entry
-    public void updateProduct(int prodID, Product prod) {
+    public void updateProduct(String tableName, int prodID, Product prod) {
         String setVals = productName + " = " + "'" + prod.getProductName() + "', " +
                          productMedium + " = " + "'" + prod.getProductMedium() + "', " +
                          productPurchasePrice + " = " + "'" + prod.getProductPurchasePrice() + "', " +
@@ -170,9 +209,11 @@ public class DataBaseManager extends SQLiteOpenHelper {
                          productFramed + " = " + "'" + prod.isProductFramed() + "', " +
                          productSold + " = " + "'" + prod.isProductSold() + "', " +
                          creationDate + " = " + "'" + prod.getCreationDate() + "', " +
-                         productPicturePath + " = " + "'" + prod.getProductPicturePath() + "' ";
+                         productPicturePath + " = " + "'" + prod.getProductPicturePath() + "', " +
+                         productIsOnWebStore + " = " + "'" + prod.isOnWebStore() + "', " +
+                         productCategories + " = " + "'" + prod.getProductCategories() + "' ";
         //String sqlUpdate = "update " + TABLE_NAME + setVals + " where " + productID + " = " + prodID;
-        String sqlUpdate = "UPDATE " + TABLE_NAME + " SET " + setVals + " WHERE " + productID + " = " + prodID;
+        String sqlUpdate = "UPDATE " + tableName + " SET " + setVals + " WHERE " + productID + " = " + prodID;
 
         SQLiteDatabase database = getWritableDatabase(); // retrieve db
 
@@ -183,50 +224,110 @@ public class DataBaseManager extends SQLiteOpenHelper {
     }
 
     // method to retrieve all the database entries
-    public ArrayList<Product> selectAll() {
-        String sqlSelect = "select * from " + TABLE_NAME;
+    public ArrayList<Product> selectAll(String tbName) {
+        //TODO this if statement will be deprecated after migration completed, requires an update for user
+        if(tbName.equals(TABLE_NAME)) {
+             String sqlSelect = "select * from " + tbName;
 
-        //retrieve the db
-        SQLiteDatabase database = getWritableDatabase();
+            //retrieve the db
+            SQLiteDatabase database = getWritableDatabase();
 
-        //retrieve the info from the db, it will be stored in a cursor obj
-        Cursor cursor = database.rawQuery(sqlSelect, null);
+            //retrieve the info from the db, it will be stored in a cursor obj
+            Cursor cursor = database.rawQuery(sqlSelect, null);
 
-        //create the arrayList to hold the info
-        ArrayList<Product> products = new ArrayList<>();
+            //create the arrayList to hold the info
+            ArrayList<Product> products = new ArrayList<>();
 
-        //loop through the cursor obj and transfer values to the arrayList
-        while(cursor.moveToNext()) {
-            //get info from cursor
-            String currentID = cursor.getString(0); // get ID
-            String currentName = cursor.getString(1);
-            String currentMedium = cursor.getString(2);
-            String currentPurchasePrice = String.valueOf(cursor.getFloat(3));
-            String currentHeight = cursor.getString(4);
-            String currentWidth = cursor.getString(5);
-            String currentDepth = cursor.getString(6);
-            String currentLocation = cursor.getString(7);
-            String currentPurchaseDate = cursor.getString(8);
-            String currentNote = cursor.getString(9);
-            String currentFraming = cursor.getString(10);
-            String currentSold = cursor.getString(11);
-            Log.d(TAG, "selectAll: note="+ currentNote);
-            Log.d(TAG, "selectAll currentFraming: "+ currentFraming);
-            boolean currentIsFramed = Boolean.parseBoolean(currentFraming);
-            boolean currentIsSold = Boolean.parseBoolean(currentSold);
-            Log.d(TAG, "selectAll isframed?: " + currentIsFramed);
-            String currentCreationDate = cursor.getString(12);
-            String currentPicturePath = cursor.getString(13);
+            //loop through the cursor obj and transfer values to the arrayList
+            while (cursor.moveToNext()) {
+                //get info from cursor
+                String currentID = cursor.getString(0); // get ID
+                String currentName = cursor.getString(1);
+                String currentMedium = cursor.getString(2);
+                String currentPurchasePrice = String.valueOf(cursor.getFloat(3));
+                String currentHeight = cursor.getString(4);
+                String currentWidth = cursor.getString(5);
+                String currentDepth = cursor.getString(6);
+                String currentLocation = cursor.getString(7);
+                String currentPurchaseDate = cursor.getString(8);
+                String currentNote = cursor.getString(9);
+                String currentFraming = cursor.getString(10);
+                String currentSold = cursor.getString(11);
+                Log.d(TAG, "selectAll: note=" + currentNote);
+                Log.d(TAG, "selectAll currentFraming: " + currentFraming);
+                boolean currentIsFramed = Boolean.parseBoolean(currentFraming);
+                boolean currentIsSold = Boolean.parseBoolean(currentSold);
+                Log.d(TAG, "selectAll isframed?: " + currentIsFramed);
+                String currentCreationDate = cursor.getString(12);
+                String currentPicturePath = cursor.getString(13);
 
-            //create a product obj
-            //Product product = new Product(currentID, currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentIsFramed, currentPicturePath, currentCreationDate);
-            Product product = new Product(currentID, currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentNote, currentIsFramed, currentIsSold, currentPicturePath, currentCreationDate);
-            //add the product to  arrayList
-            products.add(product);
-        } //end while loop
+                //create a product obj
+                Product product = new Product(currentID, currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentNote, "", currentIsFramed, currentIsSold, false, currentPicturePath, currentCreationDate);
+                //add the product to  arrayList
+                products.add(product);
+            } //end while loop
 
-        database.close();
+            cursor.close();
 
-        return products;
+            database.close();
+
+            return products;
+        } else {
+
+            //handle new db select all
+
+
+            String sqlSelect = "select * from " + tbName;
+
+            //retrieve the db
+            SQLiteDatabase database = getWritableDatabase();
+
+            //retrieve the info from the db, it will be stored in a cursor obj
+            Cursor cursor = database.rawQuery(sqlSelect, null);
+
+            //create the arrayList to hold the info
+            ArrayList<Product> products = new ArrayList<>();
+
+            //loop through the cursor obj and transfer values to the arrayList
+            while (cursor.moveToNext()) {
+                //get info from cursor
+                String currentID = cursor.getString(0); // get ID
+                String currentName = cursor.getString(1);
+                String currentMedium = cursor.getString(2);
+                String currentPurchasePrice = String.valueOf(cursor.getFloat(3));
+                String currentHeight = cursor.getString(4);
+                String currentWidth = cursor.getString(5);
+                String currentDepth = cursor.getString(6);
+                String currentLocation = cursor.getString(7);
+                String currentPurchaseDate = cursor.getString(8);
+                String currentNote = cursor.getString(9);
+                String currentFraming = cursor.getString(10);
+                String currentSold = cursor.getString(11);
+                Log.d(TAG, "selectAll: note=" + currentNote);
+                Log.d(TAG, "selectAll currentFraming: " + currentFraming);
+                boolean currentIsFramed = Boolean.parseBoolean(currentFraming);
+                boolean currentIsSold = Boolean.parseBoolean(currentSold);
+                Log.d(TAG, "selectAll isframed?: " + currentIsFramed);
+                String currentCreationDate = cursor.getString(12);
+                String currentPicturePath = cursor.getString(13);
+
+                String currentOnWebStore = cursor.getString(14);
+                boolean currentIsOnWebStore = Boolean.parseBoolean(currentOnWebStore);
+                String currentCategories = cursor.getString(15);
+
+                //create a product obj
+                //Product product = new Product(currentID, currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentIsFramed, currentPicturePath, currentCreationDate);
+                //Product product = new Product(currentID, currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentNote, currentIsFramed, currentIsSold, currentPicturePath, currentCreationDate);
+                Product product = new Product(currentID, currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentNote, currentCategories, currentIsFramed, currentIsSold, currentIsOnWebStore, currentPicturePath, currentCreationDate);
+                //add the product to  arrayList
+                products.add(product);
+            } //end while loop
+
+            cursor.close();
+
+            database.close();
+
+            return products;
+        }
     }
 }

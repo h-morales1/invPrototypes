@@ -14,24 +14,23 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="879dp">
 
                 <EditText
                     android:id="@+id/addItemPurchasePriceET"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:layout_marginBottom="550dp"
+                    android:layout_marginTop="10dp"
                     android:ems="10"
                     android:hint="@string/add_item_purchase_price"
                     android:inputType="text"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/addItemMediumET"
+                    app:layout_constraintStart_toStartOf="@+id/addItemMediumET"
                     app:layout_constraintTop_toBottomOf="@+id/addItemMediumET" />
 
                 <EditText
@@ -39,11 +38,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="650dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
                     android:ems="10"
                     android:hint="@string/add_item_name"
                     android:inputType="textPersonName"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -52,214 +51,223 @@
                     android:id="@+id/addItemMediumET"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:layout_marginBottom="600dp"
+                    android:layout_marginTop="10dp"
                     android:ems="10"
                     android:hint="@string/add_item_medium"
                     android:inputType="textPersonName"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/addItemNameET"
+                    app:layout_constraintStart_toStartOf="@+id/addItemNameET"
                     app:layout_constraintTop_toBottomOf="@+id/addItemNameET" />
-
-                <EditText
-                    android:id="@+id/addItemHeightET"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="200dp"
-                    android:ems="10"
-                    android:hint="@string/add_item_height"
-                    android:inputType="textPersonName"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addItemPurchasePriceET" />
-
-                <EditText
-                    android:id="@+id/addItemDepthET"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="200dp"
-                    android:layout_marginTop="20dp"
-                    android:ems="10"
-                    android:hint="@string/add_item_depth"
-                    android:inputType="textPersonName"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addItemPurchasePriceET" />
-
-                <TextView
-                    android:id="@+id/addItemXTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="100dp"
-                    android:layout_marginBottom="450dp"
-                    android:text="@string/add_item_x"
-                    android:textSize="34sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/addItemDepthET"
-                    app:layout_constraintStart_toEndOf="@+id/addItemHeightET"
-                    app:layout_constraintTop_toBottomOf="@+id/addItemPurchasePriceET" />
 
                 <EditText
                     android:id="@+id/addItemLocationET"
                     android:layout_width="255dp"
                     android:layout_height="66dp"
-                    android:layout_marginBottom="350dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
                     android:ems="10"
                     android:gravity="start|top"
                     android:hint="@string/add_item_location"
                     android:inputType="textMultiLine"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addItemXTV" />
-
-                <CheckBox
-                    android:id="@+id/addItemCBX"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="200dp"
-                    android:layout_marginBottom="95dp"
-                    android:text="@string/add_item_framed"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addItemLocationET" />
-
-                <ImageButton
-                    android:id="@+id/editItemFolderIB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginBottom="100dp"
-                    android:onClick="imageChooser"
-                    android:src="@drawable/baseline_folder_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addItemCBX" />
-
-                <TextView
-                    android:id="@+id/addItemPhotoTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="150dp"
-                    android:layout_marginBottom="100dp"
-                    android:text="@string/add_item_photo"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addItemCBX" />
-
-                <ImageButton
-                    android:id="@+id/addItemCameraIB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="80dp"
-                    android:layout_marginBottom="100dp"
-                    android:onClick="takePhoto"
-                    android:src="@drawable/baseline_camera_alt_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/editItemFolderIB"
-                    app:layout_constraintTop_toBottomOf="@+id/addItemCBX" />
-
-                <Button
-                    android:id="@+id/addItemConfirmBT"
-                    android:layout_width="wrap_content"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="130dp"
-                    android:text="@string/add_item_confirm"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addItemCBX" />
-
-                <EditText
-                    android:id="@+id/addItemWidthET"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginEnd="165dp"
-                    android:layout_marginBottom="7dp"
-                    android:ems="10"
-                    android:hint="@string/add_item_width"
-                    android:inputType="textPersonName"
-                    android:textAlignment="center"
-                    app:layout_constraintBottom_toTopOf="@+id/addItemLocationET"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/addItemXTV"
-                    app:layout_constraintTop_toBottomOf="@+id/addItemPurchasePriceET" />
-
-                <TextView
-                    android:id="@+id/addItemX2TV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="135dp"
-                    android:layout_marginBottom="30dp"
-                    android:text="@string/add_item_x"
-                    android:textSize="34sp"
-                    app:layout_constraintBottom_toTopOf="@+id/addItemLocationET"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/addItemWidthET"
+                    app:layout_constraintEnd_toEndOf="@+id/addItemPurchasePriceET"
+                    app:layout_constraintStart_toStartOf="@+id/addItemPurchasePriceET"
                     app:layout_constraintTop_toBottomOf="@+id/addItemPurchasePriceET" />
 
                 <EditText
                     android:id="@+id/addItemDateET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="45dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
                     android:ems="10"
                     android:hint="@string/add_item_date"
                     android:inputType="date"
-                    app:layout_constraintBottom_toTopOf="@+id/addItemCBX"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/addItemLocationET"
+                    app:layout_constraintStart_toStartOf="@+id/addItemLocationET"
                     app:layout_constraintTop_toBottomOf="@+id/addItemLocationET" />
 
                 <EditText
                     android:id="@+id/addItemCreationDateET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:ems="10"
                     android:hint="@string/add_item_creation_date"
                     android:inputType="date"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/addItemDateET"
+                    app:layout_constraintStart_toStartOf="@+id/addItemDateET"
                     app:layout_constraintTop_toBottomOf="@+id/addItemDateET" />
+
+                <EditText
+                    android:id="@+id/addItemNoteET"
+                    android:layout_width="wrap_content"
+                    android:layout_height="66dp"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="Note"
+                    android:inputType="textMultiLine"
+                    app:layout_constraintEnd_toEndOf="@+id/addItemCreationDateET"
+                    app:layout_constraintStart_toStartOf="@+id/addItemCreationDateET"
+                    app:layout_constraintTop_toBottomOf="@+id/addItemCreationDateET" />
 
                 <CheckBox
                     android:id="@+id/addItemSoldCBX"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="200dp"
-                    android:layout_marginBottom="95dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
                     android:text="@string/add_item_sold"
                     android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addItemLocationET" />
+                    app:layout_constraintStart_toEndOf="@+id/addItemCBX"
+                    app:layout_constraintTop_toBottomOf="@+id/addItemNoteET" />
 
-                <EditText
-                    android:id="@+id/addItemNoteET"
+                <CheckBox
+                    android:id="@+id/addItemCBX"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="70dp"
-                    android:layout_marginBottom="60dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/add_item_framed"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="@+id/addItemNoteET"
+                    app:layout_constraintTop_toBottomOf="@+id/addItemNoteET" />
+
+                <EditText
+                    android:id="@+id/addItemHeightET"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="10dp"
                     android:ems="10"
-                    android:gravity="start|top"
-                    android:hint="Note"
-                    android:inputType="textMultiLine"
-                    app:layout_constraintBottom_toTopOf="@+id/addItemConfirmBT"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:hint="@string/add_item_height"
+                    android:inputType="textPersonName"
+                    android:textAlignment="center"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/addItemCBX" />
+
+                <TextView
+                    android:id="@+id/addItemXTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/add_item_x"
+                    android:textSize="34sp"
+                    app:layout_constraintStart_toEndOf="@+id/addItemHeightET"
+                    app:layout_constraintTop_toTopOf="@+id/addItemHeightET" />
+
+                <EditText
+                    android:id="@+id/addItemWidthET"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="5dp"
+                    android:ems="10"
+                    android:hint="@string/add_item_width"
+                    android:inputType="textPersonName"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toEndOf="@+id/addItemXTV"
+                    app:layout_constraintTop_toTopOf="@+id/addItemHeightET" />
+
+                <TextView
+                    android:id="@+id/addItemX2TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/add_item_x"
+                    android:textSize="34sp"
+                    app:layout_constraintStart_toEndOf="@+id/addItemWidthET"
+                    app:layout_constraintTop_toBottomOf="@+id/addItemCBX" />
+
+                <EditText
+                    android:id="@+id/addItemDepthET"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:hint="@string/add_item_depth"
+                    android:inputType="textPersonName"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toEndOf="@+id/addItemX2TV"
+                    app:layout_constraintTop_toBottomOf="@+id/addItemCBX" />
+
+                <CheckBox
+                    android:id="@+id/addItemOnWebStoreCBX"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/add_item_on_web_store"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="@+id/addItemHeightET"
+                    app:layout_constraintTop_toBottomOf="@+id/addItemHeightET" />
+
+                <EditText
+                    android:id="@+id/addItemCategoriesET"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:hint="@string/add_item_categories"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="@+id/addItemOnWebStoreCBX"
+                    app:layout_constraintStart_toStartOf="@+id/addItemOnWebStoreCBX"
+                    app:layout_constraintTop_toBottomOf="@+id/addItemOnWebStoreCBX" />
+
+                <TextView
+                    android:id="@+id/addItemPhotoTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:text="@string/add_item_photo"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="@+id/addItemCategoriesET"
+                    app:layout_constraintTop_toBottomOf="@+id/addItemCategoriesET" />
+
+                <ImageButton
+                    android:id="@+id/addItemCameraIB"
+                    android:layout_width="60sp"
+                    android:layout_height="60sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="35dp"
+                    android:onClick="takePhoto"
+                    android:src="@drawable/baseline_camera_alt_24"
+                    android:tint="@color/purple_500"
+                    app:layout_constraintStart_toEndOf="@+id/addItemPhotoTV"
+                    app:layout_constraintTop_toBottomOf="@+id/addItemCategoriesET" />
+
+                <ImageButton
+                    android:id="@+id/editItemFolderIB"
+                    android:layout_width="60sp"
+                    android:layout_height="60sp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="35dp"
+                    android:onClick="imageChooser"
+                    android:src="@drawable/baseline_folder_24"
+                    android:tint="@color/purple_500"
+                    app:layout_constraintStart_toEndOf="@+id/addItemCameraIB"
+                    app:layout_constraintTop_toBottomOf="@+id/addItemCategoriesET" />
+
+                <Button
+                    android:id="@+id/addItemConfirmBT"
+                    android:layout_width="100dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/add_item_confirm"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/addItemPhotoTV"
                     app:layout_constraintTop_toBottomOf="@+id/addItemPhotoTV" />
+
+                <Button
+                    android:id="@+id/addItemArchiveBTN"
+                    android:layout_width="100dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="35dp"
+                    android:text="@string/add_item_archive"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@+id/addItemConfirmBT"
+                    app:layout_constraintTop_toTopOf="@+id/addItemConfirmBT" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

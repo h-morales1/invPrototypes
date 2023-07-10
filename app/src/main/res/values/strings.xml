@@ -28,7 +28,7 @@
     <string name="add_item_x">X</string>
     <string name="add_item_framed">Framed</string>
     <string name="add_item_photo">Select Photo:</string>
-    <string name="add_item_confirm">Confirm</string>
+    <string name="add_item_confirm">Save</string>
     <string name="add_item_width">W</string>
     <string name="add_item_depth">D</string>
     <string name="add_item_date">Purchase Date</string>
@@ -50,4 +50,9 @@
     <string name="view_item_sold">"Sold: "</string>
     <string name="add_item_note">Note</string>
     <string name="update_db">UPDATE DB</string>
+    <string name="add_item_on_web_store">On Web Store</string>
+    <string name="add_item_categories">Categories</string>
+    <string name="add_item_archive">Archive</string>
+    <string name="view_item_categories">Categories:</string>
+    <string name="view_item_onWebStore">On Web Store:</string>
 </resources>

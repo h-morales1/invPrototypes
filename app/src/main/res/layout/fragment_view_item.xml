@@ -17,7 +17,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="1083dp">
+                android:layout_height="1300dp">
 
                 <!-- TODO: Update blank fragment layout -->
 
@@ -36,14 +36,13 @@
                     android:id="@+id/titleDisplayTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="80dp"
                     android:layout_marginEnd="300dp"
-                    android:layout_marginBottom="400dp"
                     android:text="@string/view_item_title"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/pieceIV"
                     app:layout_constraintTop_toBottomOf="@+id/pieceIV" />
 
                 <TextView
@@ -51,26 +50,23 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="100dp"
-                    android:layout_marginBottom="400dp"
                     android:singleLine="false"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/titleDisplayTV"
-                    app:layout_constraintTop_toBottomOf="@+id/pieceIV" />
+                    app:layout_constraintTop_toTopOf="@+id/titleDisplayTV" />
 
                 <TextView
                     android:id="@+id/mediumDisplayTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp"
                     android:layout_marginEnd="265dp"
-                    android:layout_marginBottom="350dp"
                     android:text="@string/view_item_medium"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/titleDisplayTV" />
@@ -80,25 +76,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="150dp"
-                    android:layout_marginBottom="350dp"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/mediumDisplayTV"
-                    app:layout_constraintTop_toBottomOf="@+id/titleTV" />
+                    app:layout_constraintTop_toTopOf="@+id/mediumDisplayTV" />
 
                 <TextView
                     android:id="@+id/purchasePriceDisplayTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
                     android:layout_marginEnd="200dp"
-                    android:layout_marginBottom="300dp"
                     android:text="@string/view_item_purchase_price"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/mediumDisplayTV" />
@@ -108,27 +101,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="100dp"
-                    android:layout_marginBottom="300dp"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/purchasePriceDisplayTV"
-                    app:layout_constraintTop_toBottomOf="@+id/mediumTV" />
+                    app:layout_constraintTop_toTopOf="@+id/purchasePriceDisplayTV" />
 
                 <TextView
                     android:id="@+id/HWDDisplayTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="250dp"
-                    android:layout_marginBottom="250dp"
+                    android:layout_marginTop="25dp"
                     android:text="@string/view_item_HWD"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/purchasePriceDisplayTV"
                     app:layout_constraintTop_toBottomOf="@+id/purchasePriceDisplayTV" />
 
                 <TextView
@@ -136,27 +124,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="50dp"
-                    android:layout_marginBottom="250dp"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/HWDDisplayTV"
-                    app:layout_constraintTop_toBottomOf="@+id/purchasePriceTV" />
+                    app:layout_constraintTop_toTopOf="@+id/HWDDisplayTV" />
 
                 <TextView
                     android:id="@+id/locationDisplayTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="260dp"
-                    android:layout_marginBottom="200dp"
+                    android:layout_marginTop="25dp"
                     android:text="@string/view_item_locaiton"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/HWDDisplayTV"
                     app:layout_constraintTop_toBottomOf="@+id/HWDDisplayTV" />
 
                 <TextView
@@ -164,27 +147,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="120dp"
-                    android:layout_marginBottom="200dp"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/locationDisplayTV"
-                    app:layout_constraintTop_toBottomOf="@+id/HWDTV" />
+                    app:layout_constraintTop_toTopOf="@+id/locationDisplayTV" />
 
                 <TextView
                     android:id="@+id/purchaseDateDisplayTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="205dp"
-                    android:layout_marginBottom="150dp"
+                    android:layout_marginTop="25dp"
                     android:text="@string/view_item_purchase_date"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/locationDisplayTV"
                     app:layout_constraintTop_toBottomOf="@+id/locationDisplayTV" />
 
                 <TextView
@@ -192,27 +170,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="100dp"
-                    android:layout_marginBottom="150dp"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/purchaseDateDisplayTV"
-                    app:layout_constraintTop_toBottomOf="@+id/locationTV" />
+                    app:layout_constraintTop_toTopOf="@+id/purchaseDateDisplayTV" />
 
                 <TextView
                     android:id="@+id/creationDisplayTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="190dp"
-                    android:layout_marginBottom="100dp"
+                    android:layout_marginTop="25dp"
                     android:text="@string/view_item_creation_date"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/purchaseDateDisplayTV"
                     app:layout_constraintTop_toBottomOf="@+id/purchaseDateDisplayTV" />
 
                 <TextView
@@ -220,118 +193,121 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="100dp"
-                    android:layout_marginBottom="100dp"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/creationDisplayTV"
-                    app:layout_constraintTop_toBottomOf="@+id/purchaseDateTV" />
+                    app:layout_constraintTop_toTopOf="@+id/creationDisplayTV" />
 
                 <TextView
                     android:id="@+id/framedDisplayTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="270dp"
-                    android:layout_marginBottom="80dp"
+                    android:layout_marginTop="25dp"
                     android:text="@string/view_item_framed"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/creationDisplayTV"
                     app:layout_constraintTop_toBottomOf="@+id/creationDisplayTV" />
 
                 <TextView
                     android:id="@+id/framedTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="200dp"
-                    android:layout_marginBottom="80dp"
+                    android:layout_marginStart="10dp"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/framedDisplayTV"
-                    app:layout_constraintTop_toBottomOf="@+id/creationDateTV" />
+                    app:layout_constraintTop_toTopOf="@+id/framedDisplayTV" />
 
                 <TextView
                     android:id="@+id/soldDisplayTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="100dp"
-                    android:layout_marginBottom="80dp"
+                    android:layout_marginEnd="100dp"
                     android:text="@string/view_item_sold"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/creationDisplayTV" />
+                    app:layout_constraintStart_toEndOf="@+id/framedTV"
+                    app:layout_constraintTop_toTopOf="@+id/framedTV" />
 
                 <TextView
                     android:id="@+id/viewItemSoldTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="250dp"
-                    android:layout_marginBottom="80dp"
+                    android:layout_marginEnd="75dp"
                     android:text="text"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/creationDateTV" />
+                    app:layout_constraintStart_toEndOf="@+id/soldDisplayTV"
+                    app:layout_constraintTop_toTopOf="@+id/soldDisplayTV" />
 
-                <LinearLayout
-                    android:id="@+id/linearLayout"
-                    android:layout_width="350dp"
-                    android:layout_height="60dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/framedTV">
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="66dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Note:"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="@+id/framedDisplayTV"
+                    app:layout_constraintTop_toBottomOf="@+id/framedDisplayTV" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/viewItemNoteTV"
+                    android:layout_width="300sp"
+                    android:layout_height="50sp"
+                    android:layout_marginStart="10dp"
+                    android:text="TextView"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toEndOf="@+id/textView6"
+                    app:layout_constraintTop_toTopOf="@+id/textView6" />
 
-                        <HorizontalScrollView
-                            android:layout_width="298dp"
-                            android:layout_height="66dp"
-                            tools:layout_editor_absoluteX="79dp"
-                            tools:layout_editor_absoluteY="3dp">
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/view_item_onWebStore"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/textView6"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/viewItemIsOnWebStoreTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="TextView"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toEndOf="@+id/textView4"
+                    app:layout_constraintTop_toTopOf="@+id/textView4" />
 
-                                <TextView
-                                    android:id="@+id/viewItemNoteTV"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="50dp"
-                                    android:text="TextView"
-                                    android:textSize="20sp" />
-                            </LinearLayout>
-                        </HorizontalScrollView>
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/view_item_categories"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/textView4"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-                        <TextView
-                            android:id="@+id/textView6"
-                            android:layout_width="66dp"
-                            android:layout_height="wrap_content"
-                            android:text="Note:"
-                            android:textSize="20dp"
-                            android:textStyle="bold"
-                            android:visibility="invisible"
-                            tools:layout_editor_absoluteX="9dp"
-                            tools:layout_editor_absoluteY="13dp" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/viewItemCategoriesTV"
+                    android:layout_width="250sp"
+                    android:layout_height="50sp"
+                    android:layout_marginStart="10dp"
+                    android:text="TextView"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toEndOf="@+id/textView7"
+                    app:layout_constraintTop_toTopOf="@+id/textView7" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

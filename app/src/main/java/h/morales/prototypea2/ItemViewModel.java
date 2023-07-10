@@ -21,15 +21,18 @@ public class ItemViewModel  extends ViewModel {
     private final MutableLiveData<String> prodNote = new MutableLiveData<String>();
     private final MutableLiveData<String> prodIsFramed = new MutableLiveData<String>();
     private final MutableLiveData<String> prodSold = new MutableLiveData<String>();
+    private final MutableLiveData<String> prodIsOnWebStore = new MutableLiveData<>();
 
     private final MutableLiveData<String> prodUri = new MutableLiveData<>();
     private final MutableLiveData<String> prodCreationDate = new MutableLiveData<>();
+    private final MutableLiveData<String> prodCategories = new MutableLiveData<>();
 
     //this doesnt need to be saved to the db, its only useful to retrieve from the db to use
     // in other fragments like editItem
     private final MutableLiveData<String> prodID = new MutableLiveData<>();
 
     private final MutableLiveData<Boolean> saveToDB = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> saveToArchive = new MutableLiveData<>();
 
     public void setData(String pName, String pMedium, String pPurchasePrice, String pHeight, String pDepth
                         , String pWidth, String pLocation, String pPurchaseDate) {
@@ -75,6 +78,7 @@ public class ItemViewModel  extends ViewModel {
         prodPurchaseDate.setValue(item);
     }
     public void setNote(String item) { prodNote.setValue(item); }
+    public void setProdCategories(String item) { prodCategories.setValue(item); }
 
     public void setIsFramed(String item) {
         prodIsFramed.setValue(item);
@@ -83,6 +87,7 @@ public class ItemViewModel  extends ViewModel {
     public void setSold(String item) {
         prodSold.setValue(item);
     }
+    public void setProdIsOnWebStore(String item) { prodIsOnWebStore.setValue(item); }
 
     public void setProdUri(String item) {
         prodUri.setValue(item);
@@ -93,6 +98,7 @@ public class ItemViewModel  extends ViewModel {
     public void setProdID(String item) { prodID.setValue(item); }
 
     public void setSaveToDB(Boolean bool) { saveToDB.setValue(bool);}
+    public void setSaveToArchive(Boolean bool) { saveToArchive.setValue(bool); }
 
     //getters
 
@@ -123,15 +129,18 @@ public class ItemViewModel  extends ViewModel {
         return prodPurchaseDate;
     }
     public LiveData<String> getNote() { return prodNote; }
+    public LiveData<String> getCategories() { return prodCategories; }
 
     public LiveData<String> getIsFramed() {
         return prodIsFramed;
     }
     public LiveData<String> getIsSold() { return prodSold; }
+    public LiveData<String> getIsOnWebStore() { return prodIsOnWebStore; }
 
     public LiveData<Boolean> getSaveToDB() {
         return saveToDB;
     }
+    public LiveData<Boolean> getSaveToArchive() { return saveToArchive; }
 
     public LiveData<String> getProdUri () {
         return prodUri;

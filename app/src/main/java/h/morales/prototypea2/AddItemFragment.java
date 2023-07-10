@@ -46,12 +46,15 @@ public class AddItemFragment extends Fragment {
             addItemWidthET,
             addItemCreationDateET,
             addItemPurchaseDateET,
-            addItemNoteET;
+            addItemNoteET,
+            addItemCategories;
 
     CheckBox addItemCBX; // framed or not cbx
     CheckBox addItemSold;
+    CheckBox addItemOnWebStore;
 
-    Button confirmBTN;
+    Button confirmBTN; // save to main db
+    Button archiveBTN; // send item to archivedb
 
     ImageButton pickPhotoIB;
 
@@ -111,6 +114,7 @@ public class AddItemFragment extends Fragment {
         confirmBTN = (Button) view.findViewById(R.id.addItemConfirmBT); // confirm button
         addItemCBX = (CheckBox) view.findViewById(R.id.addItemCBX);
         addItemSold = (CheckBox) view.findViewById(R.id.addItemSoldCBX);
+        addItemOnWebStore = (CheckBox) view.findViewById(R.id.addItemOnWebStoreCBX);
         // all the edit text fields
         addItemNameET = (EditText) view.findViewById(R.id.addItemNameET);
         addItemMediumET = (EditText) view.findViewById(R.id.addItemMediumET);
@@ -122,6 +126,7 @@ public class AddItemFragment extends Fragment {
         addItemWidthET = (EditText) view.findViewById(R.id.addItemWidthET);
         addItemCreationDateET = (EditText) view.findViewById(R.id.addItemCreationDateET);
         addItemPurchaseDateET = (EditText) view.findViewById(R.id.addItemDateET);
+        addItemCategories = (EditText) view.findViewById(R.id.addItemCategoriesET);
 
 
         /*pickPhotoIB.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +148,7 @@ public class AddItemFragment extends Fragment {
         String pWidth = addItemWidthET.getText().toString();
         String pPurchaseDate = addItemPurchaseDateET.getText().toString();*/
         confirmBTN.setOnClickListener(new View.OnClickListener() {
+            // handle the button click to save product to main db NOT the ARCHIVE
             @Override
             public void onClick(View view) {
                 String pName = addItemNameET.getText().toString();
@@ -155,17 +161,16 @@ public class AddItemFragment extends Fragment {
                 String pPurchaseDate = addItemPurchaseDateET.getText().toString();
                 String pNote = addItemNoteET.getText().toString();
                 String pCreationDate = addItemCreationDateET.getText().toString();
+                String pCategories = addItemCategories.getText().toString();
                 String isFramed = String.valueOf(addItemCBX.isChecked());
                 String isSold = String.valueOf(addItemSold.isChecked());
+                String isOnWebStore = String.valueOf(addItemOnWebStore.isChecked());
                 Log.d(TAG, "addItem is framed: " + isFramed);
 
                 //transfer data from add item form to main activity for processing
-                //itemViewModel.setData(pName, pMedium, pPurchasePrice, pHeight, pDepth, pLocation, pWidth, pPurchaseDate);
-                if(checkField(pName) || checkField(pMedium) || checkField(pPurchasePrice) || checkField(pHeight)
-                || checkField(pDepth) || checkField(pLocation) || checkField(pWidth) || checkField(pPurchaseDate)
-                 ) {
+                if(checkField(pName)) { // check only the name field to make sure it isnt empty
                     //a field is empty, display error
-                    Toast.makeText(getContext(), "Fill in all fields!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Fill in at least the name field", Toast.LENGTH_LONG).show(); //TODO run this on UI thread
                 } else {
                     // no field is empty
                     itemViewModel.setName(pName.replace("'","''"));
@@ -178,10 +183,12 @@ public class AddItemFragment extends Fragment {
                     itemViewModel.setPurchaseDate(pPurchaseDate);
                     itemViewModel.setNote(pNote.replace("'","''"));
                     itemViewModel.setProdCreationDate(pCreationDate);
+                    itemViewModel.setProdCategories(pCategories);
                     itemViewModel.setIsFramed(isFramed);
                     itemViewModel.setSold(isSold);
+                    itemViewModel.setProdIsOnWebStore(isOnWebStore);
                     itemViewModel.setSaveToDB(true); // save to db
-                    Toast.makeText(getContext(), "Product Saved", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Product Saved", Toast.LENGTH_LONG).show(); // TODO run this on UI THREAD
                     replaceFragment(new HomeFragment());
                 }
             }

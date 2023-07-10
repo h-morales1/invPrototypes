@@ -181,7 +181,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         //Log.d(TAG, "onViewCreated PRS SIZE: " + prs.size());
 
         //RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), dataBaseManager.selectAll(), this); // TODO: will have to change this once adding in recyclerinterface
-        recyclerAdapter = new RecyclerAdapter(getContext(), dataBaseManager.selectAll(), this); // TODO: will have to change this once adding in recyclerinterface
+        recyclerAdapter = new RecyclerAdapter(getContext(), dataBaseManager.selectAll(dataBaseManager.getNewTableName()), this); // TODO: will have to change this once adding in recyclerinterface
 
         //recyclerview = view.findViewById(R.id.homeFragRecyclerView);
         //Log.d(TAG, "onViewCreated PRS SIZE: " + prs.size());
@@ -191,7 +191,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         //RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), dataBaseManager.selectAll(), this); // TODO: will have to change this once adding in recyclerinterface
         recyclerview.setAdapter(recyclerAdapter);
         //Log.d(TAG, "onViewCreated PRS SIZE: " + prs.size());
-        recyclerAdapter.updateData(dataBaseManager.selectAll());
+        recyclerAdapter.updateData(dataBaseManager.selectAll(dataBaseManager.getNewTableName()));
 
                 //RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), productArrayList, this); // TODO: will have to change this once adding in recyclerinterface
 
@@ -241,24 +241,24 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         homeItemViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
 
         //Log.d(TAG, "onItemClick: you clicked recycler item: " + productArrayList.get(post).getProductName());
-        Log.d(TAG, "onItemClick: you clicked recycler item: " + dataBaseManager.selectAll().get(post).getProductName());
+        Log.d(TAG, "onItemClick: you clicked recycler item: " + dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductName());
         //Toast.makeText(getContext(), "You clicked on " + dataBaseManager.selectAll().get(post).getProductName(), Toast.LENGTH_LONG).show();
 
         //set proper details
-        homeItemViewModel.setName(dataBaseManager.selectAll().get(post).getProductName());
-        homeItemViewModel.setMedium(dataBaseManager.selectAll().get(post).getProductMedium());
-        homeItemViewModel.setPurchasePrice(String.valueOf(dataBaseManager.selectAll().get(post).getProductPurchasePrice()));
-        homeItemViewModel.setHeight(String.valueOf(dataBaseManager.selectAll().get(post).productHeight));
-        homeItemViewModel.setDepth(String.valueOf(dataBaseManager.selectAll().get(post).productDepth));
-        homeItemViewModel.setLocation(dataBaseManager.selectAll().get(post).getProductLocation());
-        homeItemViewModel.setWidth(String.valueOf(dataBaseManager.selectAll().get(post).getProductWidth()));
-        homeItemViewModel.setPurchaseDate(dataBaseManager.selectAll().get(post).getProductPurchaseDate());
-        homeItemViewModel.setNote(dataBaseManager.selectAll().get(post).getProductNote());
-        homeItemViewModel.setIsFramed(Boolean.toString(dataBaseManager.selectAll().get(post).isProductFramed()));
-        homeItemViewModel.setSold(Boolean.toString(dataBaseManager.selectAll().get(post).isProductSold()));
-        homeItemViewModel.setProdUri(dataBaseManager.selectAll().get(post).productPicturePath);
-        homeItemViewModel.setProdCreationDate(dataBaseManager.selectAll().get(post).getCreationDate());
-        homeItemViewModel.setProdID(dataBaseManager.selectAll().get(post).getProdID());
+        homeItemViewModel.setName(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductName());
+        homeItemViewModel.setMedium(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductMedium());
+        homeItemViewModel.setPurchasePrice(String.valueOf(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductPurchasePrice()));
+        homeItemViewModel.setHeight(String.valueOf(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).productHeight));
+        homeItemViewModel.setDepth(String.valueOf(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).productDepth));
+        homeItemViewModel.setLocation(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductLocation());
+        homeItemViewModel.setWidth(String.valueOf(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductWidth()));
+        homeItemViewModel.setPurchaseDate(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductPurchaseDate());
+        homeItemViewModel.setNote(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductNote());
+        homeItemViewModel.setIsFramed(Boolean.toString(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).isProductFramed()));
+        homeItemViewModel.setSold(Boolean.toString(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).isProductSold()));
+        homeItemViewModel.setProdUri(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).productPicturePath);
+        homeItemViewModel.setProdCreationDate(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getCreationDate());
+        homeItemViewModel.setProdID(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProdID());
         homeItemViewModel.setSaveToDB(false); // dont need to save values
 
         FragmentManager fragmentManager = getParentFragmentManager();

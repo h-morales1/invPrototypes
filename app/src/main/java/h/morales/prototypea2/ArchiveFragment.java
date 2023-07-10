@@ -64,14 +64,19 @@ public class ArchiveFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_archive, container, false);
         updateDbBtn = view.findViewById(R.id.updateDbBTN);
+        DataBaseManager dataBaseManager = new DataBaseManager(getContext());
 
         updateDbBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "You clicked button", Toast.LENGTH_LONG).show();
+                //dataBaseManager.upDateColumn();
+                //dataBaseManager.addColumn(); // this adds the productOnWebStore column
+                Toast.makeText(getContext(), "Database migrated", Toast.LENGTH_LONG).show();
+
             }
         });
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_archive, container, false);
+        //return inflater.inflate(R.layout.fragment_archive, container, false);
+        return view;
     }
 }

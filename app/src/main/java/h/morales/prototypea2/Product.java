@@ -9,14 +9,16 @@ public class Product {
     String productName;
     String productMedium;
     String productPurchasePrice;
-    String productHeight;// TODO: change product HWD to strings
+    String productHeight;
     String productWidth;
     String productDepth;
     String productLocation;
     String productPurchaseDate;
     String productNote;
+    String productCategories;
     boolean productFramed;
     boolean productSold;
+    boolean isOnWebStore;
     String productPicturePath;
     Uri prodUri;
 
@@ -29,7 +31,7 @@ public class Product {
         this.productImage = productImage;
     }
 
-    public Product(String productName, String productMedium, String productPurchasePrice, String productHeight, String productWidth, String productDepth, String productLocation, String productPurchaseDate,String productNote, boolean productFramed, boolean productSold, String productPicturePath,
+    public Product(String productName, String productMedium, String productPurchasePrice, String productHeight, String productWidth, String productDepth, String productLocation, String productPurchaseDate,String productNote, String productCategories, boolean productFramed, boolean productSold, boolean isOnWebStore, String productPicturePath,
                    String creationDate) {
         this.productName = productName;
         this.productMedium = productMedium;
@@ -40,13 +42,15 @@ public class Product {
         this.productLocation = productLocation;
         this.productPurchaseDate = productPurchaseDate;
         this.productNote = productNote;
+        this.productCategories = productCategories;
         this.productFramed = productFramed;
         this.productSold = productSold;
+        this.isOnWebStore = isOnWebStore;
         this.productPicturePath = productPicturePath;
         this.creationDate = creationDate;
     }
 
-    public Product(String prodID, String productName, String productMedium, String productPurchasePrice, String productHeight, String productWidth, String productDepth, String productLocation, String productPurchaseDate, String productNote, boolean productFramed, boolean productSold, String productPicturePath,
+    public Product(String prodID, String productName, String productMedium, String productPurchasePrice, String productHeight, String productWidth, String productDepth, String productLocation, String productPurchaseDate, String productNote, String productCategories, boolean productFramed, boolean productSold, boolean isOnWebStore, String productPicturePath,
                    String creationDate) {
         this.prodID = prodID;
         this.productName = productName;
@@ -58,8 +62,10 @@ public class Product {
         this.productLocation = productLocation;
         this.productPurchaseDate = productPurchaseDate;
         this.productNote = productNote;
+        this.productCategories = productCategories;
         this.productFramed = productFramed;
         this.productSold = productSold;
+        this.isOnWebStore = isOnWebStore;
         this.productPicturePath = productPicturePath;
         this.creationDate = creationDate;
     }
@@ -96,6 +102,7 @@ public class Product {
         return productPurchaseDate;
     }
     public String getProductNote() { return productNote; }
+    public String getProductCategories() { return productCategories; }
 
     public boolean isProductFramed() {
         return productFramed;
@@ -103,6 +110,7 @@ public class Product {
     public boolean isProductSold() {
         return productSold;
     }
+    public boolean isOnWebStore() { return isOnWebStore;}
 
     public String getProductPicturePath() {
         return productPicturePath;

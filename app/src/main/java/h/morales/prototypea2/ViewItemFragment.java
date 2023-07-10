@@ -55,7 +55,9 @@ public class ViewItemFragment extends Fragment {
             creationDate,
             note,
             framed,
-            sold;
+            sold,
+            onWebStore,
+            categories;
 
     ImageView pieceIV;
 
@@ -200,6 +202,16 @@ public class ViewItemFragment extends Fragment {
             note.setText(item);
         });
 
+        homeItemViewModel.getIsOnWebStore().observe(getViewLifecycleOwner(), item -> {
+            Log.d(TAG, "viewItem isOnWebStore: item = " + item);
+            onWebStore.setText(item);
+        });
+
+        homeItemViewModel.getCategories().observe(getViewLifecycleOwner(), item -> {
+            Log.d(TAG, "viewItem categories: item = " + item);
+            categories.setText(item);
+        });
+
         homeItemViewModel.getIsFramed().observe(getViewLifecycleOwner(), item -> {
             Log.d(TAG, "viewItem isFramed: item = " + item.toString());
             framed.setText(item);
@@ -237,7 +249,7 @@ public class ViewItemFragment extends Fragment {
                 Toast.makeText(getContext(), "clicked delete", Toast.LENGTH_LONG).show();
                 //delete entry using productID
                 Log.d(TAG, "clicked Delete, what is product: " + productID);
-                dataBaseManager.deleteItem(productID);
+                dataBaseManager.deleteItem(dataBaseManager.getNewTableName(), productID);
                 replaceFragment(new HomeFragment());
                 break;
         }

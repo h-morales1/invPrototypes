@@ -59,6 +59,8 @@ public class EditItemFragment extends Fragment {
     private String newSold;
     private String newPicturePath;
     private String newCreationDate;
+    private String newIsOnWebStore;
+    private String newCategories;
 
     private String oldName;
     private String oldMedium;
@@ -73,6 +75,8 @@ public class EditItemFragment extends Fragment {
     private String oldSold;
     private String oldPicturePath;
     private String oldCreationDate;
+    private String oldIsOnWebStore;
+    private String oldCategories;
 
     private ImageButton choosePhoto;
     private ImageButton takePhoto;
@@ -141,9 +145,11 @@ public class EditItemFragment extends Fragment {
         EditText editTextpurchaseDate = (EditText) view.findViewById(R.id.editItemDateET);
         EditText editTextNote = (EditText) view.findViewById(R.id.editItemNoteET);
         EditText editTextCreationDate = (EditText) view.findViewById(R.id.editItemCreationDateET);
+        EditText editTextCategories = (EditText) view.findViewById(R.id.editItemCategoriesET);
 
         CheckBox editItemFramed = (CheckBox) view.findViewById(R.id.editItemFramedCBX);
         CheckBox editItemSold = (CheckBox) view.findViewById(R.id.editItemSoldCBX);
+        CheckBox editItemIsOnWebStore = (CheckBox) view.findViewById(R.id.editItemIsOnWebStoreCBX);
 
         choosePhoto = (ImageButton) view.findViewById(R.id.editItemBrowseIB);
         takePhoto = (ImageButton) view.findViewById(R.id.editItemPhotoIB);
@@ -188,6 +194,8 @@ public class EditItemFragment extends Fragment {
                 newFramed = String.valueOf(editItemFramed.isChecked());
                 newSold = String.valueOf(editItemSold.isChecked());
                 newCreationDate = editTextCreationDate.getText().toString();
+                newCategories = editTextCategories.getText().toString();
+                newIsOnWebStore = String.valueOf(editItemIsOnWebStore.isChecked());
                 newPicturePath = imgPath;
 
                 setNewVals(); // save any new data to db
@@ -302,6 +310,18 @@ public class EditItemFragment extends Fragment {
             oldSold = item;
         });
 
+        editItemViewModel.getCategories().observe(getViewLifecycleOwner(), item -> {
+            Log.d(TAG, "viewItem categories: item = " + item);
+            editTextCategories.setText(item);
+            oldCategories = item;
+        });
+
+        editItemViewModel.getIsOnWebStore().observe(getViewLifecycleOwner(), item -> {
+            Log.d(TAG, "viewItem isOnWebStore : item = " + item);
+            editItemIsOnWebStore.setChecked(Boolean.parseBoolean(item));
+            oldIsOnWebStore = item;
+        });
+
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_edit_item, container, false);
         return view;
@@ -413,14 +433,30 @@ public class EditItemFragment extends Fragment {
           }
       }
 
-        updatedProd = new Product(oldName.replace("'","''"), oldMedium.replace("'","''"), oldPurchasePrice, oldHeight.replace("'","''"), oldWidth.replace("'","''"), oldDepth.replace("'","''"), oldLocation.replace("'","''"), oldPurchaseDate, oldNote.replace("'","''"), Boolean.parseBoolean(oldFramed), Boolean.parseBoolean(oldSold), oldPicturePath, newCreationDate);
+        Log.d(TAG, "setNewVals: checking isonWebStore vals");
+      if(checkIfChanged(newIsOnWebStore, oldIsOnWebStore)) {
+          if(!newIsOnWebStore.isEmpty()) {
+              oldIsOnWebStore = newIsOnWebStore;
+          }
+      }
+
+        Log.d(TAG, "setNewVals: checking categories vals");
+      if(checkIfChanged(newCategories, oldCategories)) {
+          if(!newCategories.isEmpty()) {
+              oldCategories = newCategories;
+          }
+      }
+
+        updatedProd = new Product(oldName.replace("'","''"), oldMedium.replace("'","''"), oldPurchasePrice, oldHeight.replace("'","''"),
+                                 oldWidth.replace("'","''"), oldDepth.replace("'","''"), oldLocation.replace("'","''"), oldPurchaseDate,
+                                 oldNote.replace("'","''"), oldCategories.replace("'","''"), Boolean.parseBoolean(oldFramed), Boolean.parseBoolean(oldSold), Boolean.parseBoolean(oldIsOnWebStore), oldPicturePath, newCreationDate);
         updateProductDB(updatedProd); // commit changes to db
     }
 
     private void updateProductDB(Product pr) {
         // update product details in db
         dataBaseManager = new DataBaseManager(getContext());
-        dataBaseManager.updateProduct(currentProdID, pr);
+        dataBaseManager.updateProduct(dataBaseManager.getNewTableName(), currentProdID, pr);
     }
 
 
