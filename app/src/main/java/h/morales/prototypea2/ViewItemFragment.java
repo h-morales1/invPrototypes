@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -117,6 +119,8 @@ public class ViewItemFragment extends Fragment {
         note = (TextView) view.findViewById(R.id.viewItemNoteTV);
         framed = (TextView) view.findViewById(R.id.framedTV);
         sold = (TextView) view.findViewById(R.id.viewItemSoldTV);
+        onWebStore = (TextView) view.findViewById(R.id.viewItemIsOnWebStoreTV);
+        categories = (TextView) view.findViewById(R.id.viewItemCategoriesTV);
 
         pieceIV = (ImageView) view.findViewById(R.id.pieceIV);
 
@@ -204,7 +208,7 @@ public class ViewItemFragment extends Fragment {
 
         homeItemViewModel.getIsOnWebStore().observe(getViewLifecycleOwner(), item -> {
             Log.d(TAG, "viewItem isOnWebStore: item = " + item);
-            onWebStore.setText(item);
+            onWebStore.setText(item.toString());
         });
 
         homeItemViewModel.getCategories().observe(getViewLifecycleOwner(), item -> {

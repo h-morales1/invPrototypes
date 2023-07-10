@@ -258,6 +258,8 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         homeItemViewModel.setSold(Boolean.toString(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).isProductSold()));
         homeItemViewModel.setProdUri(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).productPicturePath);
         homeItemViewModel.setProdCreationDate(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getCreationDate());
+        homeItemViewModel.setProdIsOnWebStore(Boolean.toString(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).isOnWebStore()));
+        homeItemViewModel.setProdCategories(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductCategories());
         homeItemViewModel.setProdID(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProdID());
         homeItemViewModel.setSaveToDB(false); // dont need to save values
 
