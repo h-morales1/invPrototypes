@@ -246,14 +246,13 @@ public class ViewItemFragment extends Fragment {
         dataBaseManager = new DataBaseManager(getContext());
         switch (item.getItemId()) {
             case R.id.view_item_option_edit:
-                Toast.makeText(getContext(), "clicked edit", Toast.LENGTH_LONG).show();
                 replaceFragment(new EditItemFragment());
                 break;
             case R.id.view_item_option_delete:
-                Toast.makeText(getContext(), "clicked delete", Toast.LENGTH_LONG).show();
                 //delete entry using productID
                 Log.d(TAG, "clicked Delete, what is product: " + productID);
                 dataBaseManager.deleteItem(dataBaseManager.getNewTableName(), productID);
+                Toast.makeText(getContext(), "Product deleted!", Toast.LENGTH_SHORT).show();
                 replaceFragment(new HomeFragment());
                 break;
         }

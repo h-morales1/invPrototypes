@@ -178,7 +178,6 @@ public class EditItemFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // handle the on click for confirm btn in editItemFrag
-                Toast.makeText(getContext(), "confirm button on click!", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "on edit item confirm imgpath: " + imgPath);
 
                 //set new values

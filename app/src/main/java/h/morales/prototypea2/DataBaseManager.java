@@ -78,6 +78,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
     This method is only triggered IF the old table is NOT empty,
     meant to only be triggered ONCE
      */
+    //TODO THIS WILL BE DEPRECATED AFTER MIGRATION COMPLETED
     public void migrateData() {
         //get old data
         ArrayList<Product> oldData = selectAll(TABLE_NAME);

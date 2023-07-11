@@ -221,35 +221,8 @@ public class MainActivity extends AppCompatActivity {
         //show home fragment by default
         replaceFragment(new HomeFragment()); // TODO : return this to be HOMEFRAGMENT as default
         //replaceFragment(new ArchiveFragment()); // TODO : return this to be HOMEFRAGMENT as default
-        //imageUri = createUri();
         registerPictureLauncher();
-        /*product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
-        if(!pName.isEmpty()) {
 
-            dataBaseManager.insertProduct(product);
-        }*/
-        //ArrayList<Product> ps = dataBaseManager.selectAll();
-        //Log.d(TAG, "onCreate: ps: " + ps.get(0).getProductName());
-        //Log.d(TAG, "onCreate: ps: " + ps.size());
-        /*if(imageUri != null) {
-            product = new Product(pName, pMedium, pPurchasePrice, pHeight, pWidth, pDepth, pLocation, pPurchaseDate, pFramed, imgPath);
-            dataBaseManager.insertProduct(product);
-            ArrayList<Product> ps = dataBaseManager.selectAll();
-            if(ps.size() > 0) {
-                Log.d(TAG, "onCreate: ps: " + ps.get(0).getProductName());
-            }
-        }*/
-
-        /*addItemNameET = findViewById(R.id.addItemNameET);
-        addItemMediumET = findViewById(R.id.addItemMediumET);
-        addItemPurchasePriceET = findViewById(R.id.addItemPurchasePriceET);
-        addItemHeightET = findViewById(R.id.addItemHeightET);
-        addItemDepthET = findViewById(R.id.addItemDepthET);
-        addItemLocationET = findViewById(R.id.addItemLocationET);
-        addItemWidthET = findViewById(R.id.addItemWidthET);
-        addItemPurchaseDateET = findViewById(R.id.addItemDateET);
-
-        addItemCBX = findViewById(R.id.addItemCBX);*/
 
 
         // do something when a user selects one of the items on the bottom
@@ -263,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.addItem:
                     replaceFragment(new AddItemFragment());
                     break;
-                case R.id.editItem:
+                case R.id.editItem: // TODO this is actually archive
                     //replaceFragment(new EditItemFragment());
                     break;
             }
@@ -272,30 +245,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // handle on click for top options menu SORTING
-    /*
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.sort_by:
-                Toast.makeText(this, "clicked sort by", Toast.LENGTH_LONG).show();
-                break;
-        }
-        //return super.onOptionsItemSelected(item);
-        return true;
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) { // TODO: remove it if you have provlems
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment frag = fragmentManager.findFragmentById(R.id.frame_layout);
-        Log.d(TAG, "onCreateOptionsMenu: NAME:: " + frag.getId());
-        super.onCreateOptionsMenu(menu);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.top_options_menu, menu);
-        return true;
-    }
-    */
 
     // method to replace frame layout with particular fragment
     private void replaceFragment(Fragment fragment) {
@@ -305,56 +255,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    // handle addItemConfirmBT button click
-    /*public void onConfirm(View view) {
-        //
-        String pname = addItemNameET.getText().toString();
-        if(checkField(addItemNameET) || checkField(addItemMediumET) || checkField(addItemPurchasePriceET) || checkField(addItemHeightET) || checkField(addItemWidthET) || checkField(addItemDepthET) || checkField(addItemLocationET) || checkField(addItemPurchaseDateET) ) {
-            // means something was empty
-            Toast.makeText(this, "You must fill in all fields!", Toast.LENGTH_LONG).show();
-        } else {
-            //String pname = addItemNameET.getText().toString();
-            String pmedium = addItemMediumET.getText().toString();
-            float pPurchasePrice = Float.parseFloat(addItemPurchasePriceET.getText().toString());
-            float pheight = Float.parseFloat(addItemHeightET.getText().toString());
-            float pwidth = Float.parseFloat(addItemWidthET.getText().toString());
-            float pdepth = Float.parseFloat(addItemDepthET.getText().toString());
-            String pLocation = addItemLocationET.getText().toString();
-            String pPurchaseDate = addItemPurchaseDateET.getText().toString();
-            boolean isFramed = addItemCBX.isChecked();
 
-            // create product from data in form
-            Product product = new Product(pname, pmedium, pPurchasePrice, pheight, pwidth, pdepth, pLocation, pPurchaseDate, isFramed, imageUri.getPath());
-
-            // check to make sure that the image is actually selected
-            if (imageUri != null) {
-                dataBaseManager.insertProduct(product);
-            } else {
-                Toast.makeText(this, "You must select a picture for the art piece", Toast.LENGTH_LONG).show();
-            }
-
-        }
-
-        Log.d(TAG, "onConfirm: you clicked confirm!");
-    }
-
-
-    // returns true if empty
-    private boolean checkField(EditText et) {
-        return (et.getText().toString().isEmpty());
-    }*/
-
-    /*private File createImageFile() throws IOException {
-        //create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-
-        //save a file: path for use with ACTION_VIEW intents
-        String currentPhotoPath = image.getAbsolutePath();
-        return image;
-    }*/
 
     private Uri createUri() {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
