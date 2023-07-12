@@ -172,7 +172,22 @@ public class AddItemFragment extends Fragment {
                     //a field is empty, display error
                     Toast.makeText(getContext(), "Fill in at least the name field", Toast.LENGTH_LONG).show(); //TODO run this on UI thread
                 } else {
-                    // no field is empty
+                    // at least name field is not empty
+                    // check other fields and fill with default value if empty
+                    checkAndFillEmptyField(pMedium);
+                    checkAndFillEmptyField(pPurchasePrice);
+                    checkAndFillEmptyField(pHeight);
+                    checkAndFillEmptyField(pDepth);
+                    checkAndFillEmptyField(pLocation);
+                    checkAndFillEmptyField(pWidth);
+                    checkAndFillEmptyField(pPurchaseDate);
+                    checkAndFillEmptyField(pNote);
+                    checkAndFillEmptyField(pCreationDate);
+                    checkAndFillEmptyField(pCategories);
+                    checkAndFillEmptyField(isFramed);
+                    checkAndFillEmptyField(isSold);
+                    checkAndFillEmptyField(isOnWebStore);
+
                     itemViewModel.setName(pName.replace("'","''"));
                     itemViewModel.setMedium(pMedium.replace("'","''"));
                     itemViewModel.setPurchasePrice(pPurchasePrice);
@@ -206,6 +221,16 @@ public class AddItemFragment extends Fragment {
     }
     private boolean checkField(String et) {
         return et.isEmpty();
+    }
+
+    private void fillEmptyField(String val) {
+        val = "false";
+    }
+
+    private void checkAndFillEmptyField(String val) {
+        if(checkField(val)) {
+            fillEmptyField(val);
+        }
     }
 /*
     @Override
