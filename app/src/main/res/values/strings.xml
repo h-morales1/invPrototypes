@@ -55,4 +55,7 @@
     <string name="add_item_archive">Archive</string>
     <string name="view_item_categories">Categories:</string>
     <string name="view_item_onWebStore">On Web Store:</string>
+    <string name="export_csv_title">Send File Via Email</string>
+    <string name="export_csv_email">Email</string>
+    <string name="export_csv_button">Export</string>
 </resources>

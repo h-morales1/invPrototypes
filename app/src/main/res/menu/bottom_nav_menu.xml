@@ -10,4 +10,7 @@
     <item android:title="Archive"
         android:icon="@drawable/baseline_edit_note_24"
         android:id="@+id/editItem"/>
+     <item android:title="Export"
+        android:icon="@drawable/baseline_file_open_24"
+        android:id="@+id/exportData"/>
 </menu>

@@ -239,6 +239,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.editItem: // TODO this is actually archive
                     //replaceFragment(new EditItemFragment());
                     break;
+                case R.id.exportData:
+                    replaceFragment(new ExportCsvFragment());
+                    break;
             }
 
             return true;
