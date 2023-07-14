@@ -16,7 +16,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
 
     //db name, table name, columns
     private static final String DATA_BASE_NAME = "productsDB",
-                                TABLE_NAME = "productsTable",
+                                TABLE_NAME = "productsTable2",
                                 productID = "id",
                                 productName = "name",
                                 productMedium = "medium",
@@ -59,7 +59,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
                             productID + " integer primary key autoincrement, " +
                             productName + " text, " +
                             productMedium + " text, " +
-                            productPurchasePrice + " real, " +
+                            productPurchasePrice + " text, " +
                             productHeight + " text, " +
                             productWidth + " text, " +
                             productDepth + " text, " +
@@ -69,7 +69,9 @@ public class DataBaseManager extends SQLiteOpenHelper {
                             productFramed + " text, " +
                             productSold + " text, " +
                             creationDate + " text, " +
-                            productPicturePath + " text )";
+                            productPicturePath + " text, " +
+                            productIsOnWebStore + " text, " +
+                            productCategories + " text )";
 
         sqLiteDatabase.execSQL(sqlCreate);
     }

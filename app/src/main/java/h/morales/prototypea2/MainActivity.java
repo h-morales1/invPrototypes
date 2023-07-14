@@ -105,14 +105,14 @@ public class MainActivity extends AppCompatActivity {
 
         //get db
         dataBaseManager = new DataBaseManager(this);
-
+        /*
         //TODO only trigger migration if old db is NOT empty
         if(!dataBaseManager.selectAll(dataBaseManager.getOldTableName()).isEmpty()) {
             //old db is NOT empty, perform migration
             dataBaseManager.migrateData();
         } else {
             //dont perform migration
-        }
+        }*/
         //
 
         //observe addItem fragment fields
