@@ -229,7 +229,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
     // method to retrieve all the database entries
     public ArrayList<Product> selectAll(String tbName) {
         //TODO this if statement will be deprecated after migration completed, requires an update for user
-        if(tbName.equals(TABLE_NAME)) {
+        if(tbName.equals("product")) {
              String sqlSelect = "select * from " + tbName;
 
             //retrieve the db
@@ -317,6 +317,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
                 String currentOnWebStore = cursor.getString(14);
                 boolean currentIsOnWebStore = Boolean.parseBoolean(currentOnWebStore);
                 String currentCategories = cursor.getString(15);
+                Log.d(TAG, "selectAll: categories: " + currentCategories);
 
                 //create a product obj
                 //Product product = new Product(currentID, currentName, currentMedium, currentPurchasePrice, currentHeight, currentWidth, currentDepth, currentLocation, currentPurchaseDate, currentIsFramed, currentPicturePath, currentCreationDate);
