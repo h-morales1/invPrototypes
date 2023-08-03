@@ -78,6 +78,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
         Log.d(TAG, "updateData: seeing if updatedata is CALLED: size: " + productArrayList.size());
         Log.d(TAG, "updateData: newData: size: " + newData.size());
+        //Log.d(TAG, "updateData:  productname: " + productArrayList.get(0).getProductName());
         diffResult.dispatchUpdatesTo(this);
     }
 
@@ -85,6 +86,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public Filter getFilter() {
         return nameFilter;
     }
+
+    /*public Filter decideFilter(int sortType) {
+       if(sortType == 0) {
+           Log.d(TAG, "decideFilter: chose name");
+           return nameFilter;
+       } else {
+           Log.d(TAG, "decideFilter: chose category");
+          return categoryFilter;
+       }
+    }*/
 
     private final Filter nameFilter = new Filter() {
         @Override
@@ -98,6 +109,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
                 for(Product prods : productArrayList) {
                     if(prods.getProductName().toLowerCase().contains(filterPattern)) {
+                        Log.d(TAG, "performFiltering: product name: " + prods.getProductName());
                         filteredNameList.add(prods); // matching result so add to arraylist
                     }
                 }
@@ -110,16 +122,54 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             return results;
         }
 
+
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
 
             productArrayList2.clear();
             productArrayList2.addAll((ArrayList)filterResults.values);
             updateData(productArrayList2);
-            //notifyDataSetChanged();
+            notifyDataSetChanged();
 
         }
     };
+
+    //filter for category searching
+    /*
+    private final Filter categoryFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<Product> filteredCategoryList = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0) {
+                filteredCategoryList.addAll(productArrayList); // just return the old list
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                //iterate through list and collect matching queries
+                for(Product prods : productArrayList) {
+                    if(prods.getProductCategories().toLowerCase().contains(filterPattern)) {
+                        filteredCategoryList.add(prods); // match found, add to list
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredCategoryList;
+            results.count = filteredCategoryList.size();
+            return results;
+            //return null;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            productArrayList2.clear();
+            productArrayList2.addAll((ArrayList)results.values);
+            updateData(productArrayList2);
+
+        }
+    };
+
+     */
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ShapeableImageView titleImage;
