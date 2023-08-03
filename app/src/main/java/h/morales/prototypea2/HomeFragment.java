@@ -42,29 +42,16 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
     private String mParam1;
     private String mParam2;
 
-    private ArrayList<Product> productArrayList;
-
-    private String[] productTitle; // text strings for titles
-
-    private int[] imageResourceID; // image resource ids
-
     private RecyclerView recyclerview;
 
     private DataBaseManager dataBaseManager; // handle db transactions
 
     ItemViewModel homeItemViewModel;
 
-    Thread tr = null;
-    Thread tr2 = null;
-
     RecyclerAdapter recyclerAdapter;
-    private ArrayList<Product> listOfProds;
+    private ArrayList<Product> listOfProds; // hold all products for recycler
 
-    CountDownLatch latch = new CountDownLatch(1);
-
-    ArrayList<Product> prs;
-
-    private int userSelection = 0;
+    private int userSelection = 0; // determine what attribute to search for, name, category, etc
 
     public HomeFragment() {
         // Required empty public constructor
@@ -99,22 +86,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         //initiate databasemanager
         dataBaseManager = new DataBaseManager(getContext());
         listOfProds = dataBaseManager.selectAll(dataBaseManager.getNewTableName()); // get list of all products
-        //prs = dataBaseManager.selectAll();
-        //RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), prs, this); // TODO: will have to change this once adding in recyclerinterface
 
-        //recyclerview =(RecyclerView) getActivity().findViewById(R.id.homeFragRecyclerView);
-        //recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        //recyclerview.setHasFixedSize(true);
-
-        //RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), dataBaseManager.selectAll(), this); // TODO: will have to change this once adding in recyclerinterface
-        //recyclerview.setAdapter(recyclerAdapter);
-        //recyclerAdapter.updateData(prs);
-        //Log.d(TAG, "onCreate in homefrag size of prs is : "+ prs.size());
-
-
-        //TODO REMOVE THIS, THIS IS A TEST
-        //Product prod = new Product("Sycamore park", "water color", 200.00f, 12.0f, 12.0f, 10.0f, "dekalb public library", "05/21/23", true, "test");
-        //dataBaseManager.insertProduct(prod);
         setHasOptionsMenu(true); // allow options menu here
     }
 
@@ -131,10 +103,11 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search_by_name:
-                //Toast.makeText(getContext(), "clicked sort by", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Searching name", Toast.LENGTH_LONG).show();
                 userSelection = 0;
                 break;
             case R.id.search_by_category:
+                Toast.makeText(getContext(), "Searching category", Toast.LENGTH_LONG).show();
                 userSelection = 1;
                 break;
         }
@@ -145,7 +118,6 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         //override method to use specified options menu (sort by menu)
-        //FragmentManager fragmentManager = getParentFragmentManager();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         Fragment frag = fragmentManager.findFragmentById(R.id.frame_layout);
         Log.d(TAG, "onCreateOptionsMenu: NAME:: " + frag.getId());
@@ -161,7 +133,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //recyclerAdapter.getFilter().filter(query);
+                // use userSelection to determine what to search for
                 recyclerAdapter.decideFilter(userSelection).filter(query);
                 return false;
             }
@@ -179,85 +151,27 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //Toast.makeText(getContext(), "onViewCreated proc", Toast.LENGTH_SHORT).show();
-        
-        //dataInitialize();
+
         recyclerview = view.findViewById(R.id.homeFragRecyclerView);
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerview.setHasFixedSize(true);
-        //DataBaseManager tester = new DataBaseManager(getContext());
-        //prs = tester.selectAll();
-        //Log.d(TAG, "onViewCreated PRS SIZE: " + prs.size());
 
-        //RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), dataBaseManager.selectAll(), this); // TODO: will have to change this once adding in recyclerinterface
 
-        //recyclerAdapter = new RecyclerAdapter(getContext(), dataBaseManager.selectAll(dataBaseManager.getNewTableName()), this); // TODO: will have to change this once adding in recyclerinterface
-        recyclerAdapter = new RecyclerAdapter(getContext(), listOfProds, this); // TODO: will have to change this once adding in recyclerinterface
+        recyclerAdapter = new RecyclerAdapter(getContext(), listOfProds, this); // populate recycler with products
 
-        //recyclerview = view.findViewById(R.id.homeFragRecyclerView);
-        //Log.d(TAG, "onViewCreated PRS SIZE: " + prs.size());
-        //recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        //recyclerview.setHasFixedSize(true);
 
-        //RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), dataBaseManager.selectAll(), this); // TODO: will have to change this once adding in recyclerinterface
         recyclerview.setAdapter(recyclerAdapter);
-        //Log.d(TAG, "onViewCreated PRS SIZE: " + prs.size());
 
-        //recyclerAdapter.updateData(dataBaseManager.selectAll(dataBaseManager.getNewTableName()));
-        listOfProds = dataBaseManager.selectAll(dataBaseManager.getNewTableName());
-        recyclerAdapter.updateData(listOfProds);
+        listOfProds = dataBaseManager.selectAll(dataBaseManager.getNewTableName()); // update arraylist
+        recyclerAdapter.updateData(listOfProds); // update adapter
 
-                //RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), productArrayList, this); // TODO: will have to change this once adding in recyclerinterface
 
     }
-
-    private void dataInitialize() {
-        // populate the recycler view with items
-        // TODO: will need a function to select all from db and populate an array of products
-
-        productArrayList = new ArrayList<>();
-        productTitle = new String[] {
-                getString(R.string.test_list_item0),
-                getString(R.string.test_list_item1),
-                getString(R.string.test_list_item2),
-                getString(R.string.test_list_item3),
-                getString(R.string.test_list_item4),
-                getString(R.string.test_list_item5),
-                getString(R.string.test_list_item6),
-                getString(R.string.test_list_item7),
-                getString(R.string.test_list_item8),
-                getString(R.string.test_list_item9),
-        };
-
-        imageResourceID = new int[] {
-                R.drawable.dudes_holly_hocks,
-                R.drawable.backyard_monet,
-                R.drawable.dancing_daisy,
-                R.drawable.garden_findings,
-                R.drawable.hello_hot_stuff,
-                R.drawable.love_wins,
-                R.drawable.sycamore_park,
-                R.drawable.daily_pickens,
-                R.drawable.stormy_skies,
-                R.drawable.suck_it,
-        };
-
-        for(int i=0; i<productTitle.length;i++){
-            Product product = new Product(productTitle[i], imageResourceID[i]);
-            productArrayList.add(product);
-        }
-    }
-
 
     //handle onclick for the recycler
     @Override
     public void onItemClick(int post) {
         homeItemViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
-        Log.d(TAG, "onItemClick for recycler in homefrag, item name: " + recyclerAdapter.productArrayList.get(post).getProductName());
-
-        //Log.d(TAG, "onItemClick: you clicked recycler item: " + productArrayList.get(post).getProductName());
-        Log.d(TAG, "onItemClick: you clicked recycler item: " + dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductName());
-        //Toast.makeText(getContext(), "You clicked on " + dataBaseManager.selectAll().get(post).getProductName(), Toast.LENGTH_LONG).show();
 
         //set proper details UPDATED
         homeItemViewModel.setName(recyclerAdapter.productArrayList.get(post).getProductName());
@@ -278,27 +192,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         homeItemViewModel.setProdID(recyclerAdapter.productArrayList.get(post).getProdID());
         homeItemViewModel.setSaveToDB(false); // dont need to save values
 
-        //set proper details
-       /* homeItemViewModel.setName(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductName());
-        homeItemViewModel.setMedium(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductMedium());
-        homeItemViewModel.setPurchasePrice(String.valueOf(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductPurchasePrice()));
-        homeItemViewModel.setHeight(String.valueOf(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).productHeight));
-        homeItemViewModel.setDepth(String.valueOf(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).productDepth));
-        homeItemViewModel.setLocation(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductLocation());
-        homeItemViewModel.setWidth(String.valueOf(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductWidth()));
-        homeItemViewModel.setPurchaseDate(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductPurchaseDate());
-        homeItemViewModel.setNote(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductNote());
-        homeItemViewModel.setIsFramed(Boolean.toString(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).isProductFramed()));
-        homeItemViewModel.setSold(Boolean.toString(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).isProductSold()));
-        homeItemViewModel.setProdUri(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).productPicturePath);
-        homeItemViewModel.setProdCreationDate(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getCreationDate());
-        homeItemViewModel.setProdIsOnWebStore(Boolean.toString(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).isOnWebStore()));
-        homeItemViewModel.setProdCategories(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProductCategories());
-        homeItemViewModel.setProdID(dataBaseManager.selectAll(dataBaseManager.getNewTableName()).get(post).getProdID());
-        homeItemViewModel.setSaveToDB(false); // dont need to save values
-*/
         //go to viewItem fragment
-
         FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, new ViewItemFragment());
