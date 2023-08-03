@@ -58,4 +58,6 @@
     <string name="export_csv_title">Send File Via Email</string>
     <string name="export_csv_email">Email</string>
     <string name="export_csv_button">Export</string>
+    <string name="search_by_name">Search by name</string>
+    <string name="search_by_category">Search by category</string>
 </resources>
