@@ -87,7 +87,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         return nameFilter;
     }
 
-    /*public Filter decideFilter(int sortType) {
+    public Filter decideFilter(int sortType) {
        if(sortType == 0) {
            Log.d(TAG, "decideFilter: chose name");
            return nameFilter;
@@ -95,7 +95,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
            Log.d(TAG, "decideFilter: chose category");
           return categoryFilter;
        }
-    }*/
+    }
 
     private final Filter nameFilter = new Filter() {
         @Override
@@ -135,7 +135,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     };
 
     //filter for category searching
-    /*
+
     private final Filter categoryFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -169,7 +169,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         }
     };
 
-     */
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ShapeableImageView titleImage;

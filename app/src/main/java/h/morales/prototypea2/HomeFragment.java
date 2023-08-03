@@ -161,8 +161,8 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                recyclerAdapter.getFilter().filter(query);
-                //recyclerAdapter.decideFilter(userSelection).filter(query);
+                //recyclerAdapter.getFilter().filter(query);
+                recyclerAdapter.decideFilter(userSelection).filter(query);
                 return false;
             }
 
