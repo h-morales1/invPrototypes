@@ -10,4 +10,11 @@
         android:id="@+id/view_item_option_delete"
         android:icon="@drawable/baseline_home_24"
         android:title="@string/view_item_option_delete" />
+
+    <item
+        android:id="@+id/view_item_option_emailpic"
+        android:icon="@drawable/baseline_attach_email_24"
+        android:title="@string/view_item_option_emailpic"
+        app:showAsAction="always"
+        />
 </menu>

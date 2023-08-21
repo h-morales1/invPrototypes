@@ -2,6 +2,7 @@ package h.morales.prototypea2;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -62,6 +63,7 @@ public class ViewItemFragment extends Fragment {
             categories;
 
     ImageView pieceIV;
+    Uri productImageUri;
 
     String hwdCombo = "";
     String h = "";
@@ -193,6 +195,7 @@ public class ViewItemFragment extends Fragment {
         homeItemViewModel.getProdUri().observe(getViewLifecycleOwner(), item -> {
             Log.d(TAG, "onCreate: item = " + item.toString());
             pieceIV.setImageURI(Uri.parse(item));
+            productImageUri = Uri.parse(item);
 
         });
 
@@ -255,6 +258,9 @@ public class ViewItemFragment extends Fragment {
                 Toast.makeText(getContext(), "Product deleted!", Toast.LENGTH_SHORT).show();
                 replaceFragment(new HomeFragment());
                 break;
+            case R.id.view_item_option_emailpic:
+                // email product image to user
+                emailProductImage(productImageUri);
         }
         //return super.onOptionsItemSelected(item);
         return true;
@@ -278,5 +284,20 @@ public class ViewItemFragment extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    //method handles sending the product image through email to user
+    private void emailProductImage(Uri imgUri) {
+        //
+
+        //email file
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setType("text/plain");
+        //emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{usersEmail});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Image from product ");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "The attached file will contain the image from the product you selected");
+
+        emailIntent.putExtra(Intent.EXTRA_STREAM, imgUri); // attach image
+        startActivity(Intent.createChooser(emailIntent, "Pick an email provider"));
     }
 }
