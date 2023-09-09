@@ -26,6 +26,8 @@ public class Product {
 
     String prodID;
 
+    boolean isSelected = false;
+
     public Product(String titleText, int productImage) { // TODO: needs to conform to db schema for each piece to be catalogued
         this.titleText = titleText;
         this.productImage = productImage;

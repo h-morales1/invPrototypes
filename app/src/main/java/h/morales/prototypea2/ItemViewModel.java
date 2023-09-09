@@ -33,6 +33,7 @@ public class ItemViewModel  extends ViewModel {
 
     private final MutableLiveData<Boolean> saveToDB = new MutableLiveData<>();
     private final MutableLiveData<Boolean> saveToArchive = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Product>> selectedProducts = new MutableLiveData<>();
 
     public void setData(String pName, String pMedium, String pPurchasePrice, String pHeight, String pDepth
                         , String pWidth, String pLocation, String pPurchaseDate) {
@@ -44,6 +45,11 @@ public class ItemViewModel  extends ViewModel {
         prodWidth.setValue(pWidth);
         prodLocation.setValue(pLocation);
         prodPurchaseDate.setValue(pPurchaseDate);
+    }
+
+    //test
+    public void addSelectedProd(ArrayList<Product> selectedProds) {
+        selectedProducts.setValue(selectedProds);
     }
 
     //setters

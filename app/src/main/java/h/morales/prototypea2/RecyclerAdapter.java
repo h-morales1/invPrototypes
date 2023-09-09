@@ -13,6 +13,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -30,12 +31,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     ArrayList<Product> productArrayList;
     ArrayList<Product> productArrayList2;
 
+    ArrayList<Product> multiEditList;
+
     private final RecyclerViewInterface recyclerViewInterface;
     public RecyclerAdapter(Context context, ArrayList<Product> productArrayList, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.productArrayList = productArrayList;
         this.productArrayList2 = new ArrayList<>(productArrayList);
         this.recyclerViewInterface = recyclerViewInterface;
+        this.multiEditList = new ArrayList<>();
     }
 
     @NonNull
@@ -57,6 +61,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             // set to green if not sold
             holder.itemSold.setColorFilter(context.getResources().getColor(R.color.teal_700));
         }
+
         //Uri imgUri = Uri.parse(product.productPicturePath);
         //holder.titleImage.setImageURI(null);
         //holder.titleImage.setImageURI(Uri.parse(product.productPicturePath));
@@ -175,12 +180,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         TextView textView;
         TextView itemPurchasePrice;
         ImageView itemSold;
+        ImageView itemSelectedMark;
         public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             titleImage = itemView.findViewById(R.id.title_image);
             textView = itemView.findViewById(R.id.itemText);
             itemPurchasePrice = itemView.findViewById(R.id.itemPurchasePriceTV);
             itemSold = itemView.findViewById(R.id.itemSoldIV);
+            itemSelectedMark = itemView.findViewById(R.id.itemSelectedIV);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -194,6 +201,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                     }
                 }
             });
+
+            textView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    if(recyclerViewInterface != null) {
+                        int pos = getAdapterPosition();
+
+                        if(pos != RecyclerView.NO_POSITION) {
+
+                            //Toast.makeText(v.getContext(), "LONG CLICK", Toast.LENGTH_LONG).show();
+                            recyclerViewInterface.onLongClick(pos, itemSelectedMark);
+                        }
+                    }
+
+                    return false;
+                }
+            });
+
         }
         //
     }

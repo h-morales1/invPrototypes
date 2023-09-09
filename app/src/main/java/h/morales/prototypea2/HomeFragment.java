@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -197,5 +198,36 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, new ViewItemFragment());
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onLongClick(int post, ImageView checkMark) {
+        homeItemViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
+        Product selectedProd = recyclerAdapter.productArrayList.get(post);
+
+        // logic to handle selecting / unselecting a product
+        if(selectedProd.isSelected) {
+            //prod was selected so unselect it
+            //TODO add logic to remove a visible checkmark
+            checkMark.setVisibility(View.INVISIBLE);
+            selectedProd.isSelected = false;
+            boolean selectedExists = recyclerAdapter.multiEditList.contains(selectedProd); // check if its in selected array list before removing
+            if(selectedExists) {
+                // the selected product exists in array, we can remove it
+                recyclerAdapter.multiEditList.remove(selectedProd);
+            }
+        } else {
+            // prod was not selected, so select it
+            selectedProd.isSelected = true;
+            checkMark.setVisibility(View.VISIBLE);
+            //TODO add logic to add visible checkmark
+            boolean selectedExists = recyclerAdapter.multiEditList.contains(selectedProd); // check if its in selected array list before removing
+            if(!selectedExists) {
+                //selected product does not exist in array, we can add it
+                recyclerAdapter.multiEditList.add(recyclerAdapter.productArrayList.get(post)); // add selected product to selected arraylist
+            }
+        }
+        //recyclerAdapter.multiEditList.add(recyclerAdapter.productArrayList.get(post)); // add selected product to selected arraylist
+        Toast.makeText(getContext(), "Items: " + recyclerAdapter.multiEditList.size(), Toast.LENGTH_LONG).show();
     }
 }
