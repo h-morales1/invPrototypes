@@ -61,4 +61,7 @@
     <string name="search_by_name">Search by name</string>
     <string name="search_by_category">Search by category</string>
     <string name="view_item_option_emailpic">Email Picture</string>
+    <string name="multi_select_title">Enter in new location for selected items:</string>
+    <string name="multi_edit_loc">Location</string>
+    <string name="multi_edit_btn">Save</string>
 </resources>

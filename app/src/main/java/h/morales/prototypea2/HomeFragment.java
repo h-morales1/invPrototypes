@@ -55,6 +55,8 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
     private int userSelection = 0; // determine what attribute to search for, name, category, etc
     private MenuItem multiSearch;
 
+    private SearchView searchView;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -112,6 +114,10 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
                 Toast.makeText(getContext(), "Searching category", Toast.LENGTH_LONG).show();
                 userSelection = 1;
                 break;
+            case R.id.home_multi_edit:
+                Toast.makeText(getContext(), "clicked edit", Toast.LENGTH_LONG).show();
+                handleMultiEdit();
+                break;
         }
         //return super.onOptionsItemSelected(item);
         return true;
@@ -131,7 +137,8 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         multiSearch = menu.findItem(R.id.home_multi_edit); // edit multiple items icon
 
         MenuItem menuItem = menu.findItem(R.id.home_search); // home search button
-        SearchView searchView = (SearchView)  menuItem.getActionView();
+        //SearchView searchView = (SearchView)  menuItem.getActionView();
+        searchView = (SearchView)  menuItem.getActionView();
         searchView.setQueryHint("Search by name");
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -238,5 +245,16 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         }
         //recyclerAdapter.multiEditList.add(recyclerAdapter.productArrayList.get(post)); // add selected product to selected arraylist
         Toast.makeText(getContext(), "Items: " + recyclerAdapter.multiEditList.size(), Toast.LENGTH_LONG).show(); // TODO you can remove this
+    }
+
+    public void handleMultiEdit() {
+        // transfer selected items to view model
+        homeItemViewModel.addSelectedProd(recyclerAdapter.multiEditList);
+
+        //go to multiEdit fragment
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, new MultiEditFragment());
+        fragmentTransaction.commit();
     }
 }

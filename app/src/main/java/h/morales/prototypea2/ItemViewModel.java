@@ -156,6 +156,8 @@ public class ItemViewModel  extends ViewModel {
 
     public LiveData<String> getProdCreationDate () { return prodCreationDate; }
 
+    public  MutableLiveData<ArrayList<Product>> getSelectedProducts () { return selectedProducts; }
+
     public MutableLiveData<ArrayList<LiveData<String>>> getAll() {
         MutableLiveData<ArrayList<LiveData<String>>> prods = new MutableLiveData<ArrayList<LiveData<String>>>();
         ArrayList<LiveData<String>> product = new ArrayList<>();
