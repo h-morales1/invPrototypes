@@ -14,4 +14,11 @@
         android:icon="@drawable/baseline_search_24"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView"/>
+
+        <item android:id="@+id/home_multi_edit"
+        android:title="Multi Edit"
+        android:icon="@drawable/baseline_checklist_24"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+            android:visible="false"
+        app:showAsAction="ifRoom|collapseActionView"/>
 </menu>
