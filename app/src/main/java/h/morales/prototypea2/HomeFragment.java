@@ -53,6 +53,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
     private ArrayList<Product> listOfProds; // hold all products for recycler
 
     private int userSelection = 0; // determine what attribute to search for, name, category, etc
+    private MenuItem multiSearch;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -127,7 +128,9 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
         inflater.inflate(R.menu.top_options_menu, menu);
 
-        MenuItem menuItem = menu.findItem(R.id.home_search);
+        multiSearch = menu.findItem(R.id.home_multi_edit); // edit multiple items icon
+
+        MenuItem menuItem = menu.findItem(R.id.home_search); // home search button
         SearchView searchView = (SearchView)  menuItem.getActionView();
         searchView.setQueryHint("Search by name");
 
@@ -208,26 +211,32 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         // logic to handle selecting / unselecting a product
         if(selectedProd.isSelected) {
             //prod was selected so unselect it
-            //TODO add logic to remove a visible checkmark
             checkMark.setVisibility(View.INVISIBLE);
             selectedProd.isSelected = false;
             boolean selectedExists = recyclerAdapter.multiEditList.contains(selectedProd); // check if its in selected array list before removing
             if(selectedExists) {
                 // the selected product exists in array, we can remove it
                 recyclerAdapter.multiEditList.remove(selectedProd);
+
+                if(recyclerAdapter.multiEditList.isEmpty()) {
+                    // if the selected items list is empty then remove the button for multi-selection editing
+                    multiSearch.setVisible(false);
+                }
             }
         } else {
             // prod was not selected, so select it
             selectedProd.isSelected = true;
             checkMark.setVisibility(View.VISIBLE);
-            //TODO add logic to add visible checkmark
             boolean selectedExists = recyclerAdapter.multiEditList.contains(selectedProd); // check if its in selected array list before removing
             if(!selectedExists) {
                 //selected product does not exist in array, we can add it
                 recyclerAdapter.multiEditList.add(recyclerAdapter.productArrayList.get(post)); // add selected product to selected arraylist
+
+                // show the multi-select edit button if there are items selected
+                multiSearch.setVisible(true);
             }
         }
         //recyclerAdapter.multiEditList.add(recyclerAdapter.productArrayList.get(post)); // add selected product to selected arraylist
-        Toast.makeText(getContext(), "Items: " + recyclerAdapter.multiEditList.size(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Items: " + recyclerAdapter.multiEditList.size(), Toast.LENGTH_LONG).show(); // TODO you can remove this
     }
 }
