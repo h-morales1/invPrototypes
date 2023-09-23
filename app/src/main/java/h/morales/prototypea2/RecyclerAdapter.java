@@ -202,7 +202,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 }
             });
 
-            textView.setOnLongClickListener(new View.OnLongClickListener() {
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if(recyclerViewInterface != null) {
+                        int pos = getAdapterPosition();
+
+                        if(pos != RecyclerView.NO_POSITION) {
+
+                            //Toast.makeText(v.getContext(), "LONG CLICK", Toast.LENGTH_LONG).show();
+                            recyclerViewInterface.onLongClick(pos, itemSelectedMark);
+                        }
+                    }
+                    return true;
+                }
+            });
+
+            /*textView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
 
@@ -218,7 +234,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
                     return false;
                 }
-            });
+            });*/
 
         }
         //
