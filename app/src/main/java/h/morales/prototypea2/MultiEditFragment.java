@@ -96,7 +96,6 @@ public class MultiEditFragment extends Fragment {
                 int x = selectedItems.size(); // amount of products updated
                 String new_loc = location.getText().toString(); // get location from EditText
                 updateDb(selectedItems, new_loc); // call function to update db
-                Toast.makeText(getContext(), "Updated " + x + " locations", Toast.LENGTH_LONG).show();
                 // change fragment back to home
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -128,6 +127,8 @@ public class MultiEditFragment extends Fragment {
                 dataBaseManager.updateProduct(dataBaseManager.getNewTableName(), Integer.parseInt(prod.prodID), prod);
 
             }
+
+            Toast.makeText(getContext(), "Updated " + items.size() + " locations", Toast.LENGTH_LONG).show();
         } else {
             // alert user that the location was empty
             Toast.makeText(getContext(), "Location was empty!", Toast.LENGTH_LONG).show();
