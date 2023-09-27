@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.view.menu.MenuView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -76,6 +78,7 @@ public class MultiEditFragment extends Fragment {
         ItemViewModel homeview = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
         View view = inflater.inflate(R.layout.fragment_multi_edit, container, false);
         saveBtn = (Button) view.findViewById(R.id.multiEditBTN);
+        location = (EditText) view.findViewById(R.id.multiEditLocationET);
         ArrayList<Product> selectedItems = new ArrayList<>();
 
 
@@ -90,15 +93,46 @@ public class MultiEditFragment extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int x = selectedItems.size();
-                Toast.makeText(getContext(), "TEST SAVE BTN", Toast.LENGTH_LONG).show();
-                Toast.makeText(getContext(), "Size: " + x, Toast.LENGTH_LONG).show();
+                int x = selectedItems.size(); // amount of products updated
+                String new_loc = location.getText().toString(); // get location from EditText
+                updateDb(selectedItems, new_loc); // call function to update db
+                Toast.makeText(getContext(), "Updated " + x + " locations", Toast.LENGTH_LONG).show();
+                // change fragment back to home
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frame_layout, new HomeFragment());
+                fragmentTransaction.commit();
             }
         });
 
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_multi_edit, container, false);
         return view;
+    }
+
+    /*
+    Handle updating the db with a new location for multiple products
+
+    NOTE: only check on location string is if it is empty
+     */
+    public void updateDb(ArrayList<Product> items, String location) {
+        DataBaseManager dataBaseManager = new DataBaseManager(getContext());
+
+        if(!location.isEmpty()) {
+            // make sure the location is not empty
+            for (Product prod: items) {
+                // update location for each product in obj
+
+                prod.productLocation = location;
+                // update location in database
+                dataBaseManager.updateProduct(dataBaseManager.getNewTableName(), Integer.parseInt(prod.prodID), prod);
+
+            }
+        } else {
+            // alert user that the location was empty
+            Toast.makeText(getContext(), "Location was empty!", Toast.LENGTH_LONG).show();
+        }
+
     }
 
 
