@@ -62,6 +62,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             holder.itemSold.setColorFilter(context.getResources().getColor(R.color.teal_700));
         }
 
+        // update checkmark in recycler, which are supposed to and not have marks
+        if(product.isSelected) {
+            holder.itemSelectedMark.setVisibility(View.VISIBLE);
+        } else {
+            holder.itemSelectedMark.setVisibility(View.INVISIBLE);
+        }
+
         //Uri imgUri = Uri.parse(product.productPicturePath);
         //holder.titleImage.setImageURI(null);
         //holder.titleImage.setImageURI(Uri.parse(product.productPicturePath));
