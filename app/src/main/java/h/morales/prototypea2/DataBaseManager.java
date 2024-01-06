@@ -11,6 +11,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class DataBaseManager extends SQLiteOpenHelper {
 
@@ -273,8 +274,10 @@ public class DataBaseManager extends SQLiteOpenHelper {
             cursor.close();
 
             database.close();
+            ArrayList<Product> reversed = new ArrayList<>(products);
+            Collections.reverse(reversed); // return newly added products on top of array list
 
-            return products;
+            return reversed;
         } else {
 
             //handle new db select all
@@ -331,7 +334,9 @@ public class DataBaseManager extends SQLiteOpenHelper {
 
             database.close();
 
-            return products;
+            ArrayList<Product> reversed = new ArrayList<>(products);
+            Collections.reverse(reversed); // return newly added products on top of array list
+            return reversed;
         }
     }
 }
