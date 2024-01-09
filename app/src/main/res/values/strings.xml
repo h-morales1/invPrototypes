@@ -64,4 +64,5 @@
     <string name="multi_select_title">Enter in new location for selected items:</string>
     <string name="multi_edit_loc">Location</string>
     <string name="multi_edit_btn">Save</string>
+    <string name="mass_export_test_btn">Test Mass Export</string>
 </resources>

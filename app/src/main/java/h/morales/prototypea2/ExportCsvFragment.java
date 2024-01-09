@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.opencsv.CSVWriter;
 
@@ -40,6 +41,7 @@ public class ExportCsvFragment extends Fragment {
     private String mParam2;
 
     private Button exportBtn;
+    private Button massExportBtn;
     EditText userEmail;
 
     public ExportCsvFragment() {
@@ -79,6 +81,7 @@ public class ExportCsvFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_export_csv, container, false);
         exportBtn = (Button) view.findViewById(R.id.exportCsvBTN);
+        massExportBtn = (Button) view.findViewById(R.id.massExportBTN); // TODO this is just to test mass exporting db
         userEmail = (EditText) view.findViewById(R.id.exportCsvEmailET);
 
         DataBaseManager dataBaseManager = new DataBaseManager(getContext());
@@ -127,6 +130,19 @@ public class ExportCsvFragment extends Fragment {
                 Uri uri = FileProvider.getUriForFile(getContext(), "com.h.morales.fileprovider", file);
                 emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
                 startActivity(Intent.createChooser(emailIntent, "Pick an email provider"));
+            }
+        });
+
+        // Handle testing mass db exporting
+        massExportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<Product> productList = dataBaseManager.selectAll(dataBaseManager.getNewTableName());
+                for(int i=0; i<2;i++) {
+                    DbWideExporter.renameFile(getContext(), productList.get(i));
+                    DbWideExporter.copyFileFromUri(getContext(), Uri.parse(productList.get(i).getProductPicturePath()), productList.get(i));
+                }
+
             }
         });
         // Inflate the layout for this fragment
