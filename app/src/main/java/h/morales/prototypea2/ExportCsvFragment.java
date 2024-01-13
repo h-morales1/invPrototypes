@@ -8,6 +8,7 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -139,8 +140,10 @@ public class ExportCsvFragment extends Fragment {
             public void onClick(View v) {
                 ArrayList<Product> productList = dataBaseManager.selectAll(dataBaseManager.getNewTableName());
                 for(int i=0; i<2;i++) {
-                    DbWideExporter.renameFile(getContext(), productList.get(i));
-                    DbWideExporter.copyFileFromUri(getContext(), Uri.parse(productList.get(i).getProductPicturePath()), productList.get(i));
+                    //DbWideExporter.renameFile(getContext(), productList.get(i));
+                    DbWideExporter.zipFile(getContext(), Uri.parse(productList.get(i).getProductPicturePath()) );
+
+                    //DbWideExporter.copyFileFromUri(getContext(), Uri.parse(productList.get(i).getProductPicturePath()), productList.get(i));
                 }
 
             }
