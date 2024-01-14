@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -139,12 +140,15 @@ public class ExportCsvFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ArrayList<Product> productList = dataBaseManager.selectAll(dataBaseManager.getNewTableName());
+                List<Uri> uris = new ArrayList<>();
                 for(int i=0; i<2;i++) {
                     //DbWideExporter.renameFile(getContext(), productList.get(i));
-                    DbWideExporter.zipFile(getContext(), Uri.parse(productList.get(i).getProductPicturePath()) );
+                    //DbWideExporter.zipFile(getContext(), Uri.parse(productList.get(i).getProductPicturePath()) );
+                    uris.add(Uri.parse(productList.get(i).getProductPicturePath()));
 
                     //DbWideExporter.copyFileFromUri(getContext(), Uri.parse(productList.get(i).getProductPicturePath()), productList.get(i));
                 }
+                DbWideExporter.zipFiles(getContext(), uris, "weems");
 
             }
         });

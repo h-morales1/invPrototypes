@@ -13,6 +13,7 @@ import android.util.Log;
 
 import androidx.core.content.FileProvider;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,6 +23,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Objects;
 import java.util.zip.*;
 
@@ -74,6 +76,51 @@ public class DbWideExporter {
 
         Log.d("zipper", "zipper: zip location: " + compressedFilePath);
     }
+
+    public static void zipFiles(Context context, List<Uri> fileUris, String zipFileName) {
+        try {
+            File zipFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), zipFileName + ".zip");
+            ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(zipFile));
+            byte[] buffer = new byte[1024];
+
+            for (Uri fileUri : fileUris) {
+                ContentResolver contentResolver = context.getContentResolver();
+                Cursor cursor = contentResolver.query(fileUri, null, null, null, null);
+
+                if (cursor != null && cursor.moveToFirst()) {
+                    @SuppressLint("Range") String displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+
+                    InputStream fileInputStream = contentResolver.openInputStream(fileUri);
+
+                    ZipEntry zipEntry = new ZipEntry(displayName);
+                    zipOutputStream.putNextEntry(zipEntry);
+
+                    try (BufferedInputStream bis = new BufferedInputStream(fileInputStream)) {
+                        int bytesRead;
+                        while ((bytesRead = bis.read(buffer)) != -1) {
+                            zipOutputStream.write(buffer, 0, bytesRead);
+                        }
+                    }
+
+                    zipOutputStream.closeEntry();
+                    fileInputStream.close();
+
+                    if (cursor != null) {
+                        cursor.close();
+                    }
+                }
+            }
+
+            zipOutputStream.close();
+
+            Log.d("ZipUtil", "Files zipped successfully: " + zipFile.getAbsolutePath());
+            Log.d("ZipUtil", "Zip file location: " + zipFile.getAbsolutePath());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static void zipFile(Context context, Uri fileUri) {
         try {
