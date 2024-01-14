@@ -43,7 +43,7 @@ public class DbWideExporter {
         Log.d("fileName", "renameFile: filename: " + fileUri.getPath());
     }
 
-    // function to zip up a list of files, given a list of URIs
+    // function to zip up a file (unused / untested)
     public static void zipper(Context context, Product product) throws IOException {
         Uri fileUri = Uri.parse(product.getProductPicturePath());
         File fl = new File(product.getProductPicturePath());
@@ -77,11 +77,15 @@ public class DbWideExporter {
         Log.d("zipper", "zipper: zip location: " + compressedFilePath);
     }
 
-    public static void zipFiles(Context context, List<Uri> fileUris, String zipFileName) {
+    /*
+        This function can zip up a list of files, rename them before zipping
+     */
+    public static void zipFiles(Context context, List<Uri> fileUris, List<String> fileNames, String zipFileName) {
         try {
             File zipFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), zipFileName + ".zip");
             ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(zipFile));
             byte[] buffer = new byte[1024];
+            int i = 0; // counter used in order to iterate through fileNames list
 
             for (Uri fileUri : fileUris) {
                 ContentResolver contentResolver = context.getContentResolver();
@@ -92,7 +96,8 @@ public class DbWideExporter {
 
                     InputStream fileInputStream = contentResolver.openInputStream(fileUri);
 
-                    ZipEntry zipEntry = new ZipEntry(displayName);
+                    ZipEntry zipEntry = new ZipEntry(fileNames.get(i));
+                    i++;
                     zipOutputStream.putNextEntry(zipEntry);
 
                     try (BufferedInputStream bis = new BufferedInputStream(fileInputStream)) {
@@ -121,7 +126,9 @@ public class DbWideExporter {
         }
     }
 
-
+/*
+    This function zips up an individual file
+ */
     public static void zipFile(Context context, Uri fileUri) {
         try {
             ContentResolver contentResolver = context.getContentResolver();

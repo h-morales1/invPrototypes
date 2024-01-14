@@ -140,15 +140,17 @@ public class ExportCsvFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ArrayList<Product> productList = dataBaseManager.selectAll(dataBaseManager.getNewTableName());
-                List<Uri> uris = new ArrayList<>();
+                List<Uri> uris = new ArrayList<>(); // list holding all uris to process
+                List<String> prodNames = new ArrayList<>(); // list holding all names to use for renaming of images
                 for(int i=0; i<2;i++) {
                     //DbWideExporter.renameFile(getContext(), productList.get(i));
                     //DbWideExporter.zipFile(getContext(), Uri.parse(productList.get(i).getProductPicturePath()) );
                     uris.add(Uri.parse(productList.get(i).getProductPicturePath()));
+                    prodNames.add(productList.get(i).getProductName());
 
                     //DbWideExporter.copyFileFromUri(getContext(), Uri.parse(productList.get(i).getProductPicturePath()), productList.get(i));
                 }
-                DbWideExporter.zipFiles(getContext(), uris, "weems");
+                DbWideExporter.zipFiles(getContext(), uris, prodNames, "weems"); // zip up all images
 
             }
         });
