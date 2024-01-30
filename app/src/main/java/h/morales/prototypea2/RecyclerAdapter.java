@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +36,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     private final RecyclerViewInterface recyclerViewInterface;
     public RecyclerAdapter(Context context, ArrayList<Product> productArrayList, RecyclerViewInterface recyclerViewInterface) {
+        DataBaseManager db = new DataBaseManager(context);
         this.context = context;
-        this.productArrayList = productArrayList;
+        //this.productArrayList = productArrayList;
+        this.productArrayList = db.selectAll(db.getNewTableName());
         this.productArrayList2 = new ArrayList<>(productArrayList);
         this.recyclerViewInterface = recyclerViewInterface;
         this.multiEditList = new ArrayList<>();
@@ -113,13 +116,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             ArrayList<Product> filteredNameList = new ArrayList<>();
+            DataBaseManager dataBaseManager = new DataBaseManager(context);
 
             if(charSequence == null || charSequence.length() == 0) {
+                // if invalid query, just show an untouched array
                 filteredNameList.addAll(productArrayList);
             } else {
                 String filterPattern = charSequence.toString().toLowerCase().trim();
 
-                for(Product prods : productArrayList) {
+                for(Product prods : dataBaseManager.selectAll(dataBaseManager.getNewTableName())) {
                     if(prods.getProductName().toLowerCase().contains(filterPattern)) {
                         Log.d(TAG, "performFiltering: product name: " + prods.getProductName());
                         filteredNameList.add(prods); // matching result so add to arraylist
@@ -152,6 +157,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             ArrayList<Product> filteredCategoryList = new ArrayList<>();
+            DataBaseManager dataBaseManager = new DataBaseManager(context);
 
             if(constraint == null || constraint.length() == 0) {
                 filteredCategoryList.addAll(productArrayList); // just return the old list
@@ -159,7 +165,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 //iterate through list and collect matching queries
-                for(Product prods : productArrayList) {
+                for(Product prods : dataBaseManager.selectAll(dataBaseManager.getNewTableName())) {
                     if(prods.getProductCategories().toLowerCase().contains(filterPattern)) {
                         filteredCategoryList.add(prods); // match found, add to list
                     }
